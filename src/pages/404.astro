@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Pagina niet gevonden (404)";
+const pageDescription = "Sorry, de pagina die u zocht bestaat niet meer in onze gids.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main class="error-page container container-narrow text-center">
+    <div class="error-content">
+      <span class="error-code">404</span>
+      <h1>Pagina niet gevonden</h1>
+      <p class="lead mt-md">Oeps! We kunnen de pagina die je zoekt niet (meer) vinden.</p>
+      
+      <div class="actions mt-xl">
+        <a href="/" class="btn btn-primary">Terug naar Home</a>
+        <a href="/bloemist-gorinchem" class="btn btn-outline ml-sm">Bekijk Alle Bloemisten</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .error-page {
+    padding: var(--space-3xl) 0;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--color-primary-light);
+    line-height: 1;
+    font-family: var(--font-serif);
+    margin-bottom: var(--space-md);
+    display: block;
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+  }
+  .ml-sm { margin-left: var(--space-sm); }
+  .mt-md { margin-top: var(--space-md); }
+  .mt-xl { margin-top: var(--space-xl); }
+</style>

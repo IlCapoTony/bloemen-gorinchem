@@ -1,0 +1,68 @@
+<header class="site-header">
+  <div class="container header-container">
+    <div class="logo">
+      <a href="/">Bloemen Gorinchem Gids</a>
+    </div>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="/bloemist-gorinchem">Vergelijk Bloemisten</a></li>
+        <li><a href="/bloemen-bezorgen-gorinchem">Bezorgen & Afhalen</a></li>
+        <li><a href="/keuzehulp">Keuzehulp</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .logo a {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+  }
+
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: var(--space-lg);
+  }
+
+  .main-nav a {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .main-nav a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .main-nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-md);
+    }
+  }
+</style>

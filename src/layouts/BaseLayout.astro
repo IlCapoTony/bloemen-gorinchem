@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  schema?: string;
+}
+
+const { title, description, schema } = Astro.props;
+---
+
+<html lang="nl-NL">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - Bloemen Gorinchem Gids</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Open Graph / Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.site} />
+    <link rel="canonical" href={Astro.url} />
+
+    {schema && <script type="application/ld+json" set:html={schema} />}
+
+    <!-- Umami Analytics -->
+    <script defer src="https://analytics.server-online.nl/insight.js" data-website-id="ce756465-8c31-414a-b698-6ee237b2d5b9"></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

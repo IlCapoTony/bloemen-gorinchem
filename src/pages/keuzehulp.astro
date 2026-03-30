@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Keuzehulp: Vind de juiste bloemist in Gorinchem";
+const pageDescription = "Weet je niet goed bij wie je moet bestellen? Gebruik onze simpele keuzehulp en vind binnen drie stappen de beste lokale match voor boeketten of bloemwerk.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Bloemen Keuzehulp (Gorinchem)</h1>
+        <p class="lead">Vind binnen no-time de perfecte bloemist voor jouw specifieke situatie.</p>
+      </div>
+    </section>
+
+    <section class="wizard-section container mt-xl mb-3xl">
+      <div class="wizard-container mx-auto">
+        <!-- Interactive Static Wizard via Vanilla JS -->
+        <div id="step-1" class="wizard-step active">
+          <h2>1. Wat zoek je precies?</h2>
+          <div class="options">
+            <button class="btn btn-outline wizard-btn" data-next="step-2">Ik zoek een (cadeau) boeket</button>
+            <button class="btn btn-outline wizard-btn" data-next="step-2">Ik zoek specifiek Rouwwerk / Uitvaartbloemen</button>
+            <button class="btn btn-outline wizard-btn" data-next="step-2">Ik ga trouwen (Bruidswerk)</button>
+          </div>
+        </div>
+
+        <div id="step-2" class="wizard-step hidden">
+          <h2>2. Wanneer heb je de bloemen nodig?</h2>
+          <div class="options">
+            <button class="btn btn-outline wizard-btn" data-next="step-3">Binnen 1 of 2 dagen</button>
+            <button class="btn btn-outline wizard-btn" data-next="step-3">Morgen of later deze week</button>
+            <button class="btn btn-outline wizard-btn" data-next="step-3">Ruimschoots in de toekomst</button>
+          </div>
+        </div>
+
+        <div id="step-3" class="wizard-step hidden result-step text-center">
+          <span class="badge mb-sm">Beste Match Gevonden</span>
+          <h2>Jouw Resultaat: Loeff Bloemen</h2>
+          <p class="mt-sm">Op basis van je keuzes scoort Loeff Bloemen in onze vergelijking als de meest betrouwbare lokale optie in Gorinchem. Ze behalen momenteel <strong>99/100</strong> punten dankzij hun uitmuntende prijs-kwaliteitverhouding, uitgebreide reviews en de mogelijkheid tot vlot ophalen.</p>
+          
+          <div class="result-actions mt-lg">
+            <a href="https://www.loeffbloemen.nl/?utm_source=gids-gorinchem&utm_medium=referral&utm_campaign=keuzehulp-result" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large" data-umami-event="Keuzehulp: Direct Bestellen">Direct Bestellen</a>
+            <p class="mt-xs"><small><a href="/bloemist-gorinchem" class="text-muted">Liever zelf alle bloemisten vergelijken?</a></small></p>
+          </div>
+          <button id="restart-btn" class="btn btn-muted mt-lg">Opnieuw beginnen</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .wizard-section {
+    padding: var(--space-2xl) 0;
+  }
+  .wizard-container {
+    max-width: 600px;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-md);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .wizard-step {
+    text-align: center;
+  }
+  .wizard-step.hidden {
+    display: none;
+  }
+  .wizard-step h2 {
+    margin-bottom: var(--space-xl);
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .wizard-btn {
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 1.125rem;
+    transition: all var(--transition-fast);
+  }
+  .wizard-btn:hover {
+    background-color: var(--color-primary-light);
+    color: white;
+    border-color: var(--color-primary-light);
+  }
+  .result-step {
+    animation: fadeIn 0.5s ease;
+  }
+  .badge {
+    background: var(--color-accent);
+    color: white;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 700;
+    display: inline-block;
+  }
+  .btn-large {
+    font-size: 1.25rem;
+    padding: var(--space-md) var(--space-2xl);
+  }
+  .btn-muted {
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+  .text-muted { color: var(--color-text-muted); }
+  .mx-auto { margin-right: auto; margin-left: auto; }
+  .mt-sm { margin-top: var(--space-sm); }
+  .mb-sm { margin-bottom: var(--space-sm); }
+  .mt-xs { margin-top: var(--space-xs); }
+  .mt-lg { margin-top: var(--space-lg); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mb-3xl { margin-bottom: var(--space-3xl); }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  // Simple Vanilla JS for the Step Wizard
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.wizard-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    
+    buttons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const currentStep = e.target.closest('.wizard-step');
+        const nextStepId = e.target.getAttribute('data-next');
+        
+        if (currentStep && nextStepId) {
+          currentStep.classList.add('hidden');
+          const nextStep = document.getElementById(nextStepId);
+          if (nextStep) {
+            nextStep.classList.remove('hidden');
+          }
+        }
+      });
+    });
+
+    if (restartBtn) {
+      restartBtn.addEventListener('click', () => {
+        document.querySelectorAll('.wizard-step').forEach(step => {
+          step.classList.add('hidden');
+        });
+        const step1 = document.getElementById('step-1');
+        if (step1) step1.classList.remove('hidden');
+      });
+    }
+  });
+</script>

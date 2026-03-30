@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloristCard from '../components/FloristCard.astro';
+import floristsData from '../data/florists.json';
+
+const sortedFlorists = floristsData.sort((a, b) => b.scoreCalc.total - a.scoreCalc.total);
+
+const pageTitle = "Bloemist Gorinchem: Alle Bloemisten Vergeleken";
+const pageDescription = "Bekijk en vergelijk alle bloemisten in Gorinchem op basis van recensies, kwaliteit, bezorging en service. Ontdek onze nummer 1 aanbeveling.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Bloemist Gorinchem: Vergelijker</h1>
+        <p class="lead">Wij hebben de data van lokale aanbieders op een rij gezet zodat jij gemakkelijk de beste bloemist kunt kiezen voor jouw wensen.</p>
+      </div>
+    </section>
+
+    <section class="comparison-section container">
+      <div class="content">
+        <h2>De Volledige Ranglijst</h2>
+        <p>Onze lijst is gebaseerd op een objectief 100-punten systeem. We kijken hierbij naar publieke reviews, bestelgemak, specialismen (zoals rouw- en bruidswerk) en de mogelijkheid voor snel afhalen in de regio Gorinchem met een hoge prijs-kwaliteit verhouding.</p>
+        
+        <div class="grid mt-xl">
+          {sortedFlorists.map((florist, index) => (
+            <FloristCard florist={florist} rank={index + 1} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="criteria-section bg-light mt-2xl">
+      <div class="container container-narrow">
+        <h2>Waarom deze rangschikking?</h2>
+        <p>Het vergelijken van bloemisten doen we puur op basis van feiten en de mening van eerdere klanten. Prijs nemen we niet mee in de beoordeling, omdat flexibele producten als boeketten lastig kwalitatief 1-op-1 te vergelijken zijn.</p>
+        <ul class="criteria-list mt-md">
+          <li><strong>Publieke Waardering (Max 40 pt):</strong> Grote volume aan hoge Google en Facebook reviews.</li>
+          <li><strong>Aanbod & Specialisme (Max 20 pt):</strong> Aanwezigheid van rouwwerk, bruidswerk en een ruim online assortiment.</li>
+          <li><strong>Service & Gemak (Max 20 pt):</strong> Bestelgemak, bereikbaarheid van de fysieke winkel en efficiënte afhaalopties (Click & Collect).</li>
+          <li><strong>Transparantie (Max 20 pt):</strong> Duidelijke NAP (Name, Address, Phone) en eenvoudig lokaal bestellen.</li>
+        </ul>
+        <div class="text-center mt-lg">
+          <a href="/methode" class="btn btn-primary">Bekijk de volledige methodiek</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .comparison-section {
+    padding: var(--space-3xl) 0;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .criteria-section {
+    padding: var(--space-3xl) 0;
+  }
+  .criteria-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  .criteria-list li {
+    background: white;
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    box-shadow: var(--shadow-sm);
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .mt-md { margin-top: var(--space-md); }
+  .mt-lg { margin-top: var(--space-lg); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mt-2xl { margin-top: var(--space-2xl); }
+</style>

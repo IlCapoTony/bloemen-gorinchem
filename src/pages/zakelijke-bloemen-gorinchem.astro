@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Zakelijke Bloemen Gorinchem | Flexibel B2B Bestellen";
+const pageDescription = "Van de balie tot relatiegeschenken: bestel uw zakelijke bloemen op rekening bij de best aangeschreven lokale bloemist in Gorinchem en wijde regio.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Zakelijke Bloemen Gorinchem</h1>
+        <p class="lead">Verwelkom medewerkers en gasten met een levendig kantoor, of verras relaties in stijl.</p>
+        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk zakelijke aanbieders</a>
+      </div>
+    </section>
+
+    <section class="content-section container mt-xl">
+      <article class="prose max-w-700 mx-auto">
+        <h2>Een Groene en Professionele Uitstraling</h2>
+        <p>Een entree, balie of vergaderzaal zonder groen kan sfeerloos aanvoelen. Lokaal geregelde zakelijke bloemarrangementen in Gorinchem zorgen voor een warme en professionele ontvangst van uw bezoek. </p>
+
+        <h3>Zakelijk Gemak & Facturatie</h3>
+        <p>De best presterende Gorcumse bloemisten onderscheiden zich door B2B perfect te faciliteren. Denk hierbij aan voordelen zoals:</p>
+        <ul>
+          <li><strong>Bestellen op Rekening / Factuur:</strong> Medewerkers (of de balie/receptie) kunnen bij bloemisten met een eigen platform via zakelijke inlog eenvoudig online boeketten reserveren.</li>
+          <li><strong>Boeketten voor Personeel:</strong> Een bos bloemen ter felicitatie voor een jubileum of bij beterschap (met kaartje en factuur referentie) lokaal dezelfde dag nog bezorgd.</li>
+          <li><strong>Event Styling:</strong> Op maat gemaakte bedrijfsarrangementen, kerstversiering of tafelpotten bij bedrijfsevents in de Grote Kerk of eigen kantoor.</li>
+        </ul>
+
+      </article>
+      
+      <div class="text-center call-to-action mt-2xl pb-2xl">
+        <a href="/bloemist-gorinchem" class="btn btn-outline">Check de Vergelijker</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+  .mx-auto { margin-right: auto; margin-left: auto; }
+  .max-w-700 { max-width: 800px; }
+  .prose h2, .prose h3 {
+    margin-top: var(--space-xl);
+    padding-bottom: var(--space-sm);
+  }
+  .prose ul {
+    margin-bottom: var(--space-xl);
+    padding-left: var(--space-lg);
+  }
+  .prose li {
+    margin-bottom: var(--space-sm);
+  }
+  .call-to-action {
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+  }
+  .mt-sm { margin-top: var(--space-sm); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mt-2xl { margin-top: var(--space-2xl); }
+  .pb-2xl { padding-bottom: var(--space-2xl); }
+</style>

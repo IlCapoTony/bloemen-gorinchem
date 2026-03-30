@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FAQPageSchema from '../components/FAQPageSchema.astro';
+
+const pageTitle = "Rouwboeket Gorinchem | Persoonlijk en Zorgvuldig Afscheid";
+const pageDescription = "Zoekt u een rouwboeket of rouwstuk in regio Gorinchem? Vergelijk de specialisten voor een zorgvuldig, prachtig en passend afscheid.";
+
+const faqs = [
+  {
+    question: "Welke bloemist is gespecialiseerd in rouwwerk in Gorinchem?",
+    answer: "Zowel Loeff Bloemen (bekend om een breed, online bestelbaar arrangementen-aanbod) als Annet Flowers scoren zeer hoog qua vakkennis voor zorgvuldig, ingetogen of juist uitbundig rouwwerk. Beiden denken graag met hun klanten mee in zware tijden."
+  },
+  {
+    question: "Aan welke locaties in Gorinchem bezorgen ze een rouwstuk?",
+    answer: "Rouwwerk wordt door lokale bloemisten veelal direct en stipt afgeleverd bij uitvaartcentra, crematoria of kerken rondom Gorinchem, maar ook levering bij het privéadres van de nabestaanden is gebruikelijk."
+  },
+  {
+    question: "Moet ik een lint toevoegen aan het rouwboeket?",
+    answer: "Een lint is optioneel, hoewel een bedrukt lint vaak troost biedt of dient als mooie laatste groet. Via de websites van deze specialisten bestelt u dit veelal eenvoudig mee."
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Passend Rouwwerk in Gorinchem</h1>
+        <p class="lead">Met zorg en respect samengesteld voor een persoonlijk afscheid rondom Gorinchem.</p>
+        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk alle uitvaart specialisten</a>
+      </div>
+    </section>
+
+    <section class="content-section container mt-xl">
+      <article class="prose max-w-700 mx-auto">
+        <h2>Een Laatste Groet in Bloemen</h2>
+        <p>Afscheid nemen van een dierbare vereist aandacht. Een rouwboeket of bloemstuk vertelt vaak wat woorden tekort komen. Dit is exact de reden dat ons onafhankelijke algoritme 'Rouwwerk Specialisme' meeweegt in de beoordeling van de getoonde bloemisten.</p>
+        
+        <p>Lokale bloemisten (zoals Loeff Bloemen en Annet Flowers) die het ambacht van rouwbindwerk beheersen, bieden flexibiliteit. Ze luisteren naar uw specifieke wensen – zoals de lievelingsbloem of kleur van de overledene – en zorgen dat alles op het laatste moment klopt.</p>
+
+        <h3>Ontzorgen in een Moeilijke Tijd</h3>
+        <p>Wanneer u kiest voor een hoog aangeschreven lokale deskundige, in plaats van een online dozenschuiver, weet u zeker dat kwetsbare rouwstukken respectvol en op de vereiste locatie (of dat nu een uitvaartcentrum, begraafplaats, de kerk of thuis is) worden bezorgd.</p>
+
+        <h3>Rouwarrangementen en linten bestellen</h3>
+        <p>Vrijwel al het rouwwerk, van liggende stukken (biedermeiers), hartvormig rouwwerk of kleine subtiele troostboeketten, kan direct online met de lokale expert worden geregeld. Inclusief het toevoegen van een afscheidslint of een kaartje. </p>
+      </article>
+    </section>
+
+    <section class="faq-section bg-light mt-2xl">
+      <div class="container container-narrow">
+        <h2 class="text-center">Vragen rondom rouwboeketten</h2>
+        <div class="faqs mt-xl">
+          {faqs.map(faq => (
+            <details class="faq-item">
+              <summary class="faq-question">{faq.question}</summary>
+              <div class="faq-answer">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FAQPageSchema faqs={faqs} />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+  .mx-auto { margin-right: auto; margin-left: auto; }
+  .max-w-700 { max-width: 800px; }
+  .prose h2, .prose h3 {
+    margin-top: var(--space-xl);
+    padding-bottom: var(--space-sm);
+  }
+  .faq-section {
+    padding: var(--space-3xl) 0;
+  }
+  .faq-item {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+  }
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color-bg);
+  }
+  .faq-answer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+  .mt-sm { margin-top: var(--space-sm); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mt-2xl { margin-top: var(--space-2xl); }
+</style>

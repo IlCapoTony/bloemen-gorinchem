@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Onze Methode & Objectieve Scoring";
+const pageDescription = "Lees hier hoe Bloemen Gorinchem Gids tot de rangschikking van lokale bloemisten komt op basis van transparante, feitelijke criteria.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Onze Beoordelingsmethode</h1>
+        <p class="lead">Transparantie staat voorop. Ontdek hoe wij tot de maximale score van 100 punten komen voor bloemisten in de regio Gorinchem.</p>
+      </div>
+    </section>
+
+    <section class="content-section container container-narrow mt-2xl">
+      <article class="prose">
+        <h2>Geen meningen, maar feiten</h2>
+        <p>Wij geloven dat de beste keuze voor een bloemist niet afhangt van wie de mooiste advertentie heeft, maar van de daadwerkelijke klantervaring en geboden diensten. Daarom vermijden we prijsvergelijkingen (die vaak ten koste gaan van kwaliteit) en focussen we op <strong>service, specialisme, online gemak en publieke beoordelingen</strong>.</p>
+
+        <h3>1. Publieke Waardering (Maximaal 40 Punten)</h3>
+        <p>De mening van eerdere klanten is de meest waardevolle graadmeter. We berekenen deze score als volgt:</p>
+        <ul>
+          <li><strong>Gemiddelde Score (30 pt):</strong> De Google Review score x 6. Een 5.0 levert de maximale 30 punten op. Een 4.0 levert 24 punten op.</li>
+          <li><strong>Volume Bonus (10 pt):</strong> Bloemisten met meer dan 50 reviews krijgen een 10-punten bonus vanwege de opgebouwde betrouwbaarheid van de score. Tussen 20 en 50 reviews levert 5 punten op.</li>
+        </ul>
+
+        <h3>2. Service & Gemak (Maximaal 20 Punten)</h3>
+        <ul>
+          <li><strong>Uitmuntende Prijs-Kwaliteit (10 pt):</strong> Krijgt u als klant zichtbaar 100% bloemwaarde voor de prijs die u betaalt bij afhalen of lokale bezorging?</li>
+          <li><strong>Snel en makkelijk Afhalen (10 pt):</strong> Heeft de bloemist een goed bereikbare winkel waar online bestellingen (click & collect) veilig en direct afgehaald kunnen worden zonder wachttijd?</li>
+        </ul>
+
+        <h3>3. Transparantie & Bestelgemak (Maximaal 20 Punten)</h3>
+        <ul>
+          <li><strong>Eigen Online Shop (10 pt):</strong> Is er een mogelijkheid om direct via de website van de lokale bloemist veilig te betalen en bestellen (zonder landelijke tussenpartijen die marges afromen)?</li>
+          <li><strong>Up-to-date Informatie (10 pt):</strong> Zijn adres, openingstijden en contactgegevens helder en consistent te vinden?</li>
+        </ul>
+
+        <h3>4. Aanbod & Specialisme (Maximaal 20 Punten)</h3>
+        <ul>
+          <li><strong>Rouwwerk (7 pt):</strong> Specifieke expertise en aandacht voor uitvaartbloemen.</li>
+          <li><strong>Bruidswerk (7 pt):</strong> Ervaring in bruidsboeketten en styling.</li>
+          <li><strong>Zichtbaar vers aanbod (6 pt):</strong> Een wisselend en actueel aanbod zichtbaar op de website.</li>
+        </ul>
+
+        <h2>Onafhankelijkheid en Updates</h2>
+        <p>De scores in onze database worden periodiek nagelopen. Onderaan elke bloemist-kaart vindt u de <em>"Laatste check"</em> datum, zodat u zeker weet dat u op actuele informatie vertrouwt.</p>
+      </article>
+      
+      <div class="text-center call-to-action mt-2xl">
+        <a href="/bloemist-gorinchem" class="btn btn-primary">Bekijk het resultaat</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+  .prose h2 {
+    margin-top: var(--space-2xl);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-border);
+  }
+  .prose h3 {
+    margin-top: var(--space-xl);
+    color: var(--color-primary-light);
+  }
+  .prose ul {
+    margin-bottom: var(--space-xl);
+    padding-left: var(--space-xl);
+  }
+  .prose li {
+    margin-bottom: var(--space-xs);
+  }
+  .call-to-action {
+    padding: var(--space-2xl) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .mt-2xl { margin-top: var(--space-2xl); }
+</style>

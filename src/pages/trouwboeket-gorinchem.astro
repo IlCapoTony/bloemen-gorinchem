@@ -1,0 +1,125 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FAQPageSchema from '../components/FAQPageSchema.astro';
+
+const pageTitle = "Trouwboeket Gorinchem | Bruidswerk op Maat";
+const pageDescription = "Op zoek naar een prachtig trouwboeket in Gorinchem? Ontdek de best beoordeelde bloemisten voor op maat gemaakt bruidswerk dat past bij jullie grote dag.";
+
+const faqs = [
+  {
+    question: "Welke bloemist in Gorinchem is een specialist in bruidswerk?",
+    answer: "Zowel Loeff Bloemen als Annet Flowers hebben veel ervaring in Gorinchemse trouwlocaties. Annet Flowers scoort specifiek een 10.0 voor hun bruidswerk, terwijl Loeff eveneens zwaar inzet op gepersonaliseerde huwelijksstyling."
+  },
+  {
+    question: "Hoe ver vooraf moet ik een trouwboeket bestellen?",
+    answer: "Voor bruidswerk is het aan te raden minstens 4 tot 6 weken van te voren contact op te nemen met de bloemist naar keuze. Zo is er genoeg tijd om tijdens een afspraak alle bloemwensen (boeket, corsages, aankleding) in detail door te spreken."
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Trouwboeket in Gorinchem</h1>
+        <p class="lead">Bruidswerk op maat, van corsage tot locatie-aankleding, geregeld door lokale specialisten.</p>
+        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk specialisten bruidswerk</a>
+      </div>
+    </section>
+
+    <section class="content-section container mt-xl">
+      <article class="prose max-w-700 mx-auto">
+        <h2>Een Boeket dat Past bij Jullie Dag</h2>
+        <p>Jullie trouwdag in of rondom Gorinchem (wellicht in het prachtige Stadhuis of een omliggend kasteel) is niet compleet zonder de juiste florale styling. Een lokaal gevestigde bloemist biedt hier altijd de meeste meerwaarde omdat zij de seizoenen kennen, feeling hebben met lokale trouwlocaties, en u bovendien persoonlijk kunnen adviseren over de styling.</p>
+
+        <h3>Meer dan alleen een boeket</h3>
+        <p>Een complete bruidsstyling bestaat vaak uit meer dan enkel het trouwboeket:</p>
+        <ul>
+          <li><strong>Corsages:</strong> Voor de bruidegom en de belangrijkste daggasten.</li>
+          <li><strong>Autoversiering:</strong> Bloemstukken speciaal opgemaakt (en veilig gemonteerd) voor de trouwauto.</li>
+          <li><strong>Locatie Styling:</strong> Van bloemen op de tafels tot grote stukken bij de ceremonie of in de kerk.</li>
+        </ul>
+
+        <h3>Kies voor Zekerheid</h3>
+        <p>Wanneer u zich oriënteert op bruidswerk, bewijst zich het nut van transparante reviews. Neem de tijd om de specialismen van onze top 3 bloemisten te bekijken, vraag desnoods bij meerdere partijen een oriënterend gesprek aan, en kies de bloemist die perfect aansluit op de sfeer van jullie grote dag.</p>
+      </article>
+    </section>
+
+    <section class="faq-section bg-light mt-2xl">
+      <div class="container container-narrow">
+        <h2 class="text-center">Veelgestelde vragen over bruidswerk</h2>
+        <div class="faqs mt-xl">
+          {faqs.map(faq => (
+            <details class="faq-item">
+              <summary class="faq-question">{faq.question}</summary>
+              <div class="faq-answer">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FAQPageSchema faqs={faqs} />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+  .mx-auto { margin-right: auto; margin-left: auto; }
+  .max-w-700 { max-width: 800px; }
+  .prose h2, .prose h3 {
+    margin-top: var(--space-xl);
+    padding-bottom: var(--space-sm);
+  }
+  .prose ul {
+    margin-bottom: var(--space-xl);
+    padding-left: var(--space-lg);
+  }
+  .prose li {
+    margin-bottom: var(--space-sm);
+  }
+  .faq-section {
+    padding: var(--space-3xl) 0;
+  }
+  .faq-item {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+  }
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color-bg);
+  }
+  .faq-answer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+  .mt-sm { margin-top: var(--space-sm); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mt-2xl { margin-top: var(--space-2xl); }
+</style>

@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Over Deze Gids & Disclosure";
+const pageDescription = "Lees meer over het initiatief achter de Bloemen Gorinchem Gids, het doel van de website en onze contactgegevens.";
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Over Onze Gids</h1>
+        <p class="lead">Bewuste keuzes maken voor kwaliteit en lokale bloemisten stimuleren.</p>
+      </div>
+    </section>
+
+    <section class="content-section container container-narrow mt-2xl">
+      <article class="prose">
+        <h2>Een Lokaal Initiatief</h2>
+        <p>Gorinchem is prachtig en kent ondernemers met een echt hart voor hun vak. Toen we online zochten naar een bloemist, viel ons op dat de zoekresultaten gedomineerd worden door grote, peperdure (internationale) netwerken. Deze websites pakken vaak tot wel 30% van het bedrag dat u aan bloemen spendeert als bemiddelingskosten.</p>
+        <p>Daarom is de <strong>Bloemen Gorinchem Gids</strong> in het leven geroepen: om lokale, echte bloemisten weer bovenaan de lijst te krijgen, beoordeeld op hun werkelijke prestaties.</p>
+
+        <h2>Initiatief en Transparantie</h2>
+        <p>Gedreven door de wens naar eerlijkheid en kwaliteit in de regio, is deze website in het leven geroepen <strong>door een gezamenlijk initiatief van lokale bloemisten en liefhebbers in Gorinchem</strong>. We bundelen hiermee objectieve inzichten zodat inwoners van Gorinchem beter en direct lokaal kunnen bestellen, in plaats van te betalen voor dertien-in-een-dozijn webshops die 30% servicekosten afromen.</p>
+        
+        <p>De getoonde scores in onze <a href="/methode">objectieve vergelijking</a> zijn niet gebaseerd op voorkeur, maar tellen letterlijk de openbare Google Reviews, aangeboden specialismes en lokaal verzorgde bezorgopties op tot een maximale transparante score van 100.</p>
+        
+        <div class="disclaimer-callout mt-xl">
+          <strong>Belangrijke Notitie:</strong> Wij zijn onafhankelijk en baseren ons uitsluitend op openbare en feitelijke data van de Gorinchemse bloemisten. Staat uw bloemist erbij of is er informatie niet actueel? Laat het ons direct weten, zodat de scores voor iedereen accuraat blijven!
+        </div>
+
+        <h3>Contact of correcties doorgeven</h3>
+        <p>Staat u als bloemist in dit overzicht en klopt er iets niet aan uw openingstijden, of heeft u zojuist een grote upgrade aan uw online service doorgevoerd? Mail ons dan direct, en we passen de score-kaart aan op basis van publiek controleerbare aanpassingen.</p>
+        <p><strong>E-mail:</strong> <a href="mailto:info@bloemen-gorinchem.nl">info@bloemen-gorinchem.nl</a></p>
+      </article>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+  .prose h2 {
+    margin-top: var(--space-2xl);
+    padding-bottom: var(--space-sm);
+  }
+  .prose h3 {
+    margin-top: var(--space-xl);
+    color: var(--color-primary-dark);
+  }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mt-2xl { margin-top: var(--space-2xl); }
+  .disclaimer-callout {
+    background-color: var(--color-accent-light);
+    color: #9C332A;
+    padding: var(--space-lg);
+    border-left: 4px solid var(--color-accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+</style>

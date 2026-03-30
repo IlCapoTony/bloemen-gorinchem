@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.bloemen-gorinchem.nl/sitemap-index.xml

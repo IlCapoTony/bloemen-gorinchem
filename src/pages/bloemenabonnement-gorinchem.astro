@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FAQPageSchema from '../components/FAQPageSchema.astro';
+
+const pageTitle = "Bloemenabonnement Gorinchem | Elke week of maand verse bloemen";
+const pageDescription = "Altijd verse bloemen in huis? Ontdek de voordelige en flexibele bloemenabonnementen van de best beoordeelde bloemisten in Gorinchem.";
+
+const faqs = [
+  {
+    question: "Kan ik het bloemenabonnement pauzeren tijdens vakanties?",
+    answer: "Ja, lokale bloemisten (in tegenstelling tot starre landelijke webshops) kenmerken zich door flexibiliteit. Zo kunt u bij de top gerangschikte adressen gemakkelijk leveringen overslaan of tijdelijk pauzeren."
+  },
+  {
+    question: "Is een bloemenabonnement inclusief leenvaas?",
+    answer: "De meeste hoogwaardige abonnementen in Gorinchem worden geleverd inclusief een passende (leen)vaas. Zo staat het boeket direct perfect geschikt op tafel."
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+  <Header />
+
+  <main>
+    <section class="page-header bg-light">
+      <div class="container container-narrow text-center">
+        <h1>Bloemenabonnementen in Gorinchem</h1>
+        <p class="lead">Haal wekelijks, tweewekelijks of maandelijks het seizoen in huis.</p>
+        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vind uw ideale bloemist</a>
+      </div>
+    </section>
+
+    <section class="content-section container mt-xl">
+      <article class="prose max-w-700 mx-auto">
+        <h2>Een Huis Vol Kleur</h2>
+        <p>Er gaat niets boven de uitstraling en geur van een vers veldboeket of strak opgemaakt bloemwerk in de woonkamer of hal. Met een lokaal bloemenabonnement in Gorinchem verzeker je jezelf van continue topkwaliteit.</p>
+
+        <h3>Waarom Lokaal en Niet Landelijk?</h3>
+        <ul>
+          <li><strong>Minder Kilometers:</strong> Landelijke brievenbus- of pakketaanbieders verpakken bloemen droog en sturen ze via pakketdiensten rond. Een lokale bloemist snijdt ze vers aan, vult de vaas, en levert ze veilig persoonlijk af in de regio Gorinchem.</li>
+          <li><strong>Persoonlijke Smaak:</strong> Vindt u specifieke geurende bloemen of kleuren juist niet mooi? Geef het lokaal aan en de binder houdt actief rekening met de wensen van uw huishouden. Vergelijk in onze gids welke bloemist het beste is in klantenservice.</li>
+          <li><strong>Leenvaas opties:</strong> Vaak is de meegeleverde vaas qua verhouding exact afgestemd op de lengte van de bloemen, ideaal om eindeloos af te wisselen zonder kasten vol met glaswerk over te houden.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="faq-section bg-light mt-2xl">
+      <div class="container container-narrow">
+        <h2 class="text-center">Veelgestelde vragen</h2>
+        <div class="faqs mt-xl">
+          {faqs.map(faq => (
+            <details class="faq-item">
+              <summary class="faq-question">{faq.question}</summary>
+              <div class="faq-answer">
+                <p>{faq.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FAQPageSchema faqs={faqs} />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: var(--space-3xl) 0;
+  }
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+  }
+  .prose {
+    font-size: 1.125rem;
+    color: var(--color-text);
+  }
+  .mx-auto { margin-right: auto; margin-left: auto; }
+  .max-w-700 { max-width: 800px; }
+  .prose h2, .prose h3 {
+    margin-top: var(--space-xl);
+    padding-bottom: var(--space-sm);
+  }
+  .prose ul {
+    margin-bottom: var(--space-xl);
+    padding-left: var(--space-lg);
+  }
+  .prose li {
+    margin-bottom: var(--space-sm);
+  }
+  .faq-section {
+    padding: var(--space-3xl) 0;
+  }
+  .faq-item {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+  }
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color-bg);
+  }
+  .faq-answer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+  .mt-sm { margin-top: var(--space-sm); }
+  .mt-xl { margin-top: var(--space-xl); }
+  .mt-2xl { margin-top: var(--space-2xl); }
+</style>

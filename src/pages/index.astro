@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloristCard from '../components/FloristCard.astro';
+import FAQPageSchema from '../components/FAQPageSchema.astro';
+import floristsData from '../data/florists.json';
+
+const sortedFlorists = floristsData.sort((a, b) => b.scoreCalc.total - a.scoreCalc.total);
+const recommendedFlorist = sortedFlorists[0];
+
+const pageTitle = "Bloemist Gorinchem Gids - Vergelijk & Vind de Beste";
+const pageDescription = "Dé onafhankelijke gids voor bloemisten in Gorinchem. Vind de best beoordeelde bloemist voor verse boeketten, eenvoudig afhalen, rouw- en bruidswerk.";
+
+const schema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Bloemen Gorinchem Gids",
+  "url": Astro.site
+});
+
+const faqs = [
+  {
+    question: "Wanneer moet ik mijn bloemen het beste bestellen?",
+    answer: "Omdat de lokale vakbloemist met verse daghandel en maatwerk werkt, is het sterke devies: bestel minimaal 1 tot 2 dagen van tevoren. Zeker bij top-bloemisten zoals Loeff Bloemen garandeert dit de hoogste kwaliteit en een snelle, soepele overhandiging bij het afhalen in de winkel."
+  },
+  {
+    question: "Welke bloemist in Gorinchem wordt het best beoordeeld?",
+    answer: "Op basis van publieke Google en Facebook reviews scoort Loeff Bloemen momenteel als hoogste met meer dan 160 reviews en een 4.8. Annet Flowers (De Linie) presteert tevens uitstekend en scoort perfect op speciale platformen zoals ThePerfectWedding."
+  },
+  {
+    question: "Waar kan ik veilig online bloemen bestellen in Gorinchem?",
+    answer: "Beide top-bloemisten in onze gids (zoals Loeff Bloemen en Mooi Bloemen en Planten) beschikken over een eigen, veilige webshop. Bestellen via hun eigen site is sterk aan te raden boven landelijke tussenpartijen, zodat het volledige bedrag naar de bloemen gaat."
+  }
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} schema={schema}>
+  <Header />
+
+  <main>
+    <section class="hero-section">
+      <div class="container container-narrow">
+        <span class="eyebrow">Lokale Gids & Vergelijker</span>
+        <h1>Vind de Beste Bloemist in Gorinchem</h1>
+        
+        <div class="answer-box">
+          <h2>Onze resultaten ({new Date().toLocaleDateString('nl-NL', {month: 'long', year: 'numeric'})})</h2>
+          <p>
+            Welkom bij de Bloemen Gorinchem Gids. Wij hebben de lokale aanbieders geanalyseerd op service, prijs-kwaliteit en onafhankelijke klantwaarderingen. Op basis van deze openbare data komt <strong>{recommendedFlorist.name}</strong> momenteel als koploper naar voren. Ze scoren een enorme hoeveelheid positieve Google reviews, mede door hun uitmuntende prijs-kwaliteitverhouding en ideale locatie voor het afhalen van bestellingen. Ook <strong>Annet Flowers</strong> en <strong>Mooi Bloemen en Planten</strong> presteren sterk in onze test.
+          </p>
+          <a href="/bloemist-gorinchem" class="btn btn-primary cta-btn">
+            Bekijk de volledige vergelijking
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="florists-section bg-light">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2>Vergelijk Bloemisten Gorinchem</h2>
+          <p>Bekijk hoe de bloemisten scoren op onze strenge Gids Score.</p>
+        </div>
+        
+        <div class="florist-grid">
+          {sortedFlorists.map((florist, index) => (
+            <FloristCard florist={florist} rank={index + 1} />
+          ))}
+        </div>
+        
+        <div class="text-center mt-xl">
+          <a href="/methode" class="btn btn-outline">Lees meer over onze scoringsmethode</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section container">
+      <div class="grid-2">
+        <div class="feature text-center">
+          <div class="icon">🌿</div>
+          <h3>Alleen de beste kwaliteit</h3>
+          <p>We letten op het aanbod van dagverse bloemen, rouwwerk en bruidsboekketten als teken van écht vakmanschap.</p>
+        </div>
+        <div class="feature text-center">
+          <div class="icon">⏱️</div>
+          <h3>Snel Lokaal Afhalen</h3>
+          <p>Online bestellen en direct ophalen bespaart u bezorgkosten en garandeert 100% bloemwaarde voor uw budget.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section container container-narrow">
+      <h2 class="text-center">Veelgestelde Vragen</h2>
+      <div class="faqs">
+        {faqs.map(faq => (
+          <details class="faq-item">
+            <summary class="faq-question">{faq.question}</summary>
+            <div class="faq-answer">
+              <p>{faq.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FAQPageSchema faqs={faqs} />
+</BaseLayout>
+
+<style>
+  .hero-section {
+    padding: var(--space-3xl) 0;
+    text-align: center;
+    background: linear-gradient(to bottom, var(--color-bg), var(--color-surface));
+  }
+  
+  .eyebrow {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: var(--space-2xl);
+  }
+
+  .answer-box {
+    background: white;
+    border: 2px solid var(--color-primary-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .answer-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 6px;
+    background: var(--color-primary);
+  }
+
+  .answer-box h2 {
+    font-family: var(--font-sans);
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .answer-box p {
+    font-size: 1.125rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-xl);
+  }
+  
+  .cta-btn {
+    font-size: 1.125rem;
+    width: 100%;
+    padding: var(--space-md) var(--space-xl);
+  }
+
+  .bg-light {
+    background-color: var(--color-bg);
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .florist-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .features-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-2xl);
+  }
+
+  .icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .faq-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--color-bg);
+    transition: background var(--transition-fast);
+  }
+  
+  .faq-question:hover {
+    background: var(--color-border);
+  }
+
+  .faq-answer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .mt-xl { margin-top: var(--space-xl); }
+
+  @media (max-width: 768px) {
+    .hero-section h1 { font-size: 2.25rem; }
+    .answer-box { padding: var(--space-xl); }
+  }
+</style>
