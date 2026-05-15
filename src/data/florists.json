@@ -17,19 +17,19 @@
         "facebookUrl": "https://www.facebook.com/BloemistLoeff/",
         "instagramUrl": "https://www.instagram.com/loeffbloemen/",
         "reviews": {
-            "googleScore": 4.8,
-            "googleCount": 165,
+            "googleScore": 4.6,
+            "googleCount": 152,
             "facebookCount": 38
         },
         "scoreCalc": {
-            "reviewScore": 39,
+            "reviewScore": 38,
             "offerSpecialties": 20,
             "serviceDelivery": 20,
             "transparency": 20,
-            "total": 99
+            "total": 98
         },
         "highlights": [
-            "Hoge klantwaardering uit 165+ beoordelingen",
+            "Hoge klantwaardering uit 150+ beoordelingen",
             "Uitmuntende prijs-kwaliteit verhouding",
             "Uitgebreid specialisme in rouw- en bruidswerk",
             "Gemakkelijk online bestellen en snel afhalen aan de Coupure 2"
@@ -41,7 +41,7 @@
             "url": "https://www.google.com/search?q=loeff+bloemen+gorinchem&oq=loeff+bloemen+gorinchem#lrd=0x47c66f54c9a87cd5:0x8fd01f92c6cc2290,1"
         },
         "description": "Loeff Bloemen scoort momenteel als hoogste in onze onafhankelijke vergelijking. Met jarenlange ervaring, een uitmuntende prijs-kwaliteit verhouding en een prachtig assortiment, is dit een veilige keuze. Bestel eenvoudig online en haal je boeket snel en vers op in de vernieuwde winkel aan de Coupure.",
-        "lastChecked": "2026-02-22"
+        "lastChecked": "2026-05-15"
     },
     {
         "id": "annet-flowers",
@@ -61,16 +61,16 @@
         "facebookUrl": "https://www.facebook.com/annetflowers",
         "instagramUrl": "https://www.instagram.com/annetflowers8771/",
         "reviews": {
-            "googleScore": 4.5,
-            "googleCount": 65,
+            "googleScore": 4.4,
+            "googleCount": 21,
             "facebookCount": 12
         },
         "scoreCalc": {
-            "reviewScore": 32,
+            "reviewScore": 31,
             "offerSpecialties": 18,
             "serviceDelivery": 15,
             "transparency": 16,
-            "total": 81
+            "total": 80
         },
         "highlights": [
             "Duurzame focus en lokale inkoop",
@@ -78,7 +78,7 @@
             "Ervaren, getalenteerde bloembinders"
         ],
         "description": "Annet Flowers is een uitstekende bloemist met een sterke focus op duurzaamheid en kwaliteit. Ze scoren bijzonder goed op persoonlijk, op maat gemaakt bruidswerk en leveren prachtig bindwerk af.",
-        "lastChecked": "2026-02-22"
+        "lastChecked": "2026-05-15"
     },
     {
         "id": "mooi-bloemen-planten",
@@ -88,7 +88,7 @@
         "address": {
             "streetAddress": "Piazza Center 57",
             "addressLocality": "Gorinchem",
-            "postalCode": "4204 BR"
+            "postalCode": "4204 BN"
         },
         "telephone": "0183 690 676",
         "email": "info@mooibloemenenplanten.nl",
@@ -98,16 +98,17 @@
         "facebookUrl": "https://www.facebook.com/MooiBloemenenPlanten/",
         "instagramUrl": "https://www.instagram.com/mooibloemenenplanten/",
         "reviews": {
-            "googleScore": 4.3,
-            "googleCount": 42,
+            "googleScore": 5.0,
+            "googleCount": 2,
             "facebookCount": 8
         },
+        "dataInsufficient": true,
         "scoreCalc": {
-            "reviewScore": 28,
+            "reviewScore": 30,
             "offerSpecialties": 14,
             "serviceDelivery": 18,
             "transparency": 15,
-            "total": 75
+            "total": 77
         },
         "highlights": [
             "Gevestigd in het Piazza Center",
@@ -115,6 +116,6 @@
             "Eigen bezorgservice in Gorinchem en Sliedrecht"
         ],
         "description": "Gelegen in het winkelcentrum Piazza biedt deze winkel veel gemak. Naast een breed aanbod kamerplanten en boeketten bieden ze bovendien een eigen regionale bezorgdienst aan voor bestellingen uit de online winkel.",
-        "lastChecked": "2026-02-22"
+        "lastChecked": "2026-05-15"
     }
 ]

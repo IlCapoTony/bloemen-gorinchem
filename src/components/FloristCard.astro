@@ -27,6 +27,9 @@ const checkDate = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month
         <div class="review-counts">
           <small>{florist.reviews.googleCount + (florist.reviews.facebookCount || 0)} beoordelingen</small>
           <span class="review-breakdown">({florist.reviews.googleCount} Google / {florist.reviews.facebookCount || 0} Facebook)</span>
+          {florist.dataInsufficient && (
+            <span class="data-insufficient" title="Te weinig Google-reviews voor een betrouwbaar oordeel">⚠ Beperkte data</span>
+          )}
         </div>
       </div>
       <div class="total-score" title="Onze objectieve rating o.b.v. service & kwaliteit">
@@ -257,6 +260,16 @@ const checkDate = new Date().toLocaleDateString('nl-NL', { day: 'numeric', month
     color: var(--color-text-muted);
     opacity: 0.7;
     margin-top: 2px;
+  }
+
+  .data-insufficient {
+    font-size: 0.7rem;
+    color: #b45309;
+    background: #fef3c7;
+    padding: 1px 6px;
+    border-radius: var(--radius-sm);
+    margin-top: 4px;
+    font-weight: 600;
   }
 
   .total-score {
