@@ -62,6 +62,22 @@ for (const florist of data.florists) {
   });
 }
 
+/** Namen vergelijken zonder te struikelen over hoofdletters, accenten of leestekens. */
+const normaliseer = (naam = '') =>
+  naam
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
+/** Alleen melden bij een echt andere naam, niet bij een andere schrijfwijze. */
+const naamWijktAf = (gevonden, verwacht) => {
+  const a = normaliseer(gevonden);
+  const b = normaliseer(verwacht);
+  return !a.includes(b) && !b.includes(a);
+};
+
 if (asJson) {
   console.log(JSON.stringify(results, null, 2));
 } else {
@@ -72,6 +88,12 @@ if (asJson) {
       `${r.naam}: ${r.huidigeScore} (${r.huidigAantal}) → ${r.nieuweScore} (${r.nieuwAantal})${veranderd}`
     );
     if (r.status && r.status !== 'OPERATIONAL') console.log(`  let op: status ${r.status}`);
-    if (r.gevonden !== r.naam) console.log(`  gevonden als: ${r.gevonden} — ${r.adres}`);
+    if (naamWijktAf(r.gevonden, r.naam)) {
+      console.log(`  let op: gevonden als "${r.gevonden}" — ${r.adres}`);
+    }
   }
+  console.log(
+    '\nGoogle-profielen bevatten soms een verouderd adres of telefoonnummer. Wijkt een\n' +
+      'adres af van wat de bloemist zelf publiceert, volg dan de bloemist en niet Google.'
+  );
 }
