@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FAQPageSchema from '../components/FAQPageSchema.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+import { faqSchema } from '../lib/schema';
+
+const pageUrl = 'https://www.bloemen-gorinchem.nl/trouwboeket-gorinchem/';
 
 const pageTitle = "Trouwboeket Gorinchem | Bruidswerk op Maat";
 const pageDescription = "Op zoek naar een prachtig trouwboeket in Gorinchem? Ontdek de best beoordeelde bloemisten voor op maat gemaakt bruidswerk dat past bij jullie grote dag.";
@@ -10,24 +14,32 @@ const pageDescription = "Op zoek naar een prachtig trouwboeket in Gorinchem? Ont
 const faqs = [
   {
     question: "Welke bloemist in Gorinchem is een specialist in bruidswerk?",
-    answer: "Zowel Loeff Bloemen als Annet Flowers hebben veel ervaring in Gorinchemse trouwlocaties. Annet Flowers scoort specifiek een 10.0 voor hun bruidswerk, terwijl Loeff eveneens zwaar inzet op gepersonaliseerde huwelijksstyling."
+    answer: "Drie van de vier bloemisten in onze gids bieden bruidswerk aan: Loeff Bloemen, Annet Flowers en Mimosa Bloemen. Mooi Bloemen en Planten doet dit niet. Alle drie werken op afspraak en maken het boeket op maat; welke het beste past hangt vooral af van de stijl die u zoekt, dus plan een oriënterend gesprek bij meer dan één."
   },
   {
     question: "Hoe ver vooraf moet ik een trouwboeket bestellen?",
     answer: "Voor bruidswerk is het aan te raden minstens 4 tot 6 weken van te voren contact op te nemen met de bloemist naar keuze. Zo is er genoeg tijd om tijdens een afspraak alle bloemwensen (boeket, corsages, aankleding) in detail door te spreken."
   }
 ];
+
+const breadcrumbs = [{"name":"Trouwboeket Gorinchem","href":"/trouwboeket-gorinchem/"}];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={[faqSchema(faqs, pageUrl)]}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
       <div class="container container-narrow text-center">
         <h1>Trouwboeket in Gorinchem</h1>
         <p class="lead">Bruidswerk op maat, van corsage tot locatie-aankleding, geregeld door lokale specialisten.</p>
-        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk specialisten bruidswerk</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-primary mt-sm">Vergelijk specialisten bruidswerk</a>
       </div>
     </section>
 
@@ -45,7 +57,7 @@ const faqs = [
         </ul>
 
         <h3>Kies voor Zekerheid</h3>
-        <p>Wanneer u zich oriënteert op bruidswerk, bewijst zich het nut van transparante reviews. Neem de tijd om de specialismen van onze top 3 bloemisten te bekijken, vraag desnoods bij meerdere partijen een oriënterend gesprek aan, en kies de bloemist die perfect aansluit op de sfeer van jullie grote dag.</p>
+        <p>Wanneer u zich oriënteert op bruidswerk, bewijst zich het nut van transparante reviews. Neem de tijd om de drie bloemisten met bruidswerk te bekijken, vraag bij meerdere een oriënterend gesprek aan, en kies degene die het beste aansluit op de sfeer van jullie dag.</p>
       </article>
     </section>
 
@@ -67,7 +79,6 @@ const faqs = [
   </main>
 
   <Footer />
-  <FAQPageSchema faqs={faqs} />
 </BaseLayout>
 
 <style>

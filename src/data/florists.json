@@ -1,121 +1,516 @@
-[
+{
+  "meta": {
+    "lastReviewUpdate": "2026-08-21",
+    "reviewSource": "Google Maps bedrijfsprofielen",
+    "reviewSourceUrl": "https://www.google.com/maps/search/bloemist+Gorinchem",
+    "coverage": "Fysieke vakbloemisten met een eigen winkel binnen de gemeente Gorinchem",
+    "excluded": [
+      {
+        "name": "Bloemenhuis Hofman",
+        "reason": "Landelijke webshop (HOFMAN FLOWERS vof, Diever, Drenthe) met een landingspagina voor Gorinchem. Geen winkel in Gorinchem."
+      },
+      {
+        "name": "Regiobloemist.nl",
+        "reason": "Landelijk bestelplatform dat bestellingen doorzet naar aangesloten bloemisten. Geen eigen winkel in Gorinchem."
+      },
+      {
+        "name": "Carolien Verdonk Atelier (voorheen Distel & Mirt)",
+        "reason": "Sinds de verhuizing naar Eind 28 een atelier op afspraak, geen winkel met vrije inloop. De Google-reviews (3,9 uit 18) gaan grotendeels over de oude winkel en zeggen weinig over de huidige werkwijze."
+      },
+      {
+        "name": "Bonne Fleur",
+        "reason": "Heeft geen vestiging meer in Gorinchem; het pand aan Piazza Center wordt nu gevoerd als Mooi Bloemen en Planten. Verouderde vermeldingen staan nog in diverse bedrijvengidsen."
+      }
+    ]
+  },
+  "florists": [
     {
-        "id": "loeff-bloemen",
-        "name": "Loeff Bloemen",
-        "isRecommended": true,
-        "slug": "loeff-bloemen",
-        "address": {
-            "streetAddress": "Coupure 2",
-            "addressLocality": "Gorinchem",
-            "postalCode": "4207 EL"
+      "id": "loeff-bloemen",
+      "name": "Loeff Bloemen",
+      "slug": "loeff-bloemen",
+      "isRecommended": true,
+      "address": {
+        "streetAddress": "Coupure 2",
+        "addressLocality": "Gorinchem",
+        "postalCode": "4207 EL",
+        "addressRegion": "Zuid-Holland",
+        "addressCountry": "NL"
+      },
+      "geo": {
+        "latitude": 51.8266,
+        "longitude": 4.9903
+      },
+      "telephone": "0183 631 884",
+      "email": "info@loeffbloemen.nl",
+      "url": "https://www.loeffbloemen.nl",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Loeff+Bloemen+Gorinchem",
+      "appleMapsUrl": "https://maps.apple.com/?q=Loeff+Bloemen+Gorinchem",
+      "facebookUrl": "https://www.facebook.com/BloemistLoeff/",
+      "instagramUrl": "https://www.instagram.com/loeffbloemen/",
+      "openingHours": [
+        {
+          "day": "Maandag",
+          "opens": "12:30",
+          "closes": "18:00"
         },
-        "telephone": "0183 631 884",
-        "email": "info@loeffbloemen.nl",
-        "url": "https://www.loeffbloemen.nl",
-        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Loeff+Bloemen+Gorinchem",
-        "appleMapsUrl": "https://maps.apple.com/?q=Loeff+Bloemen+Gorinchem",
-        "facebookUrl": "https://www.facebook.com/BloemistLoeff/",
-        "instagramUrl": "https://www.instagram.com/loeffbloemen/",
-        "reviews": {
-            "googleScore": 4.6,
-            "googleCount": 152,
-            "facebookCount": 38
+        {
+          "day": "Dinsdag",
+          "opens": "09:00",
+          "closes": "18:00"
         },
-        "scoreCalc": {
-            "reviewScore": 38,
-            "offerSpecialties": 20,
-            "serviceDelivery": 20,
-            "transparency": 20,
-            "total": 98
+        {
+          "day": "Woensdag",
+          "opens": "09:00",
+          "closes": "18:00"
         },
-        "highlights": [
-            "Hoge klantwaardering uit 150+ beoordelingen",
-            "Uitmuntende prijs-kwaliteit verhouding",
-            "Uitgebreid specialisme in rouw- en bruidswerk",
-            "Gemakkelijk online bestellen en snel afhalen aan de Coupure 2"
+        {
+          "day": "Donderdag",
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        {
+          "day": "Vrijdag",
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        {
+          "day": "Zaterdag",
+          "opens": "09:00",
+          "closes": "17:00"
+        },
+        {
+          "day": "Zondag",
+          "closed": true
+        }
+      ],
+      "reviews": {
+        "googleScore": 4.6,
+        "googleCount": 153
+      },
+      "ordering": {
+        "channels": [
+          "telefonisch",
+          "in de winkel"
         ],
-        "testimonial": {
-            "text": "\"Geweldige service en prachtige bloemen die echt lang staan. Elke keer weer een feestje om hier binnen te stappen!\"",
-            "author": "Google Reviewer",
-            "rating": 5,
-            "url": "https://www.google.com/search?q=loeff+bloemen+gorinchem&oq=loeff+bloemen+gorinchem#lrd=0x47c66f54c9a87cd5:0x8fd01f92c6cc2290,1"
+        "webshopStatus": "in aanbouw",
+        "note": "De eigen webshop is aangekondigd maar nog niet in gebruik; bestellingen lopen via de telefoon of aan de balie."
+      },
+      "services": {
+        "rouwwerk": true,
+        "bruidswerk": true,
+        "bezorging": true,
+        "afhalen": true,
+        "abonnement": false,
+        "zakelijk": false
+      },
+      "scoring": {
+        "prijsKwaliteit": {
+          "points": 10,
+          "max": 10,
+          "basis": "Prijs is met afstand het meestgenoemde onderwerp in de Google-reviews (26 vermeldingen), consequent positief: 'schappelijke prijzen', 'veel waar voor je geld'."
         },
-        "description": "Loeff Bloemen scoort momenteel als hoogste in onze onafhankelijke vergelijking. Met jarenlange ervaring, een uitmuntende prijs-kwaliteit verhouding en een prachtig assortiment, is dit een veilige keuze. Bestel eenvoudig online en haal je boeket snel en vers op in de vernieuwde winkel aan de Coupure.",
-        "lastChecked": "2026-05-15"
+        "afhaalgemak": {
+          "points": 9,
+          "max": 10,
+          "basis": "Zes dagen per week open, Google-profiel vermeldt winkelbezoek, buiten afhalen en bezorging. Ligging aan de Coupure net buiten het centrum met parkeergelegenheid."
+        },
+        "directBestellen": {
+          "points": 8,
+          "max": 10,
+          "basis": "Rechtstreeks bestellen per telefoon of in de winkel, zonder tussenpartij. Twee punten aftrek omdat de aangekondigde webshop nog niet werkt."
+        },
+        "actueleInformatie": {
+          "points": 10,
+          "max": 10,
+          "basis": "Adres, telefoonnummer en openingstijden komen exact overeen tussen de eigen website en het Google-bedrijfsprofiel."
+        },
+        "rouwwerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Eigen pagina voor rouwstukken; rouwwerk komt terug in recente reviews."
+        },
+        "bruidswerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Bruidswerk wordt als vast onderdeel van het assortiment aangeboden."
+        },
+        "versAanbod": {
+          "points": 3,
+          "max": 6,
+          "basis": "Bloemen komen naar eigen zeggen dagvers van de veiling, maar er is online geen actueel assortiment te zien zolang de webshop niet live is."
+        }
+      },
+      "highlights": [
+        "Verreweg het grootste reviewvolume van Gorinchem: 153 Google-beoordelingen",
+        "Prijs-kwaliteit is het sterkste en meest genoemde thema in die reviews",
+        "Ruim vijftig jaar ervaring in rouw- en bruidswerk",
+        "Zes dagen per week open; telefonisch bestellen en dezelfde dag afhalen aan de Coupure"
+      ],
+      "testimonial": {
+        "text": "Erg mooie bloemen en schappelijke prijzen met een vriendelijke sfeer. Ook hebben wij begin dit jaar hier een bloemstuk besteld voor op de kist van mijn liefste mama.",
+        "author": "Greetje S.",
+        "source": "Google-review, juli 2026",
+        "rating": 5,
+        "url": "https://www.google.com/maps/search/?api=1&query=Loeff+Bloemen+Gorinchem"
+      },
+      "description": "Loeff Bloemen staat op nummer 1 in onze vergelijking, vooral door het reviewvolume: 153 Google-beoordelingen met een 4,6 gemiddeld — meer dan vier keer zoveel als de nummer 2. Prijs-kwaliteit is daarin het meest genoemde thema. Bestellen gaat telefonisch of in de winkel; de aangekondigde webshop is nog niet in gebruik.",
+      "lastChecked": "2026-08-21",
+      "persoonlijkAdvies": {
+        "points": 7,
+        "basis": "Reviewers noemen dat er goed met ze is meegedacht, met name bij rouwwerk. Er staat ook een enkele review van iemand die niet geholpen werd voor een spontane bos."
+      }
     },
     {
-        "id": "annet-flowers",
-        "name": "Annet Flowers",
-        "isRecommended": false,
-        "slug": "annet-flowers",
-        "address": {
-            "streetAddress": "De Linie 28",
-            "addressLocality": "Gorinchem",
-            "postalCode": "4208 DE"
+      "id": "annet-flowers",
+      "name": "Annet Flowers",
+      "slug": "annet-flowers",
+      "isRecommended": false,
+      "address": {
+        "streetAddress": "De Linie 28",
+        "addressLocality": "Gorinchem",
+        "postalCode": "4208 DE",
+        "addressRegion": "Zuid-Holland",
+        "addressCountry": "NL"
+      },
+      "geo": {
+        "latitude": 51.8378,
+        "longitude": 4.9962
+      },
+      "telephone": "0183 629 795",
+      "email": "info@eenboeketvanannet.nl",
+      "url": "https://www.annetflowers.nl",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Annet+Flowers+Gorinchem",
+      "appleMapsUrl": "https://maps.apple.com/?q=Annet+Flowers+Gorinchem",
+      "facebookUrl": "https://www.facebook.com/annetflowers",
+      "instagramUrl": "https://www.instagram.com/annetflowers8771/",
+      "openingHours": [
+        {
+          "day": "Maandag",
+          "opens": "08:30",
+          "closes": "18:00"
         },
-        "telephone": "0183 629 795",
-        "email": "info@eenboeketvanannet.nl",
-        "url": "https://www.annetflowers.nl",
-        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Annet+Flowers+Gorinchem",
-        "appleMapsUrl": "https://maps.apple.com/?q=Annet+Flowers+Gorinchem",
-        "facebookUrl": "https://www.facebook.com/annetflowers",
-        "instagramUrl": "https://www.instagram.com/annetflowers8771/",
-        "reviews": {
-            "googleScore": 4.4,
-            "googleCount": 21,
-            "facebookCount": 12
+        {
+          "day": "Dinsdag",
+          "opens": "08:30",
+          "closes": "18:00"
         },
-        "scoreCalc": {
-            "reviewScore": 31,
-            "offerSpecialties": 18,
-            "serviceDelivery": 15,
-            "transparency": 16,
-            "total": 80
+        {
+          "day": "Woensdag",
+          "opens": "08:30",
+          "closes": "18:00"
         },
-        "highlights": [
-            "Duurzame focus en lokale inkoop",
-            "Specialist in maatwerk bruidswerk",
-            "Ervaren, getalenteerde bloembinders"
+        {
+          "day": "Donderdag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Vrijdag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Zaterdag",
+          "opens": "08:30",
+          "closes": "17:00"
+        },
+        {
+          "day": "Zondag",
+          "closed": true
+        }
+      ],
+      "reviews": {
+        "googleScore": 4.6,
+        "googleCount": 36
+      },
+      "ordering": {
+        "channels": [
+          "eigen webshop",
+          "telefonisch",
+          "in de winkel"
         ],
-        "description": "Annet Flowers is een uitstekende bloemist met een sterke focus op duurzaamheid en kwaliteit. Ze scoren bijzonder goed op persoonlijk, op maat gemaakt bruidswerk en leveren prachtig bindwerk af.",
-        "lastChecked": "2026-05-15"
+        "webshopStatus": "live",
+        "note": "Werkende webshop met boeketten van ongeveer € 21 tot € 54 en een apart portaal voor zakelijke klanten."
+      },
+      "services": {
+        "rouwwerk": true,
+        "bruidswerk": true,
+        "bezorging": true,
+        "afhalen": true,
+        "abonnement": false,
+        "zakelijk": true
+      },
+      "scoring": {
+        "prijsKwaliteit": {
+          "points": 8,
+          "max": 10,
+          "basis": "Prijzen staan vooraf online (circa € 21 tot € 54), wat vergelijken makkelijk maakt. Reviews gaan vaker over snelheid en service dan over prijs."
+        },
+        "afhaalgemak": {
+          "points": 9,
+          "max": 10,
+          "basis": "Zes dagen per week open vanaf 08:30, gelegen aan De Linie in Gorinchem-Oost met ruime parkeergelegenheid."
+        },
+        "directBestellen": {
+          "points": 10,
+          "max": 10,
+          "basis": "Werkende eigen webshop met winkelmandje, plus telefonisch en in de winkel bestellen. Geen landelijke tussenpartij nodig."
+        },
+        "actueleInformatie": {
+          "points": 9,
+          "max": 10,
+          "basis": "Gegevens kloppen en zijn consistent. Klein punt van aftrek: de winkel werkt met twee domeinnamen (annetflowers.nl en eenboeketvanannet.nl), wat verwarrend kan zijn."
+        },
+        "rouwwerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Eigen rouwafdeling met maatwerk afscheidsbloemen."
+        },
+        "bruidswerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Bruidsboeketten op maat, van klassiek tot modern."
+        },
+        "versAanbod": {
+          "points": 6,
+          "max": 6,
+          "basis": "Actueel assortiment met foto's en prijzen zichtbaar in de webshop."
+        }
+      },
+      "highlights": [
+        "Gestegen naar 4,6 gemiddeld over 36 Google-beoordelingen",
+        "Enige bloemist in de gids met een volledig werkende eigen webshop en zakelijk portaal",
+        "Gecertificeerd via de Barometer Duurzame Bloemist",
+        "Zelfde dag bezorgd bij bestellen vóór 14:00 uur"
+      ],
+      "description": "Annet Flowers zit onze nummer 1 dicht op de hielen en is de sterkste keuze als u online wilt bestellen en betalen: de webshop werkt, de prijzen staan er vooraf bij en er is een apart portaal voor zakelijke klanten. De winkel is gecertificeerd via de Barometer Duurzame Bloemist.",
+      "lastChecked": "2026-08-21",
+      "persoonlijkAdvies": {
+        "points": 7,
+        "basis": "Reviews prijzen vooral de snelle en vriendelijke service; advies bij het samenstellen komt minder expliciet terug."
+      }
     },
     {
-        "id": "mooi-bloemen-planten",
-        "name": "Mooi Bloemen en Planten",
-        "isRecommended": false,
-        "slug": "mooi-bloemen-planten",
-        "address": {
-            "streetAddress": "Piazza Center 57",
-            "addressLocality": "Gorinchem",
-            "postalCode": "4204 BN"
-        },
-        "telephone": "0183 690 676",
-        "email": "info@mooibloemenenplanten.nl",
-        "url": "https://www.mooibloemenenplantengorinchem.nl",
-        "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Mooi+Bloemen+en+Planten+Gorinchem",
-        "appleMapsUrl": "https://maps.apple.com/?q=Mooi+Bloemen+en+Planten+Gorinchem",
-        "facebookUrl": "https://www.facebook.com/MooiBloemenenPlanten/",
-        "instagramUrl": "https://www.instagram.com/mooibloemenenplanten/",
-        "reviews": {
-            "googleScore": 5.0,
-            "googleCount": 2,
-            "facebookCount": 8
-        },
-        "dataInsufficient": true,
-        "scoreCalc": {
-            "reviewScore": 30,
-            "offerSpecialties": 14,
-            "serviceDelivery": 18,
-            "transparency": 15,
-            "total": 77
-        },
-        "highlights": [
-            "Gevestigd in het Piazza Center",
-            "Ruim aanbod in wisselende seizoensbloemen en planten",
-            "Eigen bezorgservice in Gorinchem en Sliedrecht"
+      "id": "mooi-bloemen-planten",
+      "name": "Mooi Bloemen en Planten",
+      "slug": "mooi-bloemen-planten",
+      "isRecommended": false,
+      "address": {
+        "streetAddress": "Piazza Center 57",
+        "addressLocality": "Gorinchem",
+        "postalCode": "4204 BR",
+        "addressRegion": "Zuid-Holland",
+        "addressCountry": "NL"
+      },
+      "geo": {
+        "latitude": 51.8353,
+        "longitude": 4.9714
+      },
+      "telephone": "0183 690 676",
+      "email": "info@mooibloemenenplanten.nl",
+      "url": "https://www.mooibloemenenplantengorinchem.nl",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Mooi+Bloemen+en+Planten+Gorinchem",
+      "appleMapsUrl": "https://maps.apple.com/?q=Mooi+Bloemen+en+Planten+Gorinchem",
+      "facebookUrl": "https://www.facebook.com/MooiBloemenenPlanten/",
+      "instagramUrl": "https://www.instagram.com/mooibloemenenplanten/",
+      "openingHours": [],
+      "reviews": {
+        "googleScore": 5.0,
+        "googleCount": 2
+      },
+      "dataInsufficient": true,
+      "ordering": {
+        "channels": [
+          "eigen webshop",
+          "telefonisch",
+          "in de winkel"
         ],
-        "description": "Gelegen in het winkelcentrum Piazza biedt deze winkel veel gemak. Naast een breed aanbod kamerplanten en boeketten bieden ze bovendien een eigen regionale bezorgdienst aan voor bestellingen uit de online winkel.",
-        "lastChecked": "2026-05-15"
+        "webshopStatus": "live",
+        "note": "Werkende webshop met boeketten van ongeveer € 28 tot € 44. Eigen bezorging in Gorinchem en Sliedrecht; daarbuiten via het WY-Bloemisten netwerk."
+      },
+      "services": {
+        "rouwwerk": true,
+        "bruidswerk": false,
+        "bezorging": true,
+        "afhalen": true,
+        "abonnement": false,
+        "zakelijk": false
+      },
+      "scoring": {
+        "prijsKwaliteit": {
+          "points": 8,
+          "max": 10,
+          "basis": "Boeketprijzen staan vooraf online (circa € 28 tot € 44). Te weinig reviews om de prijs-kwaliteitverhouding door klanten bevestigd te zien."
+        },
+        "afhaalgemak": {
+          "points": 10,
+          "max": 10,
+          "basis": "Gevestigd in winkelcentrum Piazza met de ruimste openingstijden van de gids en parkeergarage onder het pand."
+        },
+        "directBestellen": {
+          "points": 10,
+          "max": 10,
+          "basis": "Werkende eigen webshop, plus telefonisch en in de winkel. Eigen bezorgdienst in Gorinchem en Sliedrecht."
+        },
+        "actueleInformatie": {
+          "points": 7,
+          "max": 10,
+          "basis": "Openingstijden staan niet volledig op de eigen site en lopen uiteen met wat bedrijvengidsen vermelden. Verouderde vermeldingen onder de oude naam Bonne Fleur circuleren nog online."
+        },
+        "rouwwerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Eigen pagina voor rouwbloemen met advies over afscheidsstukken."
+        },
+        "bruidswerk": {
+          "points": 0,
+          "max": 7,
+          "basis": "Bruidswerk wordt op de eigen website niet aangeboden of genoemd."
+        },
+        "versAanbod": {
+          "points": 5,
+          "max": 6,
+          "basis": "Wisselend dagassortiment zichtbaar in de webshop; niet alle voorraad is online actueel."
+        }
+      },
+      "highlights": [
+        "Ruimste openingstijden van de gids, in winkelcentrum Piazza",
+        "Eigen bezorgdienst in Gorinchem en Sliedrecht, dezelfde dag bij bestellen vóór 12:00 uur",
+        "Werkende webshop met vooraf zichtbare prijzen"
+      ],
+      "description": "Mooi Bloemen en Planten is vooral handig als gemak telt: winkelcentrum Piazza, lange openingstijden en een eigen bezorgdienst in Gorinchem en Sliedrecht. Met slechts twee Google-beoordelingen is er nog te weinig publieke feedback om iets zinnigs over de constante kwaliteit te zeggen, en bruidswerk bieden ze niet aan.",
+      "lastChecked": "2026-08-21",
+      "persoonlijkAdvies": {
+        "points": 5,
+        "basis": "Met twee beoordelingen is er te weinig publieke feedback om iets over de advisering te zeggen."
+      }
+    },
+    {
+      "id": "mimosa-bloemen",
+      "name": "Mimosa Bloemen",
+      "slug": "mimosa-bloemen",
+      "isRecommended": false,
+      "isNew": true,
+      "address": {
+        "streetAddress": "Langendijk 6",
+        "addressLocality": "Gorinchem",
+        "postalCode": "4201 CH",
+        "addressRegion": "Zuid-Holland",
+        "addressCountry": "NL"
+      },
+      "geo": {
+        "latitude": 51.8306,
+        "longitude": 4.9738
+      },
+      "telephone": "06 31232507",
+      "email": "info@mimosabloemen.com",
+      "url": "https://mimosabloemen.nl",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Mimosa+Bloemen+Gorinchem",
+      "appleMapsUrl": "https://maps.apple.com/?q=Mimosa+Bloemen+Gorinchem",
+      "openingHours": [
+        {
+          "day": "Maandag",
+          "closed": true
+        },
+        {
+          "day": "Dinsdag",
+          "opens": "10:00",
+          "closes": "17:30"
+        },
+        {
+          "day": "Woensdag",
+          "opens": "10:00",
+          "closes": "17:30"
+        },
+        {
+          "day": "Donderdag",
+          "opens": "10:00",
+          "closes": "17:30"
+        },
+        {
+          "day": "Vrijdag",
+          "opens": "10:00",
+          "closes": "17:30"
+        },
+        {
+          "day": "Zaterdag",
+          "opens": "10:00",
+          "closes": "17:00"
+        },
+        {
+          "day": "Zondag",
+          "closed": true
+        }
+      ],
+      "reviews": {
+        "googleScore": 4.5,
+        "googleCount": 13
+      },
+      "dataInsufficient": true,
+      "ordering": {
+        "channels": [
+          "telefonisch",
+          "in de winkel"
+        ],
+        "webshopStatus": "aanwezig maar leeg",
+        "note": "De webshop staat online met prijzen, maar op het moment van controle was vrijwel alles als niet op voorraad gemarkeerd."
+      },
+      "services": {
+        "rouwwerk": true,
+        "bruidswerk": true,
+        "bezorging": false,
+        "afhalen": true,
+        "abonnement": false,
+        "zakelijk": false
+      },
+      "scoring": {
+        "prijsKwaliteit": {
+          "points": 7,
+          "max": 10,
+          "basis": "Prijzen van vaste artikelen staan online. Reviews prijzen vooral het assortiment en het advies, niet expliciet de prijs."
+        },
+        "afhaalgemak": {
+          "points": 6,
+          "max": 10,
+          "basis": "Maandag gesloten en kortste openingstijden van de gids. Wel midden in de Langendijk, de winkelstraat van de vesting."
+        },
+        "directBestellen": {
+          "points": 8,
+          "max": 10,
+          "basis": "Rechtstreeks bestellen per telefoon of in de winkel. De webshop is aanwezig maar bij controle vrijwel volledig uitverkocht."
+        },
+        "actueleInformatie": {
+          "points": 8,
+          "max": 10,
+          "basis": "Adres, openingstijden en telefoonnummer staan helder op de eigen site. Het e-mailadres draait op een ander domein (.com) dan de website (.nl)."
+        },
+        "rouwwerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Eigen pagina voor rouwwerk."
+        },
+        "bruidswerk": {
+          "points": 7,
+          "max": 7,
+          "basis": "Eigen pagina voor bruidswerk."
+        },
+        "versAanbod": {
+          "points": 3,
+          "max": 6,
+          "basis": "In de winkel dagelijks wisselende snijbloemen, maar online is het assortiment op het moment van controle niet actueel."
+        }
+      },
+      "highlights": [
+        "Sinds maart 2022 gevestigd aan de Langendijk in de vesting",
+        "Bloem- én interieurwinkel: ook glaswerk, aardewerk en woonaccessoires",
+        "Zowel bruidswerk als rouwwerk in eigen beheer"
+      ],
+      "description": "Mimosa Bloemen is nieuw in deze gids en de meest voor de hand liggende keuze als u in de vesting bent: een eigentijdse bloem- en interieurwinkel aan de Langendijk met persoonlijk advies. Met 13 beoordelingen is de publieke feedback nog beperkt, en de winkel is maandag gesloten.",
+      "lastChecked": "2026-08-21",
+      "persoonlijkAdvies": {
+        "points": 10,
+        "basis": "Persoonlijk advies van de eigenaresse is het terugkerende thema in vrijwel elke review, samen met het assortiment."
+      }
     }
-]
+  ]
+}

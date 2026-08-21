@@ -1,36 +1,150 @@
 ---
 import '../styles/global.css';
+import { meta } from '../lib/florists';
+
+export interface Breadcrumb {
+  name: string;
+  href: string;
+}
 
 interface Props {
   title: string;
   description: string;
-  schema?: string;
+  /** Extra JSON-LD blokken, als objecten. Worden samengevoegd in één @graph. */
+  schema?: Record<string, unknown>[];
+  /** Kruimelpad zonder de homepage; die wordt automatisch vooraan gezet. */
+  breadcrumbs?: Breadcrumb[];
+  noindex?: boolean;
+  /** Overschrijft de datum van de laatste datacontrole voor deze pagina. */
+  dateModified?: string;
 }
 
-const { title, description, schema } = Astro.props;
+const {
+  title,
+  description,
+  schema = [],
+  breadcrumbs = [],
+  noindex = false,
+  dateModified = meta.lastReviewUpdate,
+} = Astro.props;
+
+const SITE = 'https://www.bloemen-gorinchem.nl';
+const SITE_NAME = 'Bloemen Gorinchem Gids';
+
+const canonical = new URL(Astro.url.pathname, SITE).href;
+const ogImage = new URL('/og-bloemen-gorinchem.png', SITE).href;
+const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+
+const publisher = {
+  '@type': 'Organization',
+  '@id': `${SITE}/#organization`,
+  name: SITE_NAME,
+  url: SITE,
+  email: 'info@bloemen-gorinchem.nl',
+  description:
+    'Redactionele vergelijkingsgids voor bloemisten met een eigen winkel in Gorinchem, op basis van openbare gegevens en een vaste, gepubliceerde puntentelling.',
+  areaServed: {
+    '@type': 'City',
+    name: 'Gorinchem',
+    address: { '@type': 'PostalAddress', addressLocality: 'Gorinchem', addressCountry: 'NL' },
+  },
+  publishingPrinciples: `${SITE}/methode/`,
+};
+
+// Kruimelpad altijd vanaf de homepage, zodat de keten compleet is voor zoekmachines.
+const crumbTrail = [{ name: 'Home', href: '/' }, ...breadcrumbs];
+
+const graph: Record<string, unknown>[] = [
+  publisher,
+  {
+    '@type': 'WebSite',
+    '@id': `${SITE}/#website`,
+    url: SITE,
+    name: SITE_NAME,
+    inLanguage: 'nl-NL',
+    publisher: { '@id': `${SITE}/#organization` },
+  },
+  {
+    '@type': 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: fullTitle,
+    description,
+    inLanguage: 'nl-NL',
+    isPartOf: { '@id': `${SITE}/#website` },
+    dateModified,
+    primaryImageOfPage: ogImage,
+    ...(crumbTrail.length > 1
+      ? { breadcrumb: { '@id': `${canonical}#breadcrumb` } }
+      : {}),
+  },
+  ...(crumbTrail.length > 1
+    ? [
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `${canonical}#breadcrumb`,
+          itemListElement: crumbTrail.map((crumb, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: crumb.name,
+            item: new URL(crumb.href, SITE).href,
+          })),
+        },
+      ]
+    : []),
+  ...schema,
+];
+
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
 ---
 
 <html lang="nl-NL">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title} - Bloemen Gorinchem Gids</title>
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Zoekmachines mogen volledige snippets tonen: nodig om in AI-overzichten geciteerd te worden. -->
+    <meta
+      name="robots"
+      content={noindex
+        ? 'noindex, follow'
+        : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'}
+    />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
-    <!-- Open Graph / Meta -->
+    <meta name="theme-color" content="#1B4D3E" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="nl_NL" />
+    <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={Astro.site} />
-    <link rel="canonical" href={Astro.url} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bloemen Gorinchem Gids — vergelijking van bloemisten in Gorinchem" />
 
-    {schema && <script type="application/ld+json" set:html={schema} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    <!-- Umami Analytics -->
-    <script defer src="https://analytics.server-online.nl/insight.js" data-website-id="ce756465-8c31-414a-b698-6ee237b2d5b9"></script>
+    <script type="application/ld+json" set:html={jsonLd} is:inline />
+
+    <link rel="preconnect" href="https://analytics.server-online.nl" crossorigin />
+    <script
+      defer
+      src="https://analytics.server-online.nl/insight.js"
+      data-website-id="ce756465-8c31-414a-b698-6ee237b2d5b9"></script>
   </head>
   <body>
+    <a href="#hoofdinhoud" class="skip-link">Naar de inhoud</a>
     <slot />
   </body>
 </html>

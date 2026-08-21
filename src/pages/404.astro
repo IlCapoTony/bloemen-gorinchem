@@ -7,10 +7,10 @@ const pageTitle = "Pagina niet gevonden (404)";
 const pageDescription = "Sorry, de pagina die u zocht bestaat niet meer in onze gids.";
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} noindex={true}>
   <Header />
 
-  <main class="error-page container container-narrow text-center">
+  <main id="hoofdinhoud" class="error-page container container-narrow text-center">
     <div class="error-content">
       <span class="error-code">404</span>
       <h1>Pagina niet gevonden</h1>
@@ -18,7 +18,7 @@ const pageDescription = "Sorry, de pagina die u zocht bestaat niet meer in onze 
       
       <div class="actions mt-xl">
         <a href="/" class="btn btn-primary">Terug naar Home</a>
-        <a href="/bloemist-gorinchem" class="btn btn-outline ml-sm">Bekijk Alle Bloemisten</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-outline ml-sm">Bekijk Alle Bloemisten</a>
       </div>
     </div>
   </main>

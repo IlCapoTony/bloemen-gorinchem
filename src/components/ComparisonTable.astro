@@ -1,0 +1,109 @@
+---
+import type { Florist } from '../lib/florists';
+import { formatRating } from '../lib/florists';
+
+interface Props {
+  florists: Florist[];
+  caption?: string;
+}
+
+const { florists, caption } = Astro.props;
+
+const yesNo = (value: boolean) => (value ? 'Ja' : 'Nee');
+---
+
+<div class="table-scroll">
+  <table class="comparison-table">
+    {caption && <caption>{caption}</caption>}
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Bloemist</th>
+        <th scope="col">Gids Score</th>
+        <th scope="col">Google</th>
+        <th scope="col">Bestellen</th>
+        <th scope="col">Rouwwerk</th>
+        <th scope="col">Bruidswerk</th>
+        <th scope="col">Bezorgt</th>
+      </tr>
+    </thead>
+    <tbody>
+      {florists.map((florist, index) => (
+        <tr class={florist.isRecommended ? 'is-top' : ''}>
+          <td>{index + 1}</td>
+          <th scope="row"><a href={`/bloemist-gorinchem#${florist.slug}`}>{florist.name}</a></th>
+          <td class="num"><strong>{florist.score.total}</strong>/100</td>
+          <td class="num">
+            {formatRating(florist.reviews.googleScore)}
+            <span class="muted"> ({florist.reviews.googleCount})</span>
+          </td>
+          <td>{florist.ordering.channels.join(', ')}</td>
+          <td>{yesNo(florist.services.rouwwerk)}</td>
+          <td>{yesNo(florist.services.bruidswerk)}</td>
+          <td>{yesNo(florist.services.bezorging)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--color-surface);
+    font-size: 0.9375rem;
+    min-width: 46rem;
+  }
+
+  caption {
+    caption-side: top;
+    text-align: left;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    padding-bottom: var(--space-sm);
+  }
+
+  th,
+  td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead th {
+    background: var(--color-primary-dark);
+    color: white;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  tbody th {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .muted {
+    color: var(--color-text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .is-top {
+    background: #f3f7f4;
+  }
+</style>

@@ -2,52 +2,149 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import FloristCard from '../components/FloristCard.astro';
-import floristsData from '../data/florists.json';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import { florists, meta, topFlorist, formatDate, formatMonth } from '../lib/florists';
+import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
 
-const sortedFlorists = floristsData.sort((a, b) => b.scoreCalc.total - a.scoreCalc.total);
+const pageTitle = 'Bloemist Gorinchem: alle winkels vergeleken';
+const pageDescription = `Alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem naast elkaar: Google-beoordelingen, bestelmogelijkheden, rouw- en bruidswerk en openingstijden. Gecontroleerd ${formatDate(meta.lastReviewUpdate)}.`;
 
-const pageTitle = "Bloemist Gorinchem: Alle Bloemisten Vergeleken";
-const pageDescription = "Bekijk en vergelijk alle bloemisten in Gorinchem op basis van recensies, kwaliteit, bezorging en service. Ontdek onze nummer 1 aanbeveling.";
+const pageUrl = 'https://www.bloemen-gorinchem.nl/bloemist-gorinchem/';
+const breadcrumbs = [{ name: 'Bloemisten vergelijken', href: '/bloemist-gorinchem/' }];
+
+const faqs = [
+  {
+    question: 'Hoeveel bloemisten zitten er in Gorinchem?',
+    answer: `Gorinchem telt op dit moment ${florists.length} vakbloemisten met een eigen winkel: ${florists.map((f) => f.name).join(', ')}. Daarnaast is er een atelier op afspraak (Carolien Verdonk, voorheen Distel & Mirt) en zijn er landelijke bestelplatforms die zich online op Gorinchem richten zonder hier een winkel te hebben.`,
+  },
+  {
+    question: 'Waarom staat een bloemist met een 5,0 niet bovenaan?',
+    answer:
+      'Omdat een gemiddelde pas iets zegt als er genoeg mensen een oordeel hebben gegeven. Mooi Bloemen en Planten heeft een 5,0, maar uit twee beoordelingen. Wij corrigeren elk gemiddelde daarom richting het stadsgemiddelde, sterker naarmate er minder beoordelingen zijn, en geven daarnaast een bonus voor reviewvolume. Die berekening staat voluit op onze methodepagina.',
+  },
+  {
+    question: 'Wordt er betaald voor een plek in deze ranglijst?',
+    answer:
+      'Nee. Er is geen betaalde plaatsing en er zijn geen advertentieplekken in de ranglijst. De volgorde volgt uit de puntentelling die vooraf op de methodepagina staat en die u met de cijfers op elke kaart zelf kunt narekenen.',
+  },
+];
+
+const schema = [
+  rankingSchema(florists, pageUrl),
+  ...florists.map((florist, index) => floristSchema(florist, index + 1)),
+  faqSchema(faqs, pageUrl),
+];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
-      <div class="container container-narrow text-center">
-        <h1>Bloemist Gorinchem: Vergelijker</h1>
-        <p class="lead">Wij hebben de data van lokale aanbieders op een rij gezet zodat jij gemakkelijk de beste bloemist kunt kiezen voor jouw wensen.</p>
+      <div class="container container-narrow">
+        <h1>Bloemist Gorinchem: de vergelijking</h1>
+        <p class="lead">
+          Alle vakbloemisten met een eigen winkel in Gorinchem naast elkaar, met de cijfers erbij
+          waarop we ze rangschikken. Bijgewerkt in {formatMonth(meta.lastReviewUpdate)}.
+        </p>
       </div>
+    </section>
+
+    <section class="summary-section container container-narrow">
+      <div class="summary-box">
+        <h2>Kort antwoord</h2>
+        <p>
+          <strong>{topFlorist.name}</strong> staat bovenaan met {topFlorist.score.total} van 100
+          punten, gedragen door {topFlorist.reviews.googleCount} Google-beoordelingen — verreweg het
+          meeste van alle bloemisten in Gorinchem. <strong>{florists[1].name}</strong> volgt met
+          {' '}{florists[1].score.total} punten en is de sterkste keuze als u online wilt bestellen
+          en afrekenen. Het verschil tussen die twee is klein: vier punten op honderd.
+        </p>
+      </div>
+    </section>
+
+    <section class="table-section container">
+      <h2>De ranglijst in één tabel</h2>
+      <ComparisonTable
+        florists={florists}
+        caption={`Gerangschikt op Gids Score. Google-cijfers overgenomen van de bedrijfsprofielen op ${formatDate(meta.lastReviewUpdate)}.`}
+      />
     </section>
 
     <section class="comparison-section container">
-      <div class="content">
-        <h2>De Volledige Ranglijst</h2>
-        <p>Onze lijst is gebaseerd op een objectief 100-punten systeem. We kijken hierbij naar publieke reviews, bestelgemak, specialismen (zoals rouw- en bruidswerk) en de mogelijkheid voor snel afhalen in de regio Gorinchem met een hoge prijs-kwaliteit verhouding.</p>
-        
-        <div class="grid mt-xl">
-          {sortedFlorists.map((florist, index) => (
-            <FloristCard florist={florist} rank={index + 1} />
-          ))}
-        </div>
+      <h2>De volledige beoordelingen</h2>
+      <div class="grid">
+        {florists.map((florist, index) => (
+          <FloristCard florist={florist} rank={index + 1} />
+        ))}
       </div>
     </section>
 
-    <section class="criteria-section bg-light mt-2xl">
+    <section class="criteria-section bg-light">
       <div class="container container-narrow">
-        <h2>Waarom deze rangschikking?</h2>
-        <p>Het vergelijken van bloemisten doen we puur op basis van feiten en de mening van eerdere klanten. Prijs nemen we niet mee in de beoordeling, omdat flexibele producten als boeketten lastig kwalitatief 1-op-1 te vergelijken zijn.</p>
-        <ul class="criteria-list mt-md">
-          <li><strong>Publieke Waardering (Max 40 pt):</strong> Grote volume aan hoge Google en Facebook reviews.</li>
-          <li><strong>Aanbod & Specialisme (Max 20 pt):</strong> Aanwezigheid van rouwwerk, bruidswerk en een ruim online assortiment.</li>
-          <li><strong>Service & Gemak (Max 20 pt):</strong> Bestelgemak, bereikbaarheid van de fysieke winkel en efficiënte afhaalopties (Click & Collect).</li>
-          <li><strong>Transparantie (Max 20 pt):</strong> Duidelijke NAP (Name, Address, Phone) en eenvoudig lokaal bestellen.</li>
+        <h2>Waar de punten vandaan komen</h2>
+        <p>
+          De Gids Score is opgebouwd uit vier onderdelen. De eerste is gebaseerd op openbare
+          cijfers, de andere drie op controleerbare kenmerken die wij zelf per winkel nalopen. Bij
+          elke bloemist kunt u de onderbouwing per onderdeel uitklappen.
+        </p>
+        <ul class="criteria-list">
+          <li>
+            <strong>Publieke waardering (40 punten):</strong> het Google-gemiddelde, gecorrigeerd
+            voor het aantal beoordelingen, plus een bonus voor reviewvolume.
+          </li>
+          <li>
+            <strong>Service &amp; gemak (20 punten):</strong> prijs-kwaliteit zoals die uit
+            reviewinhoud blijkt, en hoe makkelijk u er langs kunt.
+          </li>
+          <li>
+            <strong>Direct bestellen &amp; transparantie (20 punten):</strong> kunt u rechtstreeks
+            bij de bloemist bestellen zonder tussenpartij, en klopt de informatie die online staat.
+          </li>
+          <li>
+            <strong>Aanbod &amp; specialisme (20 punten):</strong> rouwwerk, bruidswerk en een
+            zichtbaar actueel assortiment.
+          </li>
         </ul>
-        <div class="text-center mt-lg">
-          <a href="/methode" class="btn btn-primary">Bekijk de volledige methodiek</a>
-        </div>
+        <p class="text-center mt-lg">
+          <a href="/methode/" class="btn btn-primary">Bekijk de volledige rekenmethode</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="excluded-section container container-narrow">
+      <h2>Wie er bewust niet in staan</h2>
+      <p>
+        Een vergelijking is pas bruikbaar als ook duidelijk is wat er buiten valt. Deze partijen
+        kwamen we tegen bij het onderzoek, maar staan niet in de ranglijst:
+      </p>
+      <dl class="excluded-list">
+        {meta.excluded.map((item) => (
+          <>
+            <dt>{item.name}</dt>
+            <dd>{item.reason}</dd>
+          </>
+        ))}
+      </dl>
+    </section>
+
+    <section class="faq-section bg-light">
+      <div class="container container-narrow">
+        <h2>Veelgestelde vragen over deze vergelijking</h2>
+        {faqs.map((faq) => (
+          <details class="faq-item">
+            <summary class="faq-question"><h3>{faq.question}</h3></summary>
+            <div class="faq-answer"><p>{faq.answer}</p></div>
+          </details>
+        ))}
       </div>
     </section>
   </main>
@@ -59,13 +156,46 @@ const pageDescription = "Bekijk en vergelijk alle bloemisten in Gorinchem op bas
   .page-header {
     padding: var(--space-3xl) 0;
   }
+
+  .bg-light {
+    background-color: var(--color-bg);
+  }
+
   .lead {
     font-size: 1.25rem;
     color: var(--color-text-muted);
   }
-  .comparison-section {
-    padding: var(--space-3xl) 0;
+
+  .summary-section {
+    padding: var(--space-2xl) 0 0;
   }
+
+  .summary-box {
+    background: white;
+    border-left: 4px solid var(--color-primary);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--space-lg) var(--space-xl);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box h2 {
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+    color: var(--color-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .summary-box p {
+    margin: 0;
+    font-size: 1.0625rem;
+  }
+
+  .table-section,
+  .comparison-section,
+  .excluded-section {
+    padding: var(--space-3xl) 0 0;
+  }
+
   .grid {
     display: flex;
     flex-direction: column;
@@ -73,13 +203,19 @@ const pageDescription = "Bekijk en vergelijk alle bloemisten in Gorinchem op bas
     max-width: 800px;
     margin: 0 auto;
   }
-  .criteria-section {
+
+  .criteria-section,
+  .faq-section {
     padding: var(--space-3xl) 0;
+    margin-top: var(--space-3xl);
   }
+
   .criteria-list {
     list-style: none;
     padding-left: 0;
+    margin: var(--space-lg) 0;
   }
+
   .criteria-list li {
     background: white;
     padding: var(--space-md);
@@ -87,11 +223,48 @@ const pageDescription = "Bekijk en vergelijk alle bloemisten in Gorinchem op bas
     margin-bottom: var(--space-sm);
     box-shadow: var(--shadow-sm);
   }
-  .bg-light {
-    background-color: var(--color-bg);
+
+  .excluded-list {
+    margin-top: var(--space-lg);
   }
-  .mt-md { margin-top: var(--space-md); }
-  .mt-lg { margin-top: var(--space-lg); }
-  .mt-xl { margin-top: var(--space-xl); }
-  .mt-2xl { margin-top: var(--space-2xl); }
+
+  .excluded-list dt {
+    font-weight: 700;
+    margin-top: var(--space-md);
+  }
+
+  .excluded-list dd {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .faq-item {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+    overflow: hidden;
+  }
+
+  .faq-question {
+    padding: var(--space-lg);
+    cursor: pointer;
+  }
+
+  .faq-question h3 {
+    display: inline;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    margin: 0;
+  }
+
+  .faq-answer {
+    padding: var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .mt-lg {
+    margin-top: var(--space-lg);
+  }
 </style>

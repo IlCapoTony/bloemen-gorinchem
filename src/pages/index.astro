@@ -3,99 +3,141 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloristCard from '../components/FloristCard.astro';
-import FAQPageSchema from '../components/FAQPageSchema.astro';
-import floristsData from '../data/florists.json';
+import ComparisonTable from '../components/ComparisonTable.astro';
+import { florists, meta, topFlorist, formatDate, formatMonth, formatRating, utm } from '../lib/florists';
+import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
 
-const sortedFlorists = floristsData.sort((a, b) => b.scoreCalc.total - a.scoreCalc.total);
-const recommendedFlorist = sortedFlorists[0];
+const pageTitle = 'Bloemist Gorinchem: de 4 winkels vergeleken';
+const pageDescription = `Welke bloemist in Gorinchem kunt u het beste kiezen? Wij vergeleken alle ${florists.length} vakbloemisten met een eigen winkel op reviews, bestelgemak, rouw- en bruidswerk. Bijgewerkt ${formatMonth(meta.lastReviewUpdate)}.`;
 
-const pageTitle = "Bloemist Gorinchem Gids - Vergelijk & Vind de Beste";
-const pageDescription = "Dé onafhankelijke gids voor bloemisten in Gorinchem. Vind de best beoordeelde bloemist voor verse boeketten, eenvoudig afhalen, rouw- en bruidswerk.";
-
-const schema = JSON.stringify({
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Bloemen Gorinchem Gids",
-  "url": Astro.site
-});
+const runnerUp = florists[1];
+const pageUrl = 'https://www.bloemen-gorinchem.nl/';
 
 const faqs = [
   {
-    question: "Wanneer moet ik mijn bloemen het beste bestellen?",
-    answer: "Omdat de lokale vakbloemist met verse daghandel en maatwerk werkt, is het sterke devies: bestel minimaal 1 tot 2 dagen van tevoren. Zeker bij top-bloemisten zoals Loeff Bloemen garandeert dit de hoogste kwaliteit en een snelle, soepele overhandiging bij het afhalen in de winkel."
+    question: 'Welke bloemist in Gorinchem wordt het best beoordeeld?',
+    answer: `${topFlorist.name} aan de ${topFlorist.address.streetAddress} heeft de hoogste publieke waardering van Gorinchem: een ${formatRating(topFlorist.reviews.googleScore)} gemiddeld uit ${topFlorist.reviews.googleCount} Google-beoordelingen, ruim vier keer zoveel beoordelingen als de nummer twee. ${runnerUp.name} komt op hetzelfde gemiddelde uit, maar over ${runnerUp.reviews.googleCount} beoordelingen.`,
   },
   {
-    question: "Welke bloemist in Gorinchem wordt het best beoordeeld?",
-    answer: "Op basis van publieke Google en Facebook reviews scoort Loeff Bloemen momenteel als hoogste met meer dan 150 reviews en een 4.6. Annet Flowers (De Linie) presteert tevens uitstekend en scoort perfect op speciale platformen zoals ThePerfectWedding."
+    question: 'Waar kan ik in Gorinchem online bloemen bestellen en betalen?',
+    answer:
+      'Annet Flowers (De Linie 28) en Mooi Bloemen en Planten (Piazza Center 57) hebben allebei een werkende eigen webshop waar u direct kunt afrekenen. Loeff Bloemen en Mimosa Bloemen nemen bestellingen telefonisch of in de winkel op; de webshop van Loeff is aangekondigd maar nog niet in gebruik. Bestellen bij de bloemist zelf betekent dat er geen landelijke tussenpartij een deel van het bedrag inhoudt.',
   },
   {
-    question: "Waar kan ik veilig online bloemen bestellen in Gorinchem?",
-    answer: "Beide top-bloemisten in onze gids (zoals Loeff Bloemen en Mooi Bloemen en Planten) beschikken over een eigen, veilige webshop. Bestellen via hun eigen site is sterk aan te raden boven landelijke tussenpartijen, zodat het volledige bedrag naar de bloemen gaat."
-  }
+    question: 'Hoe lang van tevoren moet ik bloemen bestellen in Gorinchem?',
+    answer:
+      'Voor een gewoon boeket is dezelfde dag meestal genoeg: Mooi Bloemen en Planten bezorgt bij bestellen vóór 12:00 uur nog dezelfde dag in Gorinchem en Sliedrecht, Annet Flowers hanteert 14:00 uur. Voor rouwwerk en bruidswerk is maatwerk nodig; reken daarvoor op minimaal één tot twee dagen, en bij bruidswerk op een afspraak vooraf.',
+  },
+  {
+    question: 'Welke bloemen zijn in augustus in het seizoen?',
+    answer:
+      'Augustus is in Nederland de maand van dahlia’s, zonnebloemen, zinnia’s, gladiolen en hortensia’s, aangevuld met lisianthus en de eerste chrysanten. Seizoensbloemen komen uit Nederlandse teelt, hoeven niet ingevlogen te worden en staan doorgaans langer op de vaas dan bloemen buiten hun seizoen.',
+  },
+  {
+    question: 'Welke bloemisten staan wel en niet in deze gids?',
+    answer: `Deze gids gaat alleen over vakbloemisten met een eigen winkel binnen de gemeente Gorinchem, op dit moment ${florists.length} winkels. Landelijke bestelplatforms met een pagina over Gorinchem, zoals Bloemenhuis Hofman en Regiobloemist.nl, staan er bewust niet in: die hebben hier geen winkel en zetten uw bestelling door naar een aangesloten bloemist.`,
+  },
+];
+
+const schema = [
+  rankingSchema(florists, pageUrl),
+  ...florists.map((florist, index) => floristSchema(florist, index + 1)),
+  faqSchema(faqs, pageUrl),
 ];
 ---
 
 <BaseLayout title={pageTitle} description={pageDescription} schema={schema}>
   <Header />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="hero-section">
       <div class="container container-narrow">
-        <span class="eyebrow">Lokale Gids & Vergelijker</span>
-        <h1>Vind de Beste Bloemist in Gorinchem</h1>
-        
+        <p class="eyebrow">Lokale vergelijkingsgids · bijgewerkt {formatMonth(meta.lastReviewUpdate)}</p>
+        <h1>Welke bloemist in Gorinchem kunt u het beste kiezen?</h1>
+
         <div class="answer-box">
-          <h2>Onze resultaten ({new Date().toLocaleDateString('nl-NL', {month: 'long', year: 'numeric'})})</h2>
-          <p>
-            Welkom bij de Bloemen Gorinchem Gids. Wij hebben de lokale aanbieders geanalyseerd op service, prijs-kwaliteit en onafhankelijke klantwaarderingen. Op basis van deze openbare data komt <strong>{recommendedFlorist.name}</strong> momenteel als koploper naar voren. Ze scoren een enorme hoeveelheid positieve Google reviews, mede door hun uitmuntende prijs-kwaliteitverhouding en ideale locatie voor het afhalen van bestellingen. Ook <strong>Annet Flowers</strong> en <strong>Mooi Bloemen en Planten</strong> presteren sterk in onze test.
+          <p class="answer-lead">
+            <strong>{topFlorist.name}</strong> ({topFlorist.address.streetAddress}) staat op nummer 1
+            met een Gids Score van {topFlorist.score.total} van 100, vooral door het grootste
+            reviewvolume van de stad: {topFlorist.reviews.googleCount} Google-beoordelingen met een
+            {' '}{formatRating(topFlorist.reviews.googleScore)} gemiddeld. Bestellen
+            gaat er telefonisch of in de winkel. Wilt u online bestellen en direct afrekenen, dan is
+            <strong> {runnerUp.name}</strong> ({runnerUp.score.total}/100) de betere keuze.
           </p>
-          <a href="/bloemist-gorinchem" class="btn btn-primary cta-btn">
-            Bekijk de volledige vergelijking
-          </a>
+          <p class="answer-meta">
+            Gecontroleerd op <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>
+            · {florists.length} winkels vergeleken · <a href="/methode/">zo tellen wij de punten</a>
+          </p>
+          <p class="answer-actions">
+            <a
+              href={utm(topFlorist.url, 'homepage-antwoordblok')}
+              class="btn btn-primary cta-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-umami-event={`Hero CTA: ${topFlorist.name}`}
+            >
+              Naar {topFlorist.name}
+            </a>
+            <a href="/bloemist-gorinchem/" class="btn btn-outline">Bekijk de volledige vergelijking</a>
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="florists-section bg-light">
+    <section class="table-section bg-light">
       <div class="container">
-        <div class="section-header text-center">
-          <h2>Vergelijk Bloemisten Gorinchem</h2>
-          <p>Bekijk hoe de bloemisten scoren op onze strenge Gids Score.</p>
-        </div>
-        
-        <div class="florist-grid">
-          {sortedFlorists.map((florist, index) => (
-            <FloristCard florist={florist} rank={index + 1} />
-          ))}
-        </div>
-        
-        <div class="text-center mt-xl">
-          <a href="/methode" class="btn btn-outline">Lees meer over onze scoringsmethode</a>
-        </div>
+        <h2>Bloemisten in Gorinchem vergeleken</h2>
+        <ComparisonTable
+          florists={florists}
+          caption={`Alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem, gerangschikt op Gids Score. Google-cijfers afkomstig van de bedrijfsprofielen op ${formatDate(meta.lastReviewUpdate)}.`}
+        />
       </div>
     </section>
 
-    <section class="features-section container">
-      <div class="grid-2">
-        <div class="feature text-center">
-          <div class="icon">🌿</div>
-          <h3>Alleen de beste kwaliteit</h3>
-          <p>We letten op het aanbod van dagverse bloemen, rouwwerk en bruidsboekketten als teken van écht vakmanschap.</p>
-        </div>
-        <div class="feature text-center">
-          <div class="icon">⏱️</div>
-          <h3>Snel Lokaal Afhalen</h3>
-          <p>Online bestellen en direct ophalen bespaart u bezorgkosten en garandeert 100% bloemwaarde voor uw budget.</p>
-        </div>
+    <section class="florists-section container">
+      <div class="section-header">
+        <h2>De bloemisten één voor één</h2>
+        <p>
+          Elke kaart laat zien waar de punten vandaan komen, welke gegevens we hebben gecontroleerd
+          en wanneer dat voor het laatst gebeurde.
+        </p>
+      </div>
+
+      <div class="florist-grid">
+        {florists.map((florist, index) => (
+          <FloristCard florist={florist} rank={index + 1} />
+        ))}
+      </div>
+
+      <p class="text-center mt-xl">
+        <a href="/methode/" class="btn btn-outline">Lees hoe wij de Gids Score berekenen</a>
+      </p>
+    </section>
+
+    <section class="season-section bg-light">
+      <div class="container container-narrow">
+        <h2>Bloemen kopen in augustus</h2>
+        <p>
+          Augustus is een van de rijkste bloemenmaanden van het jaar in Nederland. Dahlia’s,
+          zonnebloemen, zinnia’s, gladiolen en hortensia’s komen dan uit Nederlandse teelt van
+          de veiling. Seizoensbloemen zijn niet alleen goedkoper dan bloemen die buiten hun
+          seizoen ingevlogen moeten worden, ze staan gemiddeld ook langer op de vaas.
+        </p>
+        <p>
+          Praktisch voor deze maand: vraag bij warm weer om een boeket dat net is opgemaakt in
+          plaats van eentje dat al een dag in de emmer staat, en zet het thuis niet in de volle
+          zon. Wilt u zeker weten dat een specifieke soort er is, bel dan even vooruit — het
+          dagassortiment wisselt.
+        </p>
       </div>
     </section>
 
     <section class="faq-section container container-narrow">
-      <h2 class="text-center">Veelgestelde Vragen</h2>
+      <h2>Veelgestelde vragen over bloemisten in Gorinchem</h2>
       <div class="faqs">
-        {faqs.map(faq => (
+        {faqs.map((faq) => (
           <details class="faq-item">
-            <summary class="faq-question">{faq.question}</summary>
+            <summary class="faq-question"><h3>{faq.question}</h3></summary>
             <div class="faq-answer">
               <p>{faq.answer}</p>
             </div>
@@ -106,28 +148,25 @@ const faqs = [
   </main>
 
   <Footer />
-  <FAQPageSchema faqs={faqs} />
 </BaseLayout>
 
 <style>
   .hero-section {
     padding: var(--space-3xl) 0;
-    text-align: center;
     background: linear-gradient(to bottom, var(--color-bg), var(--color-surface));
   }
-  
+
   .eyebrow {
     font-size: 0.875rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-accent);
-    display: block;
     margin-bottom: var(--space-md);
   }
 
   .hero-section h1 {
-    font-size: 3rem;
+    font-size: 2.75rem;
     margin-bottom: var(--space-2xl);
   }
 
@@ -137,44 +176,52 @@ const faqs = [
     border-radius: var(--radius-lg);
     padding: var(--space-2xl);
     box-shadow: var(--shadow-lg);
-    text-align: left;
     position: relative;
-    overflow: hidden;
-  }
-  
-  .answer-box::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; height: 6px;
-    background: var(--color-primary);
   }
 
-  .answer-box h2 {
-    font-family: var(--font-sans);
-    font-size: 1.25rem;
-    color: var(--color-primary);
-    margin-bottom: var(--space-sm);
+  .answer-lead {
+    font-size: 1.1875rem;
+    margin-bottom: var(--space-md);
   }
 
-  .answer-box p {
-    font-size: 1.125rem;
-    color: var(--color-text);
+  .answer-meta {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
     margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
   }
-  
+
+  .answer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin: 0;
+  }
+
   .cta-btn {
-    font-size: 1.125rem;
-    width: 100%;
-    padding: var(--space-md) var(--space-xl);
+    font-size: 1.0625rem;
   }
 
   .bg-light {
     background-color: var(--color-bg);
+  }
+
+  .table-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .table-section h2 {
+    margin-bottom: var(--space-lg);
+  }
+
+  .florists-section {
     padding: var(--space-3xl) 0;
   }
 
   .section-header {
-    margin-bottom: var(--space-3xl);
+    margin-bottom: var(--space-2xl);
+    max-width: var(--container-narrow);
   }
 
   .florist-grid {
@@ -185,18 +232,11 @@ const faqs = [
     margin: 0 auto;
   }
 
-  .features-section {
+  .season-section {
     padding: var(--space-3xl) 0;
   }
 
-  .grid-2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-2xl);
-  }
-
-  .icon {
-    font-size: 3rem;
+  .season-section p {
     margin-bottom: var(--space-md);
   }
 
@@ -214,12 +254,18 @@ const faqs = [
 
   .faq-question {
     padding: var(--space-lg);
-    font-weight: 600;
     cursor: pointer;
     background: var(--color-bg);
     transition: background var(--transition-fast);
   }
-  
+
+  .faq-question h3 {
+    display: inline;
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    margin: 0;
+  }
+
   .faq-question:hover {
     background: var(--color-border);
   }
@@ -230,10 +276,21 @@ const faqs = [
     color: var(--color-text-muted);
   }
 
-  .mt-xl { margin-top: var(--space-xl); }
+  .mt-xl {
+    margin-top: var(--space-xl);
+  }
 
   @media (max-width: 768px) {
-    .hero-section h1 { font-size: 2.25rem; }
-    .answer-box { padding: var(--space-xl); }
+    .hero-section h1 {
+      font-size: 2rem;
+    }
+
+    .answer-box {
+      padding: var(--space-xl);
+    }
+
+    .answer-actions .btn {
+      width: 100%;
+    }
   }
 </style>

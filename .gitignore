@@ -20,6 +20,7 @@ pnpm-debug.log*
 # macOS
 .DS_Store
 
-# IDE
+# IDE en lokale configuratie
 .idea/
 .vscode/
+.claude/

@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FAQPageSchema from '../components/FAQPageSchema.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+import { faqSchema } from '../lib/schema';
+
+const pageUrl = 'https://www.bloemen-gorinchem.nl/bloemen-bezorgen-gorinchem/';
 
 const pageTitle = "Bloemen Bezorgen Gorinchem | Lokaal & Zorgvuldig Afgeleverd";
 const pageDescription = "Bloemen bezorgen of afhalen in Gorinchem? Ontdek de best beoordeelde opties voor verse boeketten in Haarwijk, Lingewijk, Gorinchem-Oost en Dalem.";
@@ -10,28 +14,36 @@ const pageDescription = "Bloemen bezorgen of afhalen in Gorinchem? Ontdek de bes
 const faqs = [
   {
     question: "Hoe ver van tevoren moet ik mijn bloemen bestellen?",
-    answer: "Voor de beste kwaliteit en zekerheid adviseren top-bloemisten zoals Loeff Bloemen om minimaal 1 tot 2 dagen van tevoren te bestellen. Zo garanderen zij de meest verse bloemen en de benodigde tijd voor het ambachtelijke bindwerk."
+    answer: "Voor een gewoon boeket volstaat dezelfde dag meestal: Mooi Bloemen en Planten bezorgt in Gorinchem en Sliedrecht bij bestellen vóór 12:00 uur, Annet Flowers hanteert 14:00 uur. Voor rouw- en bruidswerk is maatwerk nodig; reken daar op minimaal één tot twee dagen."
   },
   {
     question: "Wat zijn de bezorgkosten voor bloemen in Gorinchem?",
-    answer: "Bezorgkosten wisselen per bloemist. Via landelijke netwerken betaalt u vaak meer (waaronder bemiddelingskosten). Door direct lokaal te bestellen via de site van de bloemist zelf, profiteert u vaak van lagere, regionale bezorgtarieven en gaat uw volledige bedrag naar de bloemen."
+    answer: "Bezorgkosten verschillen per bloemist en staan niet altijd vooraf op de website; vraag ze bij het bestellen na. Bij landelijke platforms komen de bezorgkosten er als aparte post bij, boven op de bemiddeling — bij Fleurop bijvoorbeeld € 7,70. Bestelt u rechtstreeks bij een Gorinchemse winkel, dan zit daar geen tussenpartij tussen."
   },
   {
     question: "In welke wijken in Gorinchem worden bloemen bezorgd?",
-    answer: "Lokale bloemisten bezorgen in de regel in heel Gorinchem, waaronder de Haarwijk, Lingewijk, Gorinchem-Oost, Stalkaarsen, Wijdschild, Gildenwijk, de vesting, en het aangrenzende dorp Dalem."
+    answer: "Drie van de vier bloemisten in deze gids bezorgen in Gorinchem: Loeff Bloemen, Annet Flowers en Mooi Bloemen en Planten. Dat omvat in de regel de hele stad, van de Haarwijk en Lingewijk tot Gorinchem-Oost, Stalkaarsen, Wijdschild, de Gildenwijk en de vesting. Vraag bij buitengebieden zoals Dalem vooraf even na of het adres binnen de route valt."
   }
 ];
+
+const breadcrumbs = [{"name":"Bloemen bezorgen","href":"/bloemen-bezorgen-gorinchem/"}];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={[faqSchema(faqs, pageUrl)]}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
       <div class="container container-narrow text-center">
         <h1>Bloemen Bezorgen in Gorinchem</h1>
         <p class="lead">Lokaal vakmanschap, zorgvuldig bij u of uw geliefden aan de deur bezorgd.</p>
-        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk alle lokale bloemisten</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-primary mt-sm">Vergelijk alle lokale bloemisten</a>
       </div>
     </section>
 
@@ -41,13 +53,13 @@ const faqs = [
           <h2>Waarom lokaal afhalen vaak een nóg betere keuze is</h2>
           <p>Wanneer je een geliefde wilt verrassen met een vers boeket, denk je al snel aan bezorgen. Echter, door direct lokaal uw bloemen in Gorinchem te bestellen en <strong>zelf af te halen</strong>, geniet je van drie cruciale voordelen:</p>
           <ul>
-            <li><strong>Sneller en Flexibeler:</strong> Geen wachttijden of onzekerheid over bezorgmomenten. Als u online bestelt bij een lokaal icoon zoals Loeff Bloemen, staat uw bestelling razendsnel klaar aan de Coupure.</li>
+            <li><strong>Sneller en Flexibeler:</strong> Geen wachttijden of onzekerheid over bezorgmomenten. Belt u bijvoorbeeld naar Loeff Bloemen, dan staat uw bestelling klaar om op te halen aan de Coupure.</li>
             <li><strong>Zorgvuldige Overhandiging:</strong> U overhandigt het boeket zelf, wat het cadeau nóg persoonlijker maakt.</li>
             <li><strong>100% Optimale bloemwaarde:</strong> Bezorgdiensten en landelijke ketens rekenen forse marges en bezorgkosten. Bij zelf afhalen gaat uw volledige budget rechtstreeks de vaas in, oftewel: u krijgt zichtbaar de beste prijs-kwaliteit verhouding.</li>
           </ul>
 
           <h3>Toch liever bezorgen?</h3>
-          <p>Mocht afhalen niet uitkomen, dan bieden de meeste bloemisten uiteraard nog steeds lokale bezorging aan in alle wijken (zoals de Haarwijk, Lingewijk, Gorinchem-Oost, Stalkaarsen, Wijdschild en de Gildenwijk) en in Dalem. Lokale partijen rekenen hierbij aanzienlijk eerlijkere tarieven dan landelijke dozenschuivers.</p>
+          <p>Mocht afhalen niet uitkomen: Loeff Bloemen, Annet Flowers en Mooi Bloemen en Planten bezorgen in Gorinchem, waaronder in de Haarwijk, Lingewijk, Gorinchem-Oost, Stalkaarsen, Wijdschild en de Gildenwijk. Mooi Bloemen en Planten rijdt daarnaast op Sliedrecht. Mimosa Bloemen adverteert geen eigen bezorgdienst; daar haalt u de bestelling op in de winkel aan de Langendijk.</p>
         </article>
       </div>
     </section>
@@ -70,7 +82,6 @@ const faqs = [
   </main>
 
   <Footer />
-  <FAQPageSchema faqs={faqs} />
 </BaseLayout>
 
 <style>

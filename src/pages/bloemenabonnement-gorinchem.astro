@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FAQPageSchema from '../components/FAQPageSchema.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+import { faqSchema } from '../lib/schema';
+
+const pageUrl = 'https://www.bloemen-gorinchem.nl/bloemenabonnement-gorinchem/';
 
 const pageTitle = "Bloemenabonnement Gorinchem | Elke week of maand verse bloemen";
 const pageDescription = "Altijd verse bloemen in huis? Ontdek de voordelige en flexibele bloemenabonnementen van de best beoordeelde bloemisten in Gorinchem.";
@@ -10,37 +14,45 @@ const pageDescription = "Altijd verse bloemen in huis? Ontdek de voordelige en f
 const faqs = [
   {
     question: "Kan ik het bloemenabonnement pauzeren tijdens vakanties?",
-    answer: "Ja, lokale bloemisten (in tegenstelling tot starre landelijke webshops) kenmerken zich door flexibiliteit. Zo kunt u bij de top gerangschikte adressen gemakkelijk leveringen overslaan of tijdelijk pauzeren."
+    answer: "Dat spreekt u zelf af. Geen van de vier bloemisten in Gorinchem biedt op dit moment een kant-en-klaar abonnement op de website aan; u maakt de afspraak rechtstreeks met de winkel. Juist daardoor liggen frequentie, budget en het overslaan van een week niet vast in een contract."
   },
   {
     question: "Is een bloemenabonnement inclusief leenvaas?",
-    answer: "De meeste hoogwaardige abonnementen in Gorinchem worden geleverd inclusief een passende (leen)vaas. Zo staat het boeket direct perfect geschikt op tafel."
+    answer: "Dat is geen vast gebruik in Gorinchem en staat bij geen van de vier bloemisten op de website vermeld. Vraag het na als u het belangrijk vindt — bij een afspraak op maat is het bespreekbaar."
   }
 ];
+
+const breadcrumbs = [{"name":"Bloemenabonnement","href":"/bloemenabonnement-gorinchem/"}];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={[faqSchema(faqs, pageUrl)]}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
       <div class="container container-narrow text-center">
         <h1>Bloemenabonnementen in Gorinchem</h1>
         <p class="lead">Haal wekelijks, tweewekelijks of maandelijks het seizoen in huis.</p>
-        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vind uw ideale bloemist</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-primary mt-sm">Vind uw ideale bloemist</a>
       </div>
     </section>
 
     <section class="content-section container mt-xl">
       <article class="prose max-w-700 mx-auto">
         <h2>Een Huis Vol Kleur</h2>
-        <p>Er gaat niets boven de uitstraling en geur van een vers veldboeket of strak opgemaakt bloemwerk in de woonkamer of hal. Met een lokaal bloemenabonnement in Gorinchem verzeker je jezelf van continue topkwaliteit.</p>
+        <p>Wilt u elke week of maand verse bloemen in huis, dan is dat in Gorinchem geen kwestie van een abonnement afsluiten op een website. Geen van de vier bloemisten in deze gids biedt zo’n abonnement online aan. Wat wél kan: een vaste afspraak maken met de winkel over frequentie, budget en bezorging of ophalen. In de praktijk is dat flexibeler dan een landelijk abonnement, omdat u het per keer kunt bijstellen.</p>
 
         <h3>Waarom Lokaal en Niet Landelijk?</h3>
         <ul>
           <li><strong>Minder Kilometers:</strong> Landelijke brievenbus- of pakketaanbieders verpakken bloemen droog en sturen ze via pakketdiensten rond. Een lokale bloemist snijdt ze vers aan, vult de vaas, en levert ze veilig persoonlijk af in de regio Gorinchem.</li>
-          <li><strong>Persoonlijke Smaak:</strong> Vindt u specifieke geurende bloemen of kleuren juist niet mooi? Geef het lokaal aan en de binder houdt actief rekening met de wensen van uw huishouden. Vergelijk in onze gids welke bloemist het beste is in klantenservice.</li>
-          <li><strong>Leenvaas opties:</strong> Vaak is de meegeleverde vaas qua verhouding exact afgestemd op de lengte van de bloemen, ideaal om eindeloos af te wisselen zonder kasten vol met glaswerk over te houden.</li>
+          <li><strong>Persoonlijke Smaak:</strong> Vindt u bepaalde geuren of kleuren juist niet mooi? Geef het door bij het maken van de afspraak, dan houdt de binder daar rekening mee. In onze <a href="/bloemist-gorinchem/">vergelijking</a> ziet u welke winkel bezorgt en welke niet.</li>
+          <li><strong>Leenvaas opties:</strong> Vraag bij het maken van de afspraak of er een passende vaas bij kan. Dat is geen standaard onderdeel in Gorinchem, maar wel iets wat u kunt bespreken.</li>
         </ul>
       </article>
     </section>
@@ -63,7 +75,6 @@ const faqs = [
   </main>
 
   <Footer />
-  <FAQPageSchema faqs={faqs} />
 </BaseLayout>
 
 <style>

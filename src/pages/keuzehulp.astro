@@ -2,179 +2,304 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { florists, utm } from '../lib/florists';
 
-const pageTitle = "Keuzehulp: Vind de juiste bloemist in Gorinchem";
-const pageDescription = "Weet je niet goed bij wie je moet bestellen? Gebruik onze simpele keuzehulp en vind binnen drie stappen de beste lokale match voor boeketten of bloemwerk.";
+const pageTitle = 'Keuzehulp: welke bloemist in Gorinchem past bij uw vraag?';
+const pageDescription =
+  'Twee vragen en u weet welke bloemist in Gorinchem het beste bij uw situatie past — rouwwerk, bruidswerk, online bestellen of even snel langs. Op basis van gecontroleerde gegevens.';
+
+const breadcrumbs = [{ name: 'Keuzehulp', href: '/keuzehulp/' }];
+
+// De keuzehulp rekent in de browser met dezelfde cijfers als de vergelijking,
+// zodat het antwoord echt uit de antwoorden volgt en niet vooraf vaststaat.
+const wizardData = florists.map((florist) => ({
+  name: florist.name,
+  url: utm(florist.url, 'keuzehulp'),
+  telephone: florist.telephone,
+  street: florist.address.streetAddress,
+  total: florist.score.total,
+  services: florist.services,
+  webshopLive: florist.ordering.webshopStatus === 'live',
+  channels: florist.ordering.channels.join(', '),
+  sub: {
+    prijsKwaliteit: florist.scoring.prijsKwaliteit.points,
+    advies: florist.persoonlijkAdvies.points,
+    afhaalgemak: florist.scoring.afhaalgemak.points,
+    directBestellen: florist.scoring.directBestellen.points,
+    rouwwerk: florist.scoring.rouwwerk.points,
+    bruidswerk: florist.scoring.bruidswerk.points,
+  },
+  reasons: {
+    prijs: florist.scoring.prijsKwaliteit.basis,
+    gemak: florist.scoring.afhaalgemak.basis,
+    online: florist.scoring.directBestellen.basis,
+    advies: florist.persoonlijkAdvies.basis,
+    rouw: florist.scoring.rouwwerk.basis,
+    bruid: florist.scoring.bruidswerk.basis,
+  },
+}));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} breadcrumbs={breadcrumbs}>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
-      <div class="container container-narrow text-center">
-        <h1>Bloemen Keuzehulp (Gorinchem)</h1>
-        <p class="lead">Vind binnen no-time de perfecte bloemist voor jouw specifieke situatie.</p>
+      <div class="container container-narrow">
+        <h1>Keuzehulp bloemist Gorinchem</h1>
+        <p class="lead">
+          Twee vragen, en u weet welke van de {florists.length} Gorinchemse bloemisten het beste bij
+          uw situatie past. Het antwoord volgt uit dezelfde gecontroleerde gegevens als de
+          <a href="/bloemist-gorinchem/">vergelijking</a>, niet uit een vaste voorkeur.
+        </p>
       </div>
     </section>
 
-    <section class="wizard-section container mt-xl mb-3xl">
-      <div class="wizard-container mx-auto">
-        <!-- Interactive Static Wizard via Vanilla JS -->
-        <div id="step-1" class="wizard-step active">
-          <h2>1. Wat zoek je precies?</h2>
+    <section class="wizard-section container container-narrow">
+      <form class="wizard" id="keuzehulp" data-florists={JSON.stringify(wizardData)}>
+        <fieldset class="step">
+          <legend>1. Waarvoor zoekt u bloemen?</legend>
           <div class="options">
-            <button class="btn btn-outline wizard-btn" data-next="step-2">Ik zoek een (cadeau) boeket</button>
-            <button class="btn btn-outline wizard-btn" data-next="step-2">Ik zoek specifiek Rouwwerk / Uitvaartbloemen</button>
-            <button class="btn btn-outline wizard-btn" data-next="step-2">Ik ga trouwen (Bruidswerk)</button>
+            <label><input type="radio" name="doel" value="cadeau" checked /> Een cadeauboeket</label>
+            <label><input type="radio" name="doel" value="rouw" /> Rouwwerk of afscheidsbloemen</label>
+            <label><input type="radio" name="doel" value="bruid" /> Bruidswerk</label>
+            <label><input type="radio" name="doel" value="planten" /> Planten of iets voor in huis</label>
           </div>
-        </div>
+        </fieldset>
 
-        <div id="step-2" class="wizard-step hidden">
-          <h2>2. Wanneer heb je de bloemen nodig?</h2>
+        <fieldset class="step">
+          <legend>2. Wat weegt voor u het zwaarst?</legend>
           <div class="options">
-            <button class="btn btn-outline wizard-btn" data-next="step-3">Binnen 1 of 2 dagen</button>
-            <button class="btn btn-outline wizard-btn" data-next="step-3">Morgen of later deze week</button>
-            <button class="btn btn-outline wizard-btn" data-next="step-3">Ruimschoots in de toekomst</button>
+            <label><input type="radio" name="voorkeur" value="prijs" checked /> Zoveel mogelijk bloemen voor mijn geld</label>
+            <label><input type="radio" name="voorkeur" value="online" /> Online bestellen en meteen afrekenen</label>
+            <label><input type="radio" name="voorkeur" value="gemak" /> Ruime openingstijden en makkelijk parkeren</label>
+            <label><input type="radio" name="voorkeur" value="advies" /> Persoonlijk advies in de winkel</label>
           </div>
-        </div>
+        </fieldset>
 
-        <div id="step-3" class="wizard-step hidden result-step text-center">
-          <span class="badge mb-sm">Beste Match Gevonden</span>
-          <h2>Jouw Resultaat: Loeff Bloemen</h2>
-          <p class="mt-sm">Op basis van je keuzes scoort Loeff Bloemen in onze vergelijking als de meest betrouwbare lokale optie in Gorinchem. Ze behalen momenteel <strong>98/100</strong> punten dankzij hun uitmuntende prijs-kwaliteitverhouding, uitgebreide reviews en de mogelijkheid tot vlot ophalen.</p>
-          
-          <div class="result-actions mt-lg">
-            <a href="https://www.loeffbloemen.nl/?utm_source=gids-gorinchem&utm_medium=referral&utm_campaign=keuzehulp-result" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-large" data-umami-event="Keuzehulp: Direct Bestellen">Direct Bestellen</a>
-            <p class="mt-xs"><small><a href="/bloemist-gorinchem" class="text-muted">Liever zelf alle bloemisten vergelijken?</a></small></p>
-          </div>
-          <button id="restart-btn" class="btn btn-muted mt-lg">Opnieuw beginnen</button>
-        </div>
-      </div>
+        <button type="submit" class="btn btn-primary btn-large">Toon de beste match</button>
+      </form>
+
+      <output id="resultaat" class="result" hidden>
+        <p class="result-eyebrow">Beste match voor uw antwoorden</p>
+        <h2 id="result-name"></h2>
+        <p id="result-why" class="result-why"></p>
+        <p id="result-contact" class="result-contact"></p>
+        <p class="result-actions">
+          <a id="result-link" class="btn btn-primary" target="_blank" rel="noopener noreferrer"
+            >Naar de website</a
+          >
+          <a href="/bloemist-gorinchem/" class="btn btn-outline">Zelf alles vergelijken</a>
+        </p>
+        <p class="result-note" id="result-note"></p>
+      </output>
     </section>
   </main>
 
   <Footer />
 </BaseLayout>
 
+<script>
+  const form = document.getElementById('keuzehulp') as HTMLFormElement | null;
+  const output = document.getElementById('resultaat') as HTMLElement | null;
+
+  if (form && output) {
+    const florists = JSON.parse(form.dataset.florists || '[]');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const doel = String(data.get('doel'));
+      const voorkeur = String(data.get('voorkeur'));
+
+      // Eerst afvallers: wie de gevraagde specialisatie niet levert, valt af.
+      let kandidaten = florists.filter((f: any) => {
+        if (doel === 'rouw') return f.services.rouwwerk;
+        if (doel === 'bruid') return f.services.bruidswerk;
+        return true;
+      });
+
+      if (voorkeur === 'online') {
+        const metWebshop = kandidaten.filter((f: any) => f.webshopLive);
+        if (metWebshop.length) kandidaten = metWebshop;
+      }
+
+      // Daarna rangschikken op het onderdeel dat de bezoeker belangrijk noemt.
+      const sleutel: Record<string, string> = {
+        prijs: 'prijsKwaliteit',
+        online: 'directBestellen',
+        gemak: 'afhaalgemak',
+        advies: 'advies',
+      };
+      const veld = sleutel[voorkeur] || 'prijsKwaliteit';
+
+      const winnaar = kandidaten.sort(
+        (a: any, b: any) => b.sub[veld] - a.sub[veld] || b.total - a.total
+      )[0];
+
+      if (!winnaar) return;
+
+      const redenen: Record<string, string> = {
+        prijs: winnaar.reasons.prijs,
+        online: winnaar.reasons.online,
+        gemak: winnaar.reasons.gemak,
+        advies: winnaar.reasons.advies,
+      };
+
+      const doelReden =
+        doel === 'rouw'
+          ? ` ${winnaar.reasons.rouw}`
+          : doel === 'bruid'
+            ? ` ${winnaar.reasons.bruid}`
+            : '';
+
+      (document.getElementById('result-name') as HTMLElement).textContent = winnaar.name;
+      (document.getElementById('result-why') as HTMLElement).textContent =
+        redenen[voorkeur] + doelReden;
+      (document.getElementById('result-contact') as HTMLElement).textContent =
+        `${winnaar.street}, Gorinchem · ${winnaar.telephone} · bestellen kan ${winnaar.channels}.`;
+
+      const link = document.getElementById('result-link') as HTMLAnchorElement;
+      link.href = winnaar.url;
+      link.textContent = `Naar ${winnaar.name}`;
+      link.setAttribute('data-umami-event', `Keuzehulp: ${winnaar.name}`);
+
+      (document.getElementById('result-note') as HTMLElement).textContent =
+        `Gids Score ${winnaar.total} van 100. Uw antwoorden bepalen welk onderdeel het zwaarst weegt; de onderliggende cijfers zijn voor iedereen gelijk.`;
+
+      output.hidden = false;
+      output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+</script>
+
+<noscript>
+  <div class="container container-narrow noscript-note">
+    <p>
+      De keuzehulp heeft JavaScript nodig. Zonder JavaScript kunt u de
+      <a href="/bloemist-gorinchem/">volledige vergelijking</a> gebruiken: daar staan dezelfde
+      gegevens in een tabel.
+    </p>
+  </div>
+</noscript>
+
 <style>
   .page-header {
     padding: var(--space-3xl) 0;
   }
+
   .bg-light {
     background-color: var(--color-bg);
   }
+
   .lead {
     font-size: 1.25rem;
     color: var(--color-text-muted);
   }
+
   .wizard-section {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-2xl) 0 var(--space-3xl);
   }
-  .wizard-container {
-    max-width: 600px;
+
+  .wizard {
     background: white;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-2xl);
     box-shadow: var(--shadow-md);
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
-  .wizard-step {
-    text-align: center;
-  }
-  .wizard-step.hidden {
-    display: none;
-  }
-  .wizard-step h2 {
+
+  .step {
+    border: none;
+    padding: 0;
     margin-bottom: var(--space-xl);
   }
+
+  legend {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    margin-bottom: var(--space-md);
+  }
+
   .options {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
   }
-  .wizard-btn {
-    width: 100%;
-    padding: var(--space-md) var(--space-lg);
-    font-size: 1.125rem;
-    transition: all var(--transition-fast);
-  }
-  .wizard-btn:hover {
-    background-color: var(--color-primary-light);
-    color: white;
-    border-color: var(--color-primary-light);
-  }
-  .result-step {
-    animation: fadeIn 0.5s ease;
-  }
-  .badge {
-    background: var(--color-accent);
-    color: white;
-    padding: 4px 12px;
-    border-radius: var(--radius-full);
-    font-size: 0.875rem;
-    font-weight: 700;
-    display: inline-block;
-  }
-  .btn-large {
-    font-size: 1.25rem;
-    padding: var(--space-md) var(--space-2xl);
-  }
-  .btn-muted {
-    background: transparent;
-    border: none;
-    text-decoration: underline;
-    color: var(--color-text-muted);
+
+  .options label {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     cursor: pointer;
   }
-  .text-muted { color: var(--color-text-muted); }
-  .mx-auto { margin-right: auto; margin-left: auto; }
-  .mt-sm { margin-top: var(--space-sm); }
-  .mb-sm { margin-bottom: var(--space-sm); }
-  .mt-xs { margin-top: var(--space-xs); }
-  .mt-lg { margin-top: var(--space-lg); }
-  .mt-xl { margin-top: var(--space-xl); }
-  .mb-3xl { margin-bottom: var(--space-3xl); }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+
+  .options label:hover {
+    border-color: var(--color-primary-light);
+    background: var(--color-bg);
+  }
+
+  .options input:checked + * ,
+  .options label:has(input:checked) {
+    border-color: var(--color-primary);
+    background: #f3f7f4;
+  }
+
+  .btn-large {
+    width: 100%;
+    padding: var(--space-md);
+    font-size: 1.0625rem;
+  }
+
+  .result {
+    display: block;
+    margin-top: var(--space-2xl);
+    background: white;
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+  }
+
+  .result-eyebrow {
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-accent);
+    margin-bottom: var(--space-xs);
+  }
+
+  .result-why {
+    font-size: 1.0625rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .result-contact {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .result-note {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+
+  .noscript-note {
+    padding-bottom: var(--space-2xl);
   }
 </style>
-
-<script>
-  // Simple Vanilla JS for the Step Wizard
-  document.addEventListener('DOMContentLoaded', () => {
-    const buttons = document.querySelectorAll('.wizard-btn');
-    const restartBtn = document.getElementById('restart-btn');
-    
-    buttons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const currentStep = e.target.closest('.wizard-step');
-        const nextStepId = e.target.getAttribute('data-next');
-        
-        if (currentStep && nextStepId) {
-          currentStep.classList.add('hidden');
-          const nextStep = document.getElementById(nextStepId);
-          if (nextStep) {
-            nextStep.classList.remove('hidden');
-          }
-        }
-      });
-    });
-
-    if (restartBtn) {
-      restartBtn.addEventListener('click', () => {
-        document.querySelectorAll('.wizard-step').forEach(step => {
-          step.classList.add('hidden');
-        });
-        const step1 = document.getElementById('step-1');
-        if (step1) step1.classList.remove('hidden');
-      });
-    }
-  });
-</script>

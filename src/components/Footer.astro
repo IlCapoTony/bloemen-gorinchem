@@ -1,28 +1,63 @@
 ---
+import { florists, meta, topFlorist, formatDate, utm } from '../lib/florists';
 ---
+
 <footer class="site-footer">
   <div class="container footer-container">
     <div class="footer-col">
-      <h3>Bloemen Gorinchem Gids</h3>
-      <p>Dé transparante gids voor het vinden van de best gewaardeerde bloemist in Gorinchem en omstreken.</p>
+      <h2>Bloemen Gorinchem Gids</h2>
+      <p>
+        Alle {florists.length} vakbloemisten met een eigen winkel in Gorinchem, vergeleken volgens
+        een vaste puntentelling die vooraf is gepubliceerd.
+      </p>
+      <p class="checked">
+        Laatste datacontrole:{' '}
+        <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>
+      </p>
     </div>
-    <div class="footer-col">
-      <h4>Informatie</h4>
+
+    <nav class="footer-col" aria-label="Voettekstmenu">
+      <h2>Op deze site</h2>
       <ul>
-        <li><a href="/bloemist-gorinchem">Alle Bloemisten Vergelijken</a></li>
-        <li><a href="/bloemen-bezorgen-gorinchem">Bezorgen in Gorinchem</a></li>
-        <li><a href="/methode">Hoe wij vergelijken</a></li>
-        <li><a href="/over">Over deze gids</a></li>
+        <li><a href="/bloemist-gorinchem/">Alle bloemisten vergelijken</a></li>
+        <li><a href="/bloemenwinkels-gorinchem/">Adressen en openingstijden</a></li>
+        <li><a href="/bloemen-bezorgen-gorinchem/">Bezorgen en afhalen</a></li>
+        <li><a href="/rouwboeket-gorinchem/">Rouwwerk</a></li>
+        <li><a href="/trouwboeket-gorinchem/">Bruidswerk</a></li>
+        <li><a href="/keuzehulp/">Keuzehulp</a></li>
       </ul>
-    </div>
+    </nav>
+
     <div class="footer-col">
-      <h4>Direct Bestellen?</h4>
-      <p>Onze aanbevolen en best beoordeelde keuze van dit moment:</p>
-      <a href="https://www.loeffbloemen.nl/?utm_source=gids-gorinchem&utm_medium=referral&utm_campaign=gids-footer" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top: var(--space-sm);" data-umami-event="Footer: Direct Bestellen">Direct Bestellen</a>
+      <h2>Hoogste score nu</h2>
+      <p>
+        <strong>{topFlorist.name}</strong> staat met {topFlorist.score.total} van 100 punten
+        bovenaan. <a href="/methode/">Zo tellen wij de punten.</a>
+      </p>
+      <a
+        href={utm(topFlorist.url, 'footer')}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary footer-btn"
+        data-umami-event={`Footer CTA: ${topFlorist.name}`}
+      >
+        Naar {topFlorist.name}
+      </a>
     </div>
   </div>
-  <div class="footer-bottom container text-center">
-    <p>&copy; {new Date().getFullYear()} Bloemen-Gorinchem.nl. Onder voorbehoud van typefouten en wijzigingen door aanbieders.</p>
+
+  <div class="footer-bottom container">
+    <p>
+      © {new Date().getFullYear()} Bloemen-Gorinchem.nl ·
+      <a href="/over/">Over deze gids</a> ·
+      <a href="/methode/">Methode</a> ·
+      <a href="mailto:info@bloemen-gorinchem.nl">info@bloemen-gorinchem.nl</a>
+    </p>
+    <p class="disclosure">
+      Geen betaalde plaatsing: bloemisten kunnen geen positie of vermelding kopen. Gegevens komen
+      van openbare bronnen en kunnen tussen twee controles door veranderen — controleer prijzen en
+      openingstijden bij de bloemist zelf.
+    </p>
   </div>
 </footer>
 
@@ -41,8 +76,10 @@
     margin-bottom: var(--space-2xl);
   }
 
-  .footer-col h3, .footer-col h4 {
+  .footer-col h2 {
     color: var(--color-surface);
+    font-size: 1.125rem;
+    font-family: var(--font-sans);
     margin-bottom: var(--space-md);
   }
 
@@ -57,22 +94,48 @@
 
   .footer-col a:not(.btn) {
     color: var(--color-border);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   .footer-col a:not(.btn):hover {
-    color: var(--color-accent-light);
+    color: white;
+  }
+
+  .checked {
+    font-size: 0.8125rem;
+    opacity: 0.75;
+    margin-top: var(--space-sm);
+  }
+
+  .footer-btn {
+    margin-top: var(--space-md);
   }
 
   .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     padding-top: var(--space-md);
     font-size: 0.875rem;
     color: var(--color-border);
+    text-align: center;
+  }
+
+  .footer-bottom a {
+    color: var(--color-border);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .footer-bottom a:hover {
+    color: white;
   }
 
   .disclosure {
-    margin-top: var(--space-xs);
-    font-style: italic;
+    margin-top: var(--space-sm);
+    font-size: 0.8125rem;
     opacity: 0.8;
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>

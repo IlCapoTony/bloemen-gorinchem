@@ -2,40 +2,101 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { florists, meta, formatDate } from '../lib/florists';
 
-const pageTitle = "Over Deze Gids & Disclosure";
-const pageDescription = "Lees meer over het initiatief achter de Bloemen Gorinchem Gids, het doel van de website en onze contactgegevens.";
+const pageTitle = 'Over deze gids';
+const pageDescription =
+  'Wie maakt de Bloemen Gorinchem Gids, waarom bestaat hij, hoe wordt hij betaald en hoe geeft u een correctie door?';
+
+const breadcrumbs = [{ name: 'Over deze gids', href: '/over/' }];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} breadcrumbs={breadcrumbs}>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
-      <div class="container container-narrow text-center">
-        <h1>Over Onze Gids</h1>
-        <p class="lead">Bewuste keuzes maken voor kwaliteit en lokale bloemisten stimuleren.</p>
+      <div class="container container-narrow">
+        <h1>Over deze gids</h1>
+        <p class="lead">
+          Wie dit maakt, waarom, en waar u ons op kunt aanspreken.
+        </p>
       </div>
     </section>
 
-    <section class="content-section container container-narrow mt-2xl">
+    <section class="content-section container container-narrow">
       <article class="prose">
-        <h2>Een Lokaal Initiatief</h2>
-        <p>Gorinchem is prachtig en kent ondernemers met een echt hart voor hun vak. Toen we online zochten naar een bloemist, viel ons op dat de zoekresultaten gedomineerd worden door grote, peperdure (internationale) netwerken. Deze websites pakken vaak tot wel 30% van het bedrag dat u aan bloemen spendeert als bemiddelingskosten.</p>
-        <p>Daarom is de <strong>Bloemen Gorinchem Gids</strong> in het leven geroepen: om lokale, echte bloemisten weer bovenaan de lijst te krijgen, beoordeeld op hun werkelijke prestaties.</p>
+        <h2>Waarom deze gids bestaat</h2>
+        <p>
+          Wie in Gorinchem online naar een bloemist zoekt, komt vooral landelijke bestelplatforms
+          tegen. Die hebben hier geen winkel: u bestelt bij het platform, en het platform zet de
+          opdracht door naar een aangesloten bloemist. Er gaat dus een deel van uw geld naar
+          bemiddeling en bezorging in plaats van naar bloemen — bij Fleurop bijvoorbeeld staan de
+          bezorgkosten apart op de rekening. Hoeveel er precies blijft hangen verschilt per platform
+          en wordt nergens openbaar gemaakt, dus wij noemen daar geen percentage bij.
+        </p>
+        <p>
+          Deze gids doet iets simpelers: de bloemisten die hier daadwerkelijk een winkel hebben op
+          een rij zetten, met kloppende adressen, openingstijden en beoordelingen, zodat u zelf kunt
+          kiezen en rechtstreeks bij de winkel bestelt.
+        </p>
 
-        <h2>Initiatief en Transparantie</h2>
-        <p>Gedreven door de wens naar eerlijkheid en kwaliteit in de regio, is deze website in het leven geroepen <strong>door een gezamenlijk initiatief van lokale bloemisten en liefhebbers in Gorinchem</strong>. We bundelen hiermee objectieve inzichten zodat inwoners van Gorinchem beter en direct lokaal kunnen bestellen, in plaats van te betalen voor dertien-in-een-dozijn webshops die 30% servicekosten afromen.</p>
-        
-        <p>De getoonde scores in onze <a href="/methode">objectieve vergelijking</a> zijn niet gebaseerd op voorkeur, maar tellen letterlijk de openbare Google Reviews, aangeboden specialismes en lokaal verzorgde bezorgopties op tot een maximale transparante score van 100.</p>
-        
-        <div class="disclaimer-callout mt-xl">
-          <strong>Belangrijke Notitie:</strong> Wij zijn onafhankelijk en baseren ons uitsluitend op openbare en feitelijke data van de Gorinchemse bloemisten. Staat uw bloemist erbij of is er informatie niet actueel? Laat het ons direct weten, zodat de scores voor iedereen accuraat blijven!
+        <h2>Wie het maakt</h2>
+        <p>
+          De Bloemen Gorinchem Gids wordt gemaakt en onderhouden door één inwoner van Gorinchem, niet
+          door een redactie of een uitgever. Er zit geen bedrijf achter en er wordt geen
+          journalistieke onafhankelijkheid geclaimd — het is één persoon die de openbare gegevens
+          van {florists.length} lokale bloemisten bijhoudt volgens een
+          <a href="/methode/">vaste, vooraf gepubliceerde puntentelling</a>.
+        </p>
+
+        <div class="disclosure">
+          <h3>Waar u ons op kunt afrekenen</h3>
+          <ul>
+            <li>
+              <strong>Er is geen betaalde plaatsing.</strong> Bloemisten kunnen geen positie in de
+              ranglijst kopen en geen vermelding kopen. Er staan geen advertenties op deze site.
+            </li>
+            <li>
+              <strong>De criteria staan vooraf vast en gelden voor iedereen gelijk.</strong> Ze
+              staan voluit op de <a href="/methode/">methodepagina</a>, inclusief de formule, zodat u
+              elke score zelf kunt narekenen met de cijfers op de kaart.
+            </li>
+            <li>
+              <strong>De links naar bloemisten bevatten een herkenningscode</strong> (utm-parameters)
+              zodat wij kunnen zien hoeveel bezoekers doorklikken. Dat kost u niets en levert ons
+              niets op; het is alleen een teller.
+            </li>
+            <li>
+              <strong>Wat we niet weten, zeggen we niet.</strong> Waar gegevens ontbreken of te dun
+              zijn — zoals een gemiddelde uit twee beoordelingen — staat dat er met zoveel woorden
+              bij.
+            </li>
+          </ul>
         </div>
 
-        <h3>Contact of correcties doorgeven</h3>
-        <p>Staat u als bloemist in dit overzicht en klopt er iets niet aan uw openingstijden, of heeft u zojuist een grote upgrade aan uw online service doorgevoerd? Mail ons dan direct, en we passen de score-kaart aan op basis van publiek controleerbare aanpassingen.</p>
-        <p><strong>E-mail:</strong> <a href="mailto:info@bloemen-gorinchem.nl">info@bloemen-gorinchem.nl</a></p>
+        <h2>Waar de gegevens vandaan komen</h2>
+        <p>
+          De beoordelingscijfers komen van de openbare Google-bedrijfsprofielen. Adressen,
+          openingstijden, bestelmogelijkheden en specialismen halen we van de website van de
+          bloemist zelf en vergelijken we met het Google-profiel. Alles is voor u net zo goed te
+          controleren als voor ons: de bronnen staan bij elke bloemist vermeld. De laatste controle
+          was op <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>.
+        </p>
+
+        <h2>Een correctie doorgeven</h2>
+        <p>
+          Bent u bloemist en klopt er iets niet aan uw openingstijden, uw aanbod of uw
+          bestelmogelijkheden? Of ontbreekt uw winkel terwijl u wel een eigen zaak in Gorinchem
+          heeft? Mail het door, dan passen we het aan zodra we het publiek kunnen controleren.
+          Feitelijke fouten herstellen we direct, niet pas bij de volgende ronde.
+        </p>
+        <p class="contact">
+          <strong>E-mail:</strong>
+          <a href="mailto:info@bloemen-gorinchem.nl">info@bloemen-gorinchem.nl</a>
+        </p>
       </article>
     </section>
   </main>
@@ -47,32 +108,60 @@ const pageDescription = "Lees meer over het initiatief achter de Bloemen Gorinch
   .page-header {
     padding: var(--space-3xl) 0;
   }
+
   .bg-light {
     background-color: var(--color-bg);
   }
+
   .lead {
     font-size: 1.25rem;
     color: var(--color-text-muted);
   }
-  .prose {
-    font-size: 1.125rem;
-    color: var(--color-text);
+
+  .content-section {
+    padding: var(--space-2xl) 0 var(--space-3xl);
   }
+
+  .prose {
+    font-size: 1.0625rem;
+  }
+
   .prose h2 {
     margin-top: var(--space-2xl);
     padding-bottom: var(--space-sm);
   }
-  .prose h3 {
-    margin-top: var(--space-xl);
-    color: var(--color-primary-dark);
+
+  .prose p {
+    margin-bottom: var(--space-md);
   }
-  .mt-xl { margin-top: var(--space-xl); }
-  .mt-2xl { margin-top: var(--space-2xl); }
-  .disclaimer-callout {
-    background-color: var(--color-accent-light);
-    color: #9C332A;
+
+  .disclosure {
+    background: var(--color-bg);
+    border-left: 4px solid var(--color-primary);
     padding: var(--space-lg);
-    border-left: 4px solid var(--color-accent);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin: var(--space-xl) 0;
+  }
+
+  .disclosure h3 {
+    margin-top: 0;
+    font-family: var(--font-sans);
+    font-size: 1.125rem;
+  }
+
+  .disclosure ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+  }
+
+  .disclosure li {
+    margin-bottom: var(--space-sm);
+  }
+
+  .contact {
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
   }
 </style>

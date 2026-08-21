@@ -3,11 +3,12 @@
     <div class="logo">
       <a href="/">Bloemen Gorinchem Gids</a>
     </div>
-    <nav class="main-nav">
+    <nav class="main-nav" aria-label="Hoofdmenu">
       <ul>
-        <li><a href="/bloemist-gorinchem">Vergelijk Bloemisten</a></li>
-        <li><a href="/bloemen-bezorgen-gorinchem">Bezorgen & Afhalen</a></li>
-        <li><a href="/keuzehulp">Keuzehulp</a></li>
+        <li><a href="/bloemist-gorinchem/">Vergelijk Bloemisten</a></li>
+        <li><a href="/bloemen-bezorgen-gorinchem/">Bezorgen & Afhalen</a></li>
+        <li><a href="/bloemenwinkels-gorinchem/">Adressen</a></li>
+        <li><a href="/keuzehulp/">Keuzehulp</a></li>
       </ul>
     </nav>
   </div>
@@ -54,15 +55,26 @@
   }
 
   @media (max-width: 768px) {
+    .site-header {
+      padding: var(--space-sm) 0;
+    }
+
     .header-container {
       flex-direction: column;
       text-align: center;
+      gap: var(--space-sm);
     }
-    
+
+    .logo a {
+      font-size: 1.25rem;
+    }
+
+    /* Compacter menu, zodat de kop van de pagina hoger in beeld komt. */
     .main-nav ul {
       flex-wrap: wrap;
       justify-content: center;
-      gap: var(--space-md);
+      gap: var(--space-sm) var(--space-md);
+      font-size: 0.9375rem;
     }
   }
 </style>

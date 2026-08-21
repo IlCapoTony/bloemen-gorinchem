@@ -2,60 +2,181 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { florists, meta, formatDate } from '../lib/florists';
+import { CREDIBILITY_WEIGHT, PRIOR_RATING } from '../lib/scoring';
 
-const pageTitle = "Onze Methode & Objectieve Scoring";
-const pageDescription = "Lees hier hoe Bloemen Gorinchem Gids tot de rangschikking van lokale bloemisten komt op basis van transparante, feitelijke criteria.";
+const pageTitle = 'Onze methode: zo berekenen wij de Gids Score';
+const pageDescription =
+  'De volledige rekenmethode achter de Gids Score, inclusief de formule voor het reviewgemiddelde. Elke bezoeker kan de puntentelling zelf narekenen.';
+
+const breadcrumbs = [{ name: 'Onze methode', href: '/methode/' }];
+const prior = PRIOR_RATING.toString().replace('.', ',');
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
-      <div class="container container-narrow text-center">
-        <h1>Onze Beoordelingsmethode</h1>
-        <p class="lead">Transparantie staat voorop. Ontdek hoe wij tot de maximale score van 100 punten komen voor bloemisten in de regio Gorinchem.</p>
+      <div class="container container-narrow">
+        <h1>Onze beoordelingsmethode</h1>
+        <p class="lead">
+          De Gids Score is geen mening en geen algoritme achter gesloten deuren. Hieronder staat de
+          hele telling, inclusief de formule. Met de cijfers die op elke bloemistkaart staan, komt u
+          zelf op hetzelfde getal uit.
+        </p>
       </div>
     </section>
 
-    <section class="content-section container container-narrow mt-2xl">
+    <section class="content-section container container-narrow">
       <article class="prose">
-        <h2>Geen meningen, maar feiten</h2>
-        <p>Wij geloven dat de beste keuze voor een bloemist niet afhangt van wie de mooiste advertentie heeft, maar van de daadwerkelijke klantervaring en geboden diensten. Daarom vermijden we prijsvergelijkingen (die vaak ten koste gaan van kwaliteit) en focussen we op <strong>service, specialisme, online gemak en publieke beoordelingen</strong>.</p>
+        <h2>Wie er wel en niet in de gids staan</h2>
+        <p>
+          De gids gaat over <strong>{meta.coverage.toLowerCase()}</strong>. Landelijke
+          bestelplatforms met een pagina over Gorinchem nemen we niet op: die hebben hier geen
+          winkel en zetten uw bestelling door naar een aangesloten bloemist. Ateliers die alleen op
+          afspraak werken vallen er ook buiten, omdat u er niet zomaar naar binnen kunt lopen. Welke
+          partijen we om welke reden hebben laten liggen, staat onderaan de
+          <a href="/bloemist-gorinchem/">vergelijking</a>.
+        </p>
 
-        <h3>1. Publieke Waardering (Maximaal 40 Punten)</h3>
-        <p>De mening van eerdere klanten is de meest waardevolle graadmeter. We berekenen deze score als volgt:</p>
+        <h2>1. Publieke waardering — 40 punten</h2>
+        <p>
+          Dit is het enige onderdeel dat volledig op externe cijfers rust: de Google-beoordelingen
+          van het bedrijfsprofiel. Een gemiddelde zegt alleen iets als genoeg mensen een oordeel
+          hebben gegeven — een 5,0 uit twee beoordelingen is minder zeker dan een 4,6 uit
+          honderdvijftig. Daarom trekken we elk gemiddelde naar het stadsgemiddelde toe, en sterker
+          naarmate er minder beoordelingen zijn:
+        </p>
+        <p class="formula">
+          gecorrigeerd&nbsp;gemiddelde = (aantal × score + {CREDIBILITY_WEIGHT} × {prior}) ÷ (aantal
+          + {CREDIBILITY_WEIGHT})
+        </p>
+        <p>
+          Daarin is {prior} het behoudende stadsgemiddelde voor bloemisten in Gorinchem en
+          {' '}{CREDIBILITY_WEIGHT} het aantal beoordelingen waaronder een gemiddelde nog flink
+          wordt bijgesteld. Het resultaat vermenigvuldigen we met 6, met een maximum van 30 punten.
+        </p>
         <ul>
-          <li><strong>Gemiddelde Score (30 pt):</strong> De Google Review score x 6. Een 5.0 levert de maximale 30 punten op. Een 4.0 levert 24 punten op.</li>
-          <li><strong>Volume Bonus (10 pt):</strong> Bloemisten met meer dan 50 reviews krijgen een 10-punten bonus vanwege de opgebouwde betrouwbaarheid van de score. Tussen 20 en 50 reviews levert 5 punten op.</li>
+          <li><strong>Beoordelingsscore (max. 30 punten):</strong> gecorrigeerd gemiddelde × 6.</li>
+          <li>
+            <strong>Volumebonus (max. 10 punten):</strong> meer dan 50 beoordelingen levert 10
+            punten op, 20 tot en met 50 beoordelingen 5 punten, minder dan 20 beoordelingen geen
+            punten. Bij minder dan 20 beoordelingen zetten we bovendien een waarschuwing op de
+            kaart.
+          </li>
         </ul>
 
-        <h3>2. Service & Gemak (Maximaal 20 Punten)</h3>
+        <h2>2. Service &amp; gemak — 20 punten</h2>
         <ul>
-          <li><strong>Uitmuntende Prijs-Kwaliteit (10 pt):</strong> Krijgt u als klant zichtbaar 100% bloemwaarde voor de prijs die u betaalt bij afhalen of lokale bezorging?</li>
-          <li><strong>Snel en makkelijk Afhalen (10 pt):</strong> Heeft de bloemist een goed bereikbare winkel waar online bestellingen (click & collect) veilig en direct afgehaald kunnen worden zonder wachttijd?</li>
+          <li>
+            <strong>Prijs-kwaliteit (max. 10 punten):</strong> niet ons eigen prijsoordeel, maar wat
+            klanten er in hun beoordelingen zelf over schrijven. Komt prijs vaak en positief terug,
+            dan levert dat punten op.
+          </li>
+          <li>
+            <strong>Langsgaan (max. 10 punten):</strong> hoeveel dagen per week de winkel open is,
+            hoe ruim de openingstijden zijn en hoe makkelijk de winkel bereikbaar is.
+          </li>
         </ul>
 
-        <h3>3. Transparantie & Bestelgemak (Maximaal 20 Punten)</h3>
+        <h2>3. Direct bestellen &amp; transparantie — 20 punten</h2>
         <ul>
-          <li><strong>Eigen Online Shop (10 pt):</strong> Is er een mogelijkheid om direct via de website van de lokale bloemist veilig te betalen en bestellen (zonder landelijke tussenpartijen die marges afromen)?</li>
-          <li><strong>Up-to-date Informatie (10 pt):</strong> Zijn adres, openingstijden en contactgegevens helder en consistent te vinden?</li>
+          <li>
+            <strong>Rechtstreeks bestellen (max. 10 punten):</strong> kunt u de bestelling bij de
+            bloemist zelf plaatsen — telefonisch, in de winkel of via een eigen webshop — zonder dat
+            een landelijke tussenpartij ertussen zit? Een aangekondigde webshop die niet werkt kost
+            punten, omdat bezoekers erop afkomen en dan alsnog moeten bellen.
+          </li>
+          <li>
+            <strong>Kloppende informatie (max. 10 punten):</strong> komen adres, telefoonnummer en
+            openingstijden op de eigen website overeen met het Google-bedrijfsprofiel?
+          </li>
         </ul>
 
-        <h3>4. Aanbod & Specialisme (Maximaal 20 Punten)</h3>
+        <h2>4. Aanbod &amp; specialisme — 20 punten</h2>
         <ul>
-          <li><strong>Rouwwerk (7 pt):</strong> Specifieke expertise en aandacht voor uitvaartbloemen.</li>
-          <li><strong>Bruidswerk (7 pt):</strong> Ervaring in bruidsboeketten en styling.</li>
-          <li><strong>Zichtbaar vers aanbod (6 pt):</strong> Een wisselend en actueel aanbod zichtbaar op de website.</li>
+          <li><strong>Rouwwerk (7 punten):</strong> aantoonbaar aanbod van afscheidsbloemwerk.</li>
+          <li><strong>Bruidswerk (7 punten):</strong> aantoonbaar aanbod van bruidsboeketten en bruidswerk.</li>
+          <li>
+            <strong>Zichtbaar actueel aanbod (6 punten):</strong> is online te zien wat er nu
+            in de winkel ligt, met foto's en prijzen?
+          </li>
         </ul>
 
-        <h2>Onafhankelijkheid en Updates</h2>
-        <p>De scores in onze database worden periodiek nagelopen. Onderaan elke bloemist-kaart vindt u de <em>"Laatste check"</em> datum, zodat u zeker weet dat u op actuele informatie vertrouwt.</p>
+        <h2>Wat we bewust niet meewegen</h2>
+        <ul>
+          <li>
+            <strong>Prijs als los cijfer.</strong> Boeketten zijn maatwerk; een boeket van € 30 bij
+            de één is niet hetzelfde product als een boeket van € 30 bij de ander. We kijken naar wat
+            klanten over de prijs-kwaliteitverhouding zeggen, niet naar het bedrag zelf.
+          </li>
+          <li>
+            <strong>Betaalde plaatsing.</strong> Die bestaat hier niet. Bloemisten kunnen geen positie
+            en geen vermelding kopen.
+          </li>
+          <li>
+            <strong>Onze eigen smaak.</strong> Hoe mooi wij een boeket vinden telt niet mee — dat is
+            niet controleerbaar en dus niet bruikbaar.
+          </li>
+        </ul>
+
+        <h2>Hoe vaak we controleren</h2>
+        <p>
+          De gegevens worden maandelijks nagelopen: reviewcijfers, openingstijden, telefoonnummers,
+          of webshops nog werken en of er bloemisten bij zijn gekomen of verdwenen. De laatste
+          controle was op{' '}
+          <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>. Op elke
+          bloemistkaart staat de datum waarop die winkel voor het laatst is gecontroleerd.
+        </p>
+
+        <h2>De huidige uitkomst</h2>
+        <div class="table-scroll">
+          <table class="score-table">
+            <caption>Puntentelling per bloemist op {formatDate(meta.lastReviewUpdate)}.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Bloemist</th>
+                <th scope="col">Waardering<br /><small>/40</small></th>
+                <th scope="col">Service<br /><small>/20</small></th>
+                <th scope="col">Bestellen<br /><small>/20</small></th>
+                <th scope="col">Aanbod<br /><small>/20</small></th>
+                <th scope="col">Totaal<br /><small>/100</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              {florists.map((florist) => (
+                <tr>
+                  <th scope="row">{florist.name}</th>
+                  <td>{florist.score.waardering.toString().replace('.', ',')}</td>
+                  <td>{florist.score.serviceGemak}</td>
+                  <td>{florist.score.directTransparant}</td>
+                  <td>{florist.score.aanbodSpecialisme}</td>
+                  <td><strong>{florist.score.total}</strong></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Klopt er iets niet?</h2>
+        <p>
+          Bent u bloemist en klopt er iets niet, of is er iets veranderd dat punten waard is? Mail
+          het naar <a href="mailto:info@bloemen-gorinchem.nl">info@bloemen-gorinchem.nl</a>. Als het
+          publiek te controleren is, passen we het aan bij de eerstvolgende ronde — of eerder, als
+          het om een feitelijke fout gaat.
+        </p>
       </article>
-      
-      <div class="text-center call-to-action mt-2xl">
-        <a href="/bloemist-gorinchem" class="btn btn-primary">Bekijk het resultaat</a>
-      </div>
+
+      <p class="text-center call-to-action">
+        <a href="/bloemist-gorinchem/" class="btn btn-primary">Bekijk de vergelijking</a>
+      </p>
     </section>
   </main>
 
@@ -66,36 +187,92 @@ const pageDescription = "Lees hier hoe Bloemen Gorinchem Gids tot de rangschikki
   .page-header {
     padding: var(--space-3xl) 0;
   }
+
   .bg-light {
     background-color: var(--color-bg);
   }
+
   .lead {
     font-size: 1.25rem;
     color: var(--color-text-muted);
   }
-  .prose {
-    font-size: 1.125rem;
-    color: var(--color-text);
+
+  .content-section {
+    padding: var(--space-2xl) 0 var(--space-3xl);
   }
+
+  .prose {
+    font-size: 1.0625rem;
+  }
+
   .prose h2 {
     margin-top: var(--space-2xl);
     padding-bottom: var(--space-sm);
     border-bottom: 2px solid var(--color-border);
   }
-  .prose h3 {
-    margin-top: var(--space-xl);
-    color: var(--color-primary-light);
-  }
+
   .prose ul {
     margin-bottom: var(--space-xl);
     padding-left: var(--space-xl);
   }
+
   .prose li {
-    margin-bottom: var(--space-xs);
+    margin-bottom: var(--space-sm);
   }
+
+  .formula {
+    background: var(--color-bg);
+    border-left: 4px solid var(--color-primary);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9375rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    margin-bottom: var(--space-xl);
+  }
+
+  .score-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    min-width: 34rem;
+  }
+
+  .score-table caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    padding-top: var(--space-sm);
+  }
+
+  .score-table th,
+  .score-table td {
+    padding: var(--space-sm);
+    border-bottom: 1px solid var(--color-border);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .score-table thead th {
+    text-align: right;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .score-table tbody th {
+    text-align: left;
+    font-family: var(--font-sans);
+  }
+
   .call-to-action {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-2xl) 0 0;
     border-top: 1px solid var(--color-border);
+    margin-top: var(--space-2xl);
   }
-  .mt-2xl { margin-top: var(--space-2xl); }
 </style>

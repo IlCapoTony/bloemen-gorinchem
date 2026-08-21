@@ -2,7 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FAQPageSchema from '../components/FAQPageSchema.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+import { faqSchema } from '../lib/schema';
+
+const pageUrl = 'https://www.bloemen-gorinchem.nl/rouwboeket-gorinchem/';
 
 const pageTitle = "Rouwboeket Gorinchem | Persoonlijk en Zorgvuldig Afscheid";
 const pageDescription = "Zoekt u een rouwboeket of rouwstuk in regio Gorinchem? Vergelijk de specialisten voor een zorgvuldig, prachtig en passend afscheid.";
@@ -10,7 +14,7 @@ const pageDescription = "Zoekt u een rouwboeket of rouwstuk in regio Gorinchem? 
 const faqs = [
   {
     question: "Welke bloemist is gespecialiseerd in rouwwerk in Gorinchem?",
-    answer: "Zowel Loeff Bloemen (bekend om een breed, online bestelbaar arrangementen-aanbod) als Annet Flowers scoren zeer hoog qua vakkennis voor zorgvuldig, ingetogen of juist uitbundig rouwwerk. Beiden denken graag met hun klanten mee in zware tijden."
+    answer: "Alle vier de bloemisten in onze gids leveren rouwwerk. Loeff Bloemen heeft er het langst ervaring mee en rouwwerk komt terug in recente klantbeoordelingen; Annet Flowers en Mimosa Bloemen hebben er een eigen afdeling voor, Mooi Bloemen en Planten adviseert over afscheidsstukken. Rouwwerk is altijd maatwerk: bel of loop binnen, dan bespreekt u de wensen persoonlijk."
   },
   {
     question: "Aan welke locaties in Gorinchem bezorgen ze een rouwstuk?",
@@ -18,35 +22,43 @@ const faqs = [
   },
   {
     question: "Moet ik een lint toevoegen aan het rouwboeket?",
-    answer: "Een lint is optioneel, hoewel een bedrukt lint vaak troost biedt of dient als mooie laatste groet. Via de websites van deze specialisten bestelt u dit veelal eenvoudig mee."
+    answer: "Een lint is optioneel, hoewel een bedrukt lint vaak troost biedt of dient als mooie laatste groet. Bespreek dit bij het doorgeven van de opdracht; de tekst wordt dan bij de leverancier van het lint besteld, wat een dag extra kan kosten."
   }
 ];
+
+const breadcrumbs = [{"name":"Rouwboeket Gorinchem","href":"/rouwboeket-gorinchem/"}];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={[faqSchema(faqs, pageUrl)]}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
       <div class="container container-narrow text-center">
         <h1>Passend Rouwwerk in Gorinchem</h1>
         <p class="lead">Met zorg en respect samengesteld voor een persoonlijk afscheid rondom Gorinchem.</p>
-        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk alle uitvaart specialisten</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-primary mt-sm">Vergelijk alle uitvaart specialisten</a>
       </div>
     </section>
 
     <section class="content-section container mt-xl">
       <article class="prose max-w-700 mx-auto">
         <h2>Een Laatste Groet in Bloemen</h2>
-        <p>Afscheid nemen van een dierbare vereist aandacht. Een rouwboeket of bloemstuk vertelt vaak wat woorden tekort komen. Dit is exact de reden dat ons onafhankelijke algoritme 'Rouwwerk Specialisme' meeweegt in de beoordeling van de getoonde bloemisten.</p>
+        <p>Afscheid nemen van een dierbare vereist aandacht. Een rouwboeket of bloemstuk vertelt vaak wat woorden tekort komen. Daarom telt rouwwerk in onze puntentelling mee als apart onderdeel: het is een vak apart, en niet elke winkel doet het even vaak.</p>
         
-        <p>Lokale bloemisten (zoals Loeff Bloemen en Annet Flowers) die het ambacht van rouwbindwerk beheersen, bieden flexibiliteit. Ze luisteren naar uw specifieke wensen – zoals de lievelingsbloem of kleur van de overledene – en zorgen dat alles op het laatste moment klopt.</p>
+        <p>Bloemisten die het ambacht van rouwbindwerk beheersen, bieden flexibiliteit. Ze luisteren naar uw specifieke wensen – zoals de lievelingsbloem of kleur van de overledene – en zorgen dat alles op het laatste moment klopt.</p>
 
         <h3>Ontzorgen in een Moeilijke Tijd</h3>
-        <p>Wanneer u kiest voor een hoog aangeschreven lokale deskundige, in plaats van een online dozenschuiver, weet u zeker dat kwetsbare rouwstukken respectvol en op de vereiste locatie (of dat nu een uitvaartcentrum, begraafplaats, de kerk of thuis is) worden bezorgd.</p>
+        <p>Rouwstukken zijn kwetsbaar en moeten op een vast tijdstip op de juiste plek staan — een uitvaartcentrum, begraafplaats, kerk of thuisadres. Een bloemist uit Gorinchem rijdt die route zelf en kan het tijdstip met u afstemmen; bij een landelijk platform gaat het stuk via een aangesloten bloemist die u niet kent en niet spreekt.</p>
 
         <h3>Rouwarrangementen en linten bestellen</h3>
-        <p>Vrijwel al het rouwwerk, van liggende stukken (biedermeiers), hartvormig rouwwerk of kleine subtiele troostboeketten, kan direct online met de lokale expert worden geregeld. Inclusief het toevoegen van een afscheidslint of een kaartje. </p>
+        <p>Rouwwerk — van biedermeiers en hartvormige stukken tot kleine troostboeketten — regelt u in Gorinchem het snelst per telefoon of aan de balie. Ook een afscheidslint of kaartje spreekt u dan meteen door. Alleen Annet Flowers en Mooi Bloemen en Planten hebben een webshop waarin u zelf kunt afrekenen; de andere twee nemen de opdracht persoonlijk op.</p>
       </article>
     </section>
 
@@ -68,7 +80,6 @@ const faqs = [
   </main>
 
   <Footer />
-  <FAQPageSchema faqs={faqs} />
 </BaseLayout>
 
 <style>

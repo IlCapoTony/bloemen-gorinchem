@@ -2,44 +2,116 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import floristsData from '../data/florists.json';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { florists, meta, formatDate, formatRating, utm } from '../lib/florists';
+import { floristSchema } from '../lib/schema';
 
-const sortedFlorists = floristsData.sort((a, b) => b.scoreCalc.total - a.scoreCalc.total);
+const pageTitle = 'Bloemenwinkels Gorinchem: adressen en openingstijden';
+const pageDescription = `Adressen, telefoonnummers en openingstijden van alle ${florists.length} bloemenwinkels in Gorinchem, van de vesting tot winkelcentrum Piazza. Gecontroleerd ${formatDate(meta.lastReviewUpdate)}.`;
 
-const pageTitle = "Bloemenwinkels Gorinchem | Bekijk het lokale aanbod";
-const pageDescription = "Overzicht van bloemenwinkels en bloemisten in Gorinchem. Bekijk adressen, details en ontdek de best beoordeelde bloemenzaak.";
+const breadcrumbs = [{ name: 'Bloemenwinkels in Gorinchem', href: '/bloemenwinkels-gorinchem/' }];
+const schema = florists.map((florist, index) => floristSchema(florist, index + 1));
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
-      <div class="container container-narrow text-center">
+      <div class="container container-narrow">
         <h1>Bloemenwinkels in Gorinchem</h1>
-        <p class="lead">Een overzicht van fysieke bloemenzaken in de regio Gorinchem met bijbehorende contactgegevens.</p>
+        <p class="lead">
+          De adressen op een rij: waar ze zitten, wanneer ze open zijn en hoe u er bestelt. Wilt u
+          weten welke winkel het beste bij uw vraag past, kijk dan in de
+          <a href="/bloemist-gorinchem/">vergelijking</a>.
+        </p>
       </div>
     </section>
 
-    <section class="directory-section container mt-2xl">
-      <p class="text-center mb-xl">Wilt u niet langs de winkel, maar snel lokaal bloemen laten bezorgen? Bekijk dan direct ons <a href="/bloemist-gorinchem">onafhankelijke beste-keuze overzicht</a>.</p>
-      
+    <section class="directory-section container">
       <div class="shop-grid">
-        {sortedFlorists.map(florist => (
-          <article class={`shop-card ${florist.isRecommended ? 'highlighted' : ''}`}>
-            {florist.isRecommended && <span class="badge">Aanbevolen</span>}
-            <h2>{florist.name}</h2>
-            <div class="shop-details">
-              <p><strong>Adres:</strong> <br/>{florist.address.streetAddress}<br/>{florist.address.postalCode} {florist.address.addressLocality}</p>
-              <p><strong>Telefoon:</strong> {florist.telephone}</p>
-              <p><strong>Google Score:</strong> {florist.reviews.googleScore} / 5.0</p>
-            </div>
-            <a href={florist.isRecommended ? `${florist.url}/?utm_source=gids-gorinchem&utm_medium=referral&utm_campaign=gids-directory` : florist.url} class="btn btn-outline shop-btn" target="_blank" rel={florist.isRecommended ? 'noopener noreferrer' : 'noopener noreferrer nofollow'} data-umami-event={`Directory: ${florist.name}`}>
-              Bezoek Website
-            </a>
-          </article>
-        ))}
+        {florists.map((florist) => {
+          const openDays = florist.openingHours.filter((slot) => !slot.closed);
+          const closedDays = florist.openingHours
+            .filter((slot) => slot.closed)
+            .map((slot) => slot.day);
+
+          return (
+            <article class={`shop-card ${florist.isRecommended ? 'highlighted' : ''}`}>
+              <h2>{florist.name}</h2>
+
+              <p class="address">
+                {florist.address.streetAddress}<br />
+                {florist.address.postalCode} {florist.address.addressLocality}
+              </p>
+
+              <p class="contact">
+                <a
+                  href={`tel:+31${florist.telephone.replace(/\D/g, '').replace(/^0/, '')}`}
+                  data-umami-event={`Bellen directory: ${florist.name}`}>{florist.telephone}</a>
+              </p>
+
+              {openDays.length > 0 ? (
+                <ul class="hours">
+                  {openDays.map((slot) => (
+                    <li><span>{slot.day}</span><span>{slot.opens} – {slot.closes}</span></li>
+                  ))}
+                  {closedDays.length > 0 && (
+                    <li class="closed"><span>{closedDays.join(', ')}</span><span>gesloten</span></li>
+                  )}
+                </ul>
+              ) : (
+                <p class="hours-unknown">
+                  Openingstijden staan niet volledig op de eigen website; bel even vooruit.
+                </p>
+              )}
+
+              <p class="ordering"><strong>Bestellen:</strong> {florist.ordering.channels.join(', ')}</p>
+
+              <p class="score">
+                Gids Score {florist.score.total}/100 ·{' '}
+                {formatRating(florist.reviews.googleScore)} uit{' '}
+                {florist.reviews.googleCount} Google-beoordelingen
+              </p>
+
+              <p class="links">
+                <a
+                  href={utm(florist.url, 'directory')}
+                  class="btn btn-outline shop-btn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-umami-event={`Directory: ${florist.name}`}
+                >
+                  Website
+                </a>
+                {florist.googleMapsUrl && (
+                  <a
+                    href={florist.googleMapsUrl}
+                    class="map-link"
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    data-umami-event={`Route: ${florist.name}`}
+                  >
+                    Route
+                  </a>
+                )}
+              </p>
+            </article>
+          );
+        })}
       </div>
+
+      <p class="checked-note">
+        Alle gegevens gecontroleerd op{' '}
+        <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>. Klopt er
+        iets niet? <a href="/over/">Laat het ons weten</a>.
+      </p>
     </section>
   </main>
 
@@ -50,57 +122,102 @@ const pageDescription = "Overzicht van bloemenwinkels en bloemisten in Gorinchem
   .page-header {
     padding: var(--space-3xl) 0;
   }
+
   .bg-light {
     background-color: var(--color-bg);
   }
+
   .lead {
     font-size: 1.25rem;
     color: var(--color-text-muted);
   }
+
   .directory-section {
-    padding-bottom: var(--space-3xl);
+    padding: var(--space-3xl) 0;
   }
+
   .shop-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--space-xl);
   }
+
   .shop-card {
     background: white;
     border: 1px solid var(--color-border);
     padding: var(--space-xl);
     border-radius: var(--radius-md);
-    position: relative;
     box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
   }
+
   .shop-card.highlighted {
     border-color: var(--color-primary);
-    box-shadow: var(--shadow-md);
   }
-  .badge {
-    position: absolute;
-    top: -12px;
-    right: 20px;
-    background: var(--color-accent);
-    color: white;
-    padding: 2px 12px;
-    border-radius: var(--radius-full);
-    font-size: 0.75rem;
-    font-weight: bold;
-  }
+
   .shop-card h2 {
-    font-size: 1.5rem;
+    font-size: 1.375rem;
     font-family: var(--font-sans);
+    margin-bottom: var(--space-sm);
+  }
+
+  .address,
+  .contact {
+    margin-bottom: var(--space-sm);
+    font-size: 0.9375rem;
+  }
+
+  .hours {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-md);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  .hours li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-md);
+  }
+
+  .hours-unknown {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
     margin-bottom: var(--space-md);
   }
-  .shop-details p {
-    margin-bottom: var(--space-xs);
-    font-size: 0.95rem;
+
+  .ordering,
+  .score {
+    font-size: 0.875rem;
+    margin-bottom: var(--space-sm);
   }
+
+  .score {
+    color: var(--color-text-muted);
+  }
+
+  .links {
+    margin: auto 0 0;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding-top: var(--space-md);
+  }
+
   .shop-btn {
-    width: 100%;
-    margin-top: var(--space-md);
+    flex: 1;
   }
-  .mb-xl { margin-bottom: var(--space-xl); }
-  .mt-2xl { margin-top: var(--space-2xl); }
+
+  .map-link {
+    font-size: 0.875rem;
+  }
+
+  .checked-note {
+    margin-top: var(--space-2xl);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    text-align: center;
+  }
 </style>

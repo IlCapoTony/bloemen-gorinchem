@@ -2,20 +2,24 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const pageTitle = "Zakelijke Bloemen Gorinchem | Flexibel B2B Bestellen";
 const pageDescription = "Van de balie tot relatiegeschenken: bestel uw zakelijke bloemen op rekening bij de best aangeschreven lokale bloemist in Gorinchem en wijde regio.";
+
+const breadcrumbs = [{"name":"Zakelijke bloemen","href":"/zakelijke-bloemen-gorinchem/"}];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription}>
+<BaseLayout title={pageTitle} description={pageDescription} breadcrumbs={breadcrumbs}>
   <Header />
+  <Breadcrumbs items={breadcrumbs} />
 
-  <main>
+  <main id="hoofdinhoud">
     <section class="page-header bg-light">
       <div class="container container-narrow text-center">
         <h1>Zakelijke Bloemen Gorinchem</h1>
         <p class="lead">Verwelkom medewerkers en gasten met een levendig kantoor, of verras relaties in stijl.</p>
-        <a href="/bloemist-gorinchem" class="btn btn-primary mt-sm">Vergelijk zakelijke aanbieders</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-primary mt-sm">Vergelijk zakelijke aanbieders</a>
       </div>
     </section>
 
@@ -25,17 +29,17 @@ const pageDescription = "Van de balie tot relatiegeschenken: bestel uw zakelijke
         <p>Een entree, balie of vergaderzaal zonder groen kan sfeerloos aanvoelen. Lokaal geregelde zakelijke bloemarrangementen in Gorinchem zorgen voor een warme en professionele ontvangst van uw bezoek. </p>
 
         <h3>Zakelijk Gemak & Facturatie</h3>
-        <p>De best presterende Gorcumse bloemisten onderscheiden zich door B2B perfect te faciliteren. Denk hierbij aan voordelen zoals:</p>
+        <p>Eén bloemist in Gorinchem heeft hier een aparte voorziening voor: Annet Flowers werkt met een eigen zakelijk portaal met inlog. Bij Loeff Bloemen, Mooi Bloemen en Planten en Mimosa Bloemen maakt u zakelijke afspraken rechtstreeks met de winkel. Wat in de praktijk speelt:</p>
         <ul>
-          <li><strong>Bestellen op Rekening / Factuur:</strong> Medewerkers (of de balie/receptie) kunnen bij bloemisten met een eigen platform via zakelijke inlog eenvoudig online boeketten reserveren.</li>
-          <li><strong>Boeketten voor Personeel:</strong> Een bos bloemen ter felicitatie voor een jubileum of bij beterschap (met kaartje en factuur referentie) lokaal dezelfde dag nog bezorgd.</li>
+          <li><strong>Bestellen op Rekening / Factuur:</strong> Bij Annet Flowers kunnen medewerkers via de zakelijke inlog zelf bestellingen plaatsen. Bij de andere winkels regelt u facturatie in overleg; vraag ernaar bij de eerste opdracht.</li>
+          <li><strong>Boeketten voor Personeel:</strong> Een boeket ter felicitatie of bij beterschap, met kaartje, kan bij Annet Flowers en Mooi Bloemen en Planten dezelfde dag bezorgd worden als u op tijd bestelt — vóór 14:00 respectievelijk 12:00 uur.</li>
           <li><strong>Event Styling:</strong> Op maat gemaakte bedrijfsarrangementen, kerstversiering of tafelpotten bij bedrijfsevents in de Grote Kerk of eigen kantoor.</li>
         </ul>
 
       </article>
       
       <div class="text-center call-to-action mt-2xl pb-2xl">
-        <a href="/bloemist-gorinchem" class="btn btn-outline">Check de Vergelijker</a>
+        <a href="/bloemist-gorinchem/" class="btn btn-outline">Check de Vergelijker</a>
       </div>
     </section>
   </main>
