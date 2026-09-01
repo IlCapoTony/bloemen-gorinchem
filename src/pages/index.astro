@@ -6,12 +6,14 @@ import FloristCard from '../components/FloristCard.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
 import { florists, meta, topFlorist, formatDate, formatMonth, formatRating, utm } from '../lib/florists';
 import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
+import { seizoenVoor } from '../data/seizoen';
 
 const pageTitle = 'Bloemist Gorinchem: de 4 winkels vergeleken';
 const pageDescription = `Welke bloemist in Gorinchem kunt u het beste kiezen? Wij vergeleken alle ${florists.length} vakbloemisten met een eigen winkel op reviews, bestelgemak, rouw- en bruidswerk. Bijgewerkt ${formatMonth(meta.lastReviewUpdate)}.`;
 
 const runnerUp = florists[1];
 const pageUrl = 'https://www.bloemen-gorinchem.nl/';
+const seizoen = seizoenVoor(meta.lastReviewUpdate);
 
 const faqs = [
   {
@@ -29,9 +31,8 @@ const faqs = [
       'Voor een gewoon boeket is dezelfde dag meestal genoeg: Mooi Bloemen en Planten bezorgt bij bestellen vóór 12:00 uur nog dezelfde dag in Gorinchem en Sliedrecht, Annet Flowers hanteert 14:00 uur. Voor rouwwerk en bruidswerk is maatwerk nodig; reken daarvoor op minimaal één tot twee dagen, en bij bruidswerk op een afspraak vooraf.',
   },
   {
-    question: 'Welke bloemen zijn in augustus in het seizoen?',
-    answer:
-      'Augustus is in Nederland de maand van dahlia’s, zonnebloemen, zinnia’s, gladiolen en hortensia’s, aangevuld met lisianthus en de eerste chrysanten. Seizoensbloemen komen uit Nederlandse teelt, hoeven niet ingevlogen te worden en staan doorgaans langer op de vaas dan bloemen buiten hun seizoen.',
+    question: `Welke bloemen zijn in ${seizoen.maand} in het seizoen?`,
+    answer: `In ${seizoen.maand} komen ${seizoen.bloemen} uit Nederlandse teelt. Seizoensbloemen hoeven niet ingevlogen te worden, zijn daardoor doorgaans goedkoper en staan gemiddeld langer op de vaas dan bloemen buiten hun seizoen. ${seizoen.tip}`,
   },
   {
     question: 'Welke bloemisten staan wel en niet in deze gids?',
@@ -65,7 +66,7 @@ const schema = [
             <strong> {runnerUp.name}</strong> ({runnerUp.score.total}/100) de betere keuze.
           </p>
           <p class="answer-meta">
-            Gecontroleerd op <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>
+            Cijfers bijgewerkt op <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>
             · {florists.length} winkels vergeleken · <a href="/methode/">zo tellen wij de punten</a>
           </p>
           <p class="answer-actions">
@@ -116,19 +117,13 @@ const schema = [
 
     <section class="season-section bg-light">
       <div class="container container-narrow">
-        <h2>Bloemen kopen in augustus</h2>
+        <h2>Bloemen kopen in {seizoen.maand}</h2>
+        <p>{seizoen.toelichting}</p>
         <p>
-          Augustus is een van de rijkste bloemenmaanden van het jaar in Nederland. Dahlia’s,
-          zonnebloemen, zinnia’s, gladiolen en hortensia’s komen dan uit Nederlandse teelt van
-          de veiling. Seizoensbloemen zijn niet alleen goedkoper dan bloemen die buiten hun
-          seizoen ingevlogen moeten worden, ze staan gemiddeld ook langer op de vaas.
+          Seizoensbloemen zijn niet alleen goedkoper dan bloemen die buiten hun seizoen ingevlogen
+          moeten worden, ze staan gemiddeld ook langer op de vaas.
         </p>
-        <p>
-          Praktisch voor deze maand: vraag bij warm weer om een boeket dat net is opgemaakt in
-          plaats van eentje dat al een dag in de emmer staat, en zet het thuis niet in de volle
-          zon. Wilt u zeker weten dat een specifieke soort er is, bel dan even vooruit — het
-          dagassortiment wisselt.
-        </p>
+        <p><strong>Praktisch voor deze maand.</strong> {seizoen.tip}</p>
       </div>
     </section>
 

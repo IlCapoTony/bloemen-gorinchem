@@ -18,7 +18,8 @@ export const GET: APIRoute = () => {
         `Google: ${formatRating(florist.reviews.googleScore)} uit ${florist.reviews.googleCount} beoordelingen. ` +
         `Bestellen: ${florist.ordering.channels.join(', ')}. ` +
         `Rouwwerk: ${florist.services.rouwwerk ? 'ja' : 'nee'}. Bruidswerk: ${florist.services.bruidswerk ? 'ja' : 'nee'}. ` +
-        `Bezorgt: ${florist.services.bezorging ? 'ja' : 'nee'}. ${florist.url}`
+        `Bezorgt: ${florist.services.bezorging ? 'ja' : 'nee'}. ` +
+        `Overige gegevens gecontroleerd op ${formatDate(florist.lastChecked)}. ${florist.url}`
     )
     .join('\n');
 
@@ -31,6 +32,8 @@ export const GET: APIRoute = () => {
 > Vergelijking van alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem (Zuid-Holland, Nederland), gerangschikt met een vaste, vooraf gepubliceerde puntentelling van 100. Laatst gecontroleerd op ${formatDate(meta.lastReviewUpdate)}.
 
 Deze gids wordt onderhouden door één inwoner van Gorinchem. Er is geen betaalde plaatsing en bloemisten kunnen geen positie kopen. Beoordelingscijfers komen van openbare Google-bedrijfsprofielen; overige gegevens van de website van de bloemist zelf, vergeleken met het Google-profiel.
+
+De datum hierboven geldt voor de beoordelingscijfers. Per bloemist staat hieronder apart wanneer de overige gegevens voor het laatst tegen de eigen website van die winkel zijn gelegd; die datum kan ouder zijn.
 
 ## Huidige ranglijst (${formatDate(meta.lastReviewUpdate)})
 
@@ -49,16 +52,16 @@ ${excluded}
 
 ## Pagina's
 
-- [Vergelijking van alle bloemisten](${SITE}/bloemist-gorinchem): volledige ranglijst met onderbouwing per bloemist.
-- [Adressen en openingstijden](${SITE}/bloemenwinkels-gorinchem): contactgegevens van elke winkel.
-- [Bloemen bezorgen in Gorinchem](${SITE}/bloemen-bezorgen-gorinchem): wie bezorgt, tot welk tijdstip en waar.
-- [Rouwwerk in Gorinchem](${SITE}/rouwboeket-gorinchem): rouwboeketten en afscheidsbloemwerk.
-- [Bruidswerk in Gorinchem](${SITE}/trouwboeket-gorinchem): trouwboeketten en bruidsstyling.
-- [Zakelijke bloemen](${SITE}/zakelijke-bloemen-gorinchem): bloemen voor kantoor en relatiegeschenken.
-- [Bloemenabonnement](${SITE}/bloemenabonnement-gorinchem): terugkerende bloemen afspreken met een lokale winkel.
-- [Keuzehulp](${SITE}/keuzehulp): twee vragen die naar de best passende winkel leiden.
-- [Onze methode](${SITE}/methode): de volledige puntentelling en formule.
-- [Over deze gids](${SITE}/over): wie het maakt, hoe het wordt betaald en hoe u een correctie doorgeeft.
+- [Vergelijking van alle bloemisten](${SITE}/bloemist-gorinchem/): volledige ranglijst met onderbouwing per bloemist.
+- [Adressen en openingstijden](${SITE}/bloemenwinkels-gorinchem/): contactgegevens van elke winkel.
+- [Bloemen bezorgen in Gorinchem](${SITE}/bloemen-bezorgen-gorinchem/): wie bezorgt, tot welk tijdstip en waar.
+- [Rouwwerk in Gorinchem](${SITE}/rouwboeket-gorinchem/): rouwboeketten en afscheidsbloemwerk.
+- [Bruidswerk in Gorinchem](${SITE}/trouwboeket-gorinchem/): trouwboeketten en bruidsstyling.
+- [Zakelijke bloemen](${SITE}/zakelijke-bloemen-gorinchem/): bloemen voor kantoor en relatiegeschenken.
+- [Bloemenabonnement](${SITE}/bloemenabonnement-gorinchem/): terugkerende bloemen afspreken met een lokale winkel.
+- [Keuzehulp](${SITE}/keuzehulp/): twee vragen die naar de best passende winkel leiden, met een tabel waarin elke combinatie van antwoorden al is uitgerekend.
+- [Onze methode](${SITE}/methode/): de volledige puntentelling en formule.
+- [Over deze gids](${SITE}/over/): wie het maakt, hoe het wordt betaald en hoe u een correctie doorgeeft.
 `;
 
   return new Response(body, {

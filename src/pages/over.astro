@@ -82,8 +82,16 @@ const breadcrumbs = [{ name: 'Over deze gids', href: '/over/' }];
           De beoordelingscijfers komen van de openbare Google-bedrijfsprofielen. Adressen,
           openingstijden, bestelmogelijkheden en specialismen halen we van de website van de
           bloemist zelf en vergelijken we met het Google-profiel. Alles is voor u net zo goed te
-          controleren als voor ons: de bronnen staan bij elke bloemist vermeld. De laatste controle
-          was op <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>.
+          controleren als voor ons: de bronnen staan bij elke bloemist vermeld.
+        </p>
+        <p>
+          Die twee bronnen lopen niet altijd gelijk op, en daarom staan er twee datums op de site.
+          De beoordelingscijfers zijn voor het laatst uit de Google-bedrijfsprofielen gehaald op
+          {' '}<time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>. Op
+          elke bloemistkaart staat daarnaast de datum waarop de gegevens van díé winkel — adres,
+          openingstijden, bestelmogelijkheden en specialismen — voor het laatst tegen haar eigen
+          website zijn gelegd. Is die datum ouder, dan is dat precies wat er staat: wat we deze
+          ronde niet opnieuw hebben kunnen controleren, presenteren we niet als vers.
         </p>
 
         <h2>Een correctie doorgeven</h2>

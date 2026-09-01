@@ -130,10 +130,18 @@ const prior = PRIOR_RATING.toString().replace('.', ',');
         <h2>Hoe vaak we controleren</h2>
         <p>
           De gegevens worden maandelijks nagelopen: reviewcijfers, openingstijden, telefoonnummers,
-          of webshops nog werken en of er bloemisten bij zijn gekomen of verdwenen. De laatste
-          controle was op{' '}
-          <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>. Op elke
-          bloemistkaart staat de datum waarop die winkel voor het laatst is gecontroleerd.
+          of webshops nog werken en of er bloemisten bij zijn gekomen of verdwenen. De
+          beoordelingscijfers in de tabel hieronder komen uit de Google-bedrijfsprofielen zoals die
+          er op{' '}
+          <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>{' '}
+          bij stonden.
+        </p>
+        <p>
+          Op elke bloemistkaart staat een eigen datum: die van de laatste keer dat de gegevens van
+          die winkel tegen haar eigen website zijn gelegd. Die twee datums lopen niet altijd gelijk.
+          Een cijfer kan deze maand bijgewerkt zijn terwijl de rest van een kaart nog op de controle
+          van een eerdere ronde staat — dan is dat wat er staat. Een oude controle als vers
+          presenteren zou de vergelijking waardeloos maken.
         </p>
 
         <h2>De huidige uitkomst</h2>

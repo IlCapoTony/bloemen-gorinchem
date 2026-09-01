@@ -4,16 +4,19 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { florists, utm } from '../lib/florists';
+import { DOELEN, VOORKEUREN, kiesBloemist, type KeuzehulpFlorist } from '../lib/keuzehulp';
+import { faqSchema } from '../lib/schema';
 
 const pageTitle = 'Keuzehulp: welke bloemist in Gorinchem past bij uw vraag?';
 const pageDescription =
   'Twee vragen en u weet welke bloemist in Gorinchem het beste bij uw situatie past — rouwwerk, bruidswerk, online bestellen of even snel langs. Op basis van gecontroleerde gegevens.';
 
+const pageUrl = 'https://www.bloemen-gorinchem.nl/keuzehulp/';
 const breadcrumbs = [{ name: 'Keuzehulp', href: '/keuzehulp/' }];
 
 // De keuzehulp rekent in de browser met dezelfde cijfers als de vergelijking,
 // zodat het antwoord echt uit de antwoorden volgt en niet vooraf vaststaat.
-const wizardData = florists.map((florist) => ({
+const wizardData: KeuzehulpFlorist[] = florists.map((florist) => ({
   name: florist.name,
   url: utm(florist.url, 'keuzehulp'),
   telephone: florist.telephone,
@@ -39,9 +42,35 @@ const wizardData = florists.map((florist) => ({
     bruid: florist.scoring.bruidswerk.basis,
   },
 }));
+
+// Alle zestien combinaties worden bij het bouwen al doorgerekend, zodat de
+// antwoorden ook in de HTML staan voor wie geen JavaScript uitvoert.
+const uitkomsten = DOELEN.map((doel) => ({
+  doel,
+  per: VOORKEUREN.map((voorkeur) => ({
+    voorkeur,
+    keuze: kiesBloemist(wizardData, doel.value, voorkeur.value),
+  })),
+}));
+
+const faqs = uitkomsten.flatMap(({ doel, per }) =>
+  per
+    .filter((rij) => rij.keuze)
+    .map((rij) => ({
+      question: `Welke bloemist in Gorinchem kies ik voor ${doel.kort.toLowerCase()} als ${rij.voorkeur.kort.toLowerCase()} het zwaarst weegt?`,
+      answer: `${rij.keuze!.winnaar.name} (${rij.keuze!.winnaar.street}, Gorinchem, telefoon ${rij.keuze!.winnaar.telephone}) komt dan als beste uit de vergelijking, met een Gids Score van ${rij.keuze!.winnaar.total} van 100. ${rij.keuze!.waarom}`,
+    }))
+);
+
+const schema = [faqSchema(faqs, pageUrl)];
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} breadcrumbs={breadcrumbs}>
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  schema={schema}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
   <Breadcrumbs items={breadcrumbs} />
 
@@ -62,20 +91,24 @@ const wizardData = florists.map((florist) => ({
         <fieldset class="step">
           <legend>1. Waarvoor zoekt u bloemen?</legend>
           <div class="options">
-            <label><input type="radio" name="doel" value="cadeau" checked /> Een cadeauboeket</label>
-            <label><input type="radio" name="doel" value="rouw" /> Rouwwerk of afscheidsbloemen</label>
-            <label><input type="radio" name="doel" value="bruid" /> Bruidswerk</label>
-            <label><input type="radio" name="doel" value="planten" /> Planten of iets voor in huis</label>
+            {DOELEN.map((doel, index) => (
+              <label>
+                <input type="radio" name="doel" value={doel.value} checked={index === 0} />
+                {' '}{doel.label}
+              </label>
+            ))}
           </div>
         </fieldset>
 
         <fieldset class="step">
           <legend>2. Wat weegt voor u het zwaarst?</legend>
           <div class="options">
-            <label><input type="radio" name="voorkeur" value="prijs" checked /> Zoveel mogelijk bloemen voor mijn geld</label>
-            <label><input type="radio" name="voorkeur" value="online" /> Online bestellen en meteen afrekenen</label>
-            <label><input type="radio" name="voorkeur" value="gemak" /> Ruime openingstijden en makkelijk parkeren</label>
-            <label><input type="radio" name="voorkeur" value="advies" /> Persoonlijk advies in de winkel</label>
+            {VOORKEUREN.map((voorkeur, index) => (
+              <label>
+                <input type="radio" name="voorkeur" value={voorkeur.value} checked={index === 0} />
+                {' '}{voorkeur.label}
+              </label>
+            ))}
           </div>
         </fieldset>
 
@@ -96,17 +129,60 @@ const wizardData = florists.map((florist) => ({
         <p class="result-note" id="result-note"></p>
       </output>
     </section>
+
+    <section class="matrix-section container" id="alle-uitkomsten">
+      <h2>Alle uitkomsten in één overzicht</h2>
+      <p class="matrix-intro">
+        Liever meteen alles zien? Hieronder staat voor elke combinatie van antwoorden welke winkel
+        eruit komt. Dit is dezelfde berekening als hierboven, alleen dan vooraf uitgeschreven.
+      </p>
+      <div class="table-scroll">
+        <table class="matrix">
+          <caption>
+            De best passende bloemist per situatie, met de Gids Score erachter. De volgorde volgt
+            uit de <a href="/methode/">gepubliceerde puntentelling</a>.
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Waarvoor</th>
+              {VOORKEUREN.map((voorkeur) => <th scope="col">{voorkeur.kort}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {uitkomsten.map(({ doel, per }) => (
+              <tr>
+                <th scope="row">{doel.kort}</th>
+                {per.map(({ keuze }) => (
+                  <td>
+                    {keuze ? (
+                      <>
+                        {keuze.winnaar.name}
+                        <span class="matrix-score">{keuze.winnaar.total}/100</span>
+                      </>
+                    ) : (
+                      '—'
+                    )}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
   <Footer />
 </BaseLayout>
 
 <script>
+  import { kiesBloemist, type KeuzehulpFlorist } from '../lib/keuzehulp';
+
   const form = document.getElementById('keuzehulp') as HTMLFormElement | null;
   const output = document.getElementById('resultaat') as HTMLElement | null;
 
   if (form && output) {
-    const florists = JSON.parse(form.dataset.florists || '[]');
+    const florists: KeuzehulpFlorist[] = JSON.parse(form.dataset.florists || '[]');
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -114,50 +190,15 @@ const wizardData = florists.map((florist) => ({
       const doel = String(data.get('doel'));
       const voorkeur = String(data.get('voorkeur'));
 
-      // Eerst afvallers: wie de gevraagde specialisatie niet levert, valt af.
-      let kandidaten = florists.filter((f: any) => {
-        if (doel === 'rouw') return f.services.rouwwerk;
-        if (doel === 'bruid') return f.services.bruidswerk;
-        return true;
-      });
+      // Zelfde functie als de tabel onderaan de pagina gebruikt, zodat het
+      // interactieve antwoord en het statische overzicht niet uiteen lopen.
+      const keuze = kiesBloemist(florists, doel, voorkeur);
+      if (!keuze) return;
 
-      if (voorkeur === 'online') {
-        const metWebshop = kandidaten.filter((f: any) => f.webshopLive);
-        if (metWebshop.length) kandidaten = metWebshop;
-      }
-
-      // Daarna rangschikken op het onderdeel dat de bezoeker belangrijk noemt.
-      const sleutel: Record<string, string> = {
-        prijs: 'prijsKwaliteit',
-        online: 'directBestellen',
-        gemak: 'afhaalgemak',
-        advies: 'advies',
-      };
-      const veld = sleutel[voorkeur] || 'prijsKwaliteit';
-
-      const winnaar = kandidaten.sort(
-        (a: any, b: any) => b.sub[veld] - a.sub[veld] || b.total - a.total
-      )[0];
-
-      if (!winnaar) return;
-
-      const redenen: Record<string, string> = {
-        prijs: winnaar.reasons.prijs,
-        online: winnaar.reasons.online,
-        gemak: winnaar.reasons.gemak,
-        advies: winnaar.reasons.advies,
-      };
-
-      const doelReden =
-        doel === 'rouw'
-          ? ` ${winnaar.reasons.rouw}`
-          : doel === 'bruid'
-            ? ` ${winnaar.reasons.bruid}`
-            : '';
+      const { winnaar, waarom } = keuze;
 
       (document.getElementById('result-name') as HTMLElement).textContent = winnaar.name;
-      (document.getElementById('result-why') as HTMLElement).textContent =
-        redenen[voorkeur] + doelReden;
+      (document.getElementById('result-why') as HTMLElement).textContent = waarom;
       (document.getElementById('result-contact') as HTMLElement).textContent =
         `${winnaar.street}, Gorinchem · ${winnaar.telephone} · bestellen kan ${winnaar.channels}.`;
 
@@ -178,9 +219,10 @@ const wizardData = florists.map((florist) => ({
 <noscript>
   <div class="container container-narrow noscript-note">
     <p>
-      De keuzehulp heeft JavaScript nodig. Zonder JavaScript kunt u de
-      <a href="/bloemist-gorinchem/">volledige vergelijking</a> gebruiken: daar staan dezelfde
-      gegevens in een tabel.
+      Het formulier heeft JavaScript nodig, maar de antwoorden niet: in de tabel
+      <a href="#alle-uitkomsten">Alle uitkomsten in één overzicht</a> hieronder staat elke
+      combinatie al uitgerekend. De onderbouwing per winkel staat in de
+      <a href="/bloemist-gorinchem/">volledige vergelijking</a>.
     </p>
   </div>
 </noscript>
@@ -301,5 +343,60 @@ const wizardData = florists.map((florist) => ({
 
   .noscript-note {
     padding-bottom: var(--space-2xl);
+  }
+
+  .matrix-section {
+    padding: 0 0 var(--space-3xl);
+  }
+
+  .matrix-intro {
+    max-width: var(--container-narrow);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    min-width: 40rem;
+  }
+
+  .matrix caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    padding-top: var(--space-sm);
+  }
+
+  .matrix th,
+  .matrix td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .matrix thead th {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .matrix tbody th {
+    font-family: var(--font-sans);
+    white-space: nowrap;
+  }
+
+  .matrix-score {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
   }
 </style>

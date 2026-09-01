@@ -15,6 +15,9 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
 User-agent: Claude-User
 Allow: /
 
@@ -37,6 +40,21 @@ User-agent: Applebot-Extended
 Allow: /
 
 User-agent: meta-externalagent
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: YouBot
 Allow: /
 
 User-agent: CCBot

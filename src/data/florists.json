@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastReviewUpdate": "2026-08-21",
+    "lastReviewUpdate": "2026-09-01",
     "reviewSource": "Google Maps bedrijfsprofielen",
     "reviewSourceUrl": "https://www.google.com/maps/search/bloemist+Gorinchem",
     "coverage": "Fysieke vakbloemisten met een eigen winkel binnen de gemeente Gorinchem",
@@ -20,6 +20,18 @@
       {
         "name": "Bonne Fleur",
         "reason": "Heeft geen vestiging meer in Gorinchem; het pand aan Piazza Center wordt nu gevoerd als Mooi Bloemen en Planten. Verouderde vermeldingen staan nog in diverse bedrijvengidsen."
+      },
+      {
+        "name": "Fleurop",
+        "reason": "Landelijk bloemistennetwerk met een bezorgpagina voor Gorinchem. Fleurop heeft hier zelf geen winkel; de bestelling wordt uitgevoerd door een aangesloten bloemist."
+      },
+      {
+        "name": "Buurtbloemist",
+        "reason": "Landelijke webshop met een landingspagina voor Gorinchem. Bestellingen worden doorgezet naar de aangesloten vakbloemist die het dichtst bij de ontvanger zit; er is geen eigen winkel in Gorinchem."
+      },
+      {
+        "name": "De Duinroos",
+        "reason": "Bloemsierkunst De Duinroos heeft zijn winkel in Beverwijk (Koningstraat 21) en bezorgt landelijk vanuit een webshop met een pagina voor Gorinchem. Geen winkel in Gorinchem."
       }
     ]
   },
@@ -221,7 +233,7 @@
       ],
       "reviews": {
         "googleScore": 4.6,
-        "googleCount": 36
+        "googleCount": 37
       },
       "ordering": {
         "channels": [
@@ -278,7 +290,7 @@
         }
       },
       "highlights": [
-        "Gestegen naar 4,6 gemiddeld over 36 Google-beoordelingen",
+        "4,6 gemiddeld over 37 Google-beoordelingen",
         "Enige bloemist in de gids met een volledig werkende eigen webshop en zakelijk portaal",
         "Gecertificeerd via de Barometer Duurzame Bloemist",
         "Zelfde dag bezorgd bij bestellen vóór 14:00 uur"

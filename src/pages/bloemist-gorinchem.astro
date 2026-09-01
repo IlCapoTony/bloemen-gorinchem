@@ -9,9 +9,21 @@ import { florists, meta, topFlorist, formatDate, formatMonth } from '../lib/flor
 import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
 
 const pageTitle = 'Bloemist Gorinchem: alle winkels vergeleken';
-const pageDescription = `Alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem naast elkaar: Google-beoordelingen, bestelmogelijkheden, rouw- en bruidswerk en openingstijden. Gecontroleerd ${formatDate(meta.lastReviewUpdate)}.`;
+const pageDescription = `Alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem naast elkaar: Google-beoordelingen, bestelmogelijkheden, rouw- en bruidswerk en openingstijden. Bijgewerkt ${formatDate(meta.lastReviewUpdate)}.`;
 
 const pageUrl = 'https://www.bloemen-gorinchem.nl/bloemist-gorinchem/';
+
+// Het gat tussen nummer 1 en 2 is klein en beweegt mee met de reviewcijfers,
+// dus rekenen we het uit in plaats van het in de tekst vast te leggen.
+const voorsprong = topFlorist.score.total - florists[1].score.total;
+const inWoorden =
+  ['nul', 'één', 'twee', 'drie', 'vier', 'vijf', 'zes', 'zeven', 'acht', 'negen', 'tien'][
+    voorsprong
+  ] ?? String(voorsprong);
+const voorsprongTekst =
+  voorsprong === 0
+    ? 'ze staan op hetzelfde aantal punten'
+    : `${inWoorden} ${voorsprong === 1 ? 'punt' : 'punten'} op honderd`;
 const breadcrumbs = [{ name: 'Bloemisten vergelijken', href: '/bloemist-gorinchem/' }];
 
 const faqs = [
@@ -66,7 +78,7 @@ const schema = [
           punten, gedragen door {topFlorist.reviews.googleCount} Google-beoordelingen — verreweg het
           meeste van alle bloemisten in Gorinchem. <strong>{florists[1].name}</strong> volgt met
           {' '}{florists[1].score.total} punten en is de sterkste keuze als u online wilt bestellen
-          en afrekenen. Het verschil tussen die twee is klein: vier punten op honderd.
+          en afrekenen. Het verschil tussen die twee is klein: {voorsprongTekst}.
         </p>
       </div>
     </section>

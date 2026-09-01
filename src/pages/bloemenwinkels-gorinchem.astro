@@ -7,7 +7,7 @@ import { florists, meta, formatDate, formatRating, utm } from '../lib/florists';
 import { floristSchema } from '../lib/schema';
 
 const pageTitle = 'Bloemenwinkels Gorinchem: adressen en openingstijden';
-const pageDescription = `Adressen, telefoonnummers en openingstijden van alle ${florists.length} bloemenwinkels in Gorinchem, van de vesting tot winkelcentrum Piazza. Gecontroleerd ${formatDate(meta.lastReviewUpdate)}.`;
+const pageDescription = `Adressen, telefoonnummers en openingstijden van alle ${florists.length} bloemenwinkels in Gorinchem, van de vesting tot winkelcentrum Piazza. Bijgewerkt ${formatDate(meta.lastReviewUpdate)}.`;
 
 const breadcrumbs = [{ name: 'Bloemenwinkels in Gorinchem', href: '/bloemenwinkels-gorinchem/' }];
 const schema = florists.map((florist, index) => floristSchema(florist, index + 1));
@@ -108,9 +108,11 @@ const schema = florists.map((florist, index) => floristSchema(florist, index + 1
       </div>
 
       <p class="checked-note">
-        Alle gegevens gecontroleerd op{' '}
-        <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>. Klopt er
-        iets niet? <a href="/over/">Laat het ons weten</a>.
+        Beoordelingscijfers bijgewerkt op{' '}
+        <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>; bij elke
+        winkel in de <a href="/bloemist-gorinchem/">vergelijking</a> staat wanneer de overige
+        gegevens voor het laatst tegen de eigen website zijn gelegd. Klopt er iets niet?
+        {' '}<a href="/over/">Laat het ons weten</a>.
       </p>
     </section>
   </main>
