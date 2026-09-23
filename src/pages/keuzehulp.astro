@@ -83,30 +83,33 @@ const schema = [faqSchema(faqs, pageUrl)];
           uw situatie past. Het antwoord volgt uit dezelfde gecontroleerde gegevens als de
           <a href="/bloemist-gorinchem/">vergelijking</a>, niet uit een vaste voorkeur.
         </p>
+        <p class="lead-links">
+          <a href="#alle-uitkomsten">Liever meteen alle uitkomsten zien?</a>
+        </p>
       </div>
     </section>
 
     <section class="wizard-section container container-narrow">
       <form class="wizard" id="keuzehulp" data-florists={JSON.stringify(wizardData)}>
         <fieldset class="step">
-          <legend>1. Waarvoor zoekt u bloemen?</legend>
+          <legend><span class="step-nr" aria-hidden="true">1</span> Waarvoor zoekt u bloemen?</legend>
           <div class="options">
             {DOELEN.map((doel, index) => (
-              <label>
+              <label class="option">
                 <input type="radio" name="doel" value={doel.value} checked={index === 0} />
-                {' '}{doel.label}
+                <span>{doel.label}</span>
               </label>
             ))}
           </div>
         </fieldset>
 
         <fieldset class="step">
-          <legend>2. Wat weegt voor u het zwaarst?</legend>
+          <legend><span class="step-nr" aria-hidden="true">2</span> Wat weegt voor u het zwaarst?</legend>
           <div class="options">
             {VOORKEUREN.map((voorkeur, index) => (
-              <label>
+              <label class="option">
                 <input type="radio" name="voorkeur" value={voorkeur.value} checked={index === 0} />
-                {' '}{voorkeur.label}
+                <span>{voorkeur.label}</span>
               </label>
             ))}
           </div>
@@ -115,9 +118,12 @@ const schema = [faqSchema(faqs, pageUrl)];
         <button type="submit" class="btn btn-primary btn-large">Toon de beste match</button>
       </form>
 
-      <output id="resultaat" class="result" hidden>
+      <output id="resultaat" class="result" hidden aria-live="polite">
         <p class="result-eyebrow">Beste match voor uw antwoorden</p>
-        <h2 id="result-name"></h2>
+        <div class="result-head">
+          <h2 id="result-name"></h2>
+          <span id="result-score" class="score-pill"></span>
+        </div>
         <p id="result-why" class="result-why"></p>
         <p id="result-contact" class="result-contact"></p>
         <p class="result-actions">
@@ -128,15 +134,24 @@ const schema = [faqSchema(faqs, pageUrl)];
         </p>
         <p class="result-note" id="result-note"></p>
       </output>
+
+      <noscript>
+        <p class="noscript-note">
+          Het formulier heeft JavaScript nodig, maar de antwoorden niet: in de tabel
+          <a href="#alle-uitkomsten">Alle uitkomsten in één overzicht</a> hieronder staat elke
+          combinatie al uitgerekend. De onderbouwing per winkel staat in de
+          <a href="/bloemist-gorinchem/">volledige vergelijking</a>.
+        </p>
+      </noscript>
     </section>
 
-    <section class="matrix-section container" id="alle-uitkomsten">
-      <h2>Alle uitkomsten in één overzicht</h2>
-      <p class="matrix-intro">
-        Liever meteen alles zien? Hieronder staat voor elke combinatie van antwoorden welke winkel
-        eruit komt. Dit is dezelfde berekening als hierboven, alleen dan vooraf uitgeschreven.
-      </p>
-      <div class="table-scroll">
+    <section class="matrix-section bg-light" id="alle-uitkomsten">
+      <div class="container">
+        <h2>Alle uitkomsten in één overzicht</h2>
+        <p class="matrix-intro">
+          Liever meteen alles zien? Hieronder staat voor elke combinatie van antwoorden welke winkel
+          eruit komt. Dit is dezelfde berekening als hierboven, alleen dan vooraf uitgeschreven.
+        </p>
         <table class="matrix">
           <caption>
             De best passende bloemist per situatie, met de Gids Score erachter. De volgorde volgt
@@ -152,11 +167,11 @@ const schema = [faqSchema(faqs, pageUrl)];
             {uitkomsten.map(({ doel, per }) => (
               <tr>
                 <th scope="row">{doel.kort}</th>
-                {per.map(({ keuze }) => (
-                  <td>
+                {per.map(({ voorkeur, keuze }) => (
+                  <td data-label={voorkeur.kort} data-doel={doel.value} data-voorkeur={voorkeur.value}>
                     {keuze ? (
                       <>
-                        {keuze.winnaar.name}
+                        <span class="matrix-name">{keuze.winnaar.name}</span>
                         <span class="matrix-score">{keuze.winnaar.total}/100</span>
                       </>
                     ) : (
@@ -173,63 +188,69 @@ const schema = [faqSchema(faqs, pageUrl)];
   </main>
 
   <Footer />
+
+  <script>
+    import { kiesBloemist, type KeuzehulpFlorist } from '../lib/keuzehulp';
+
+    const form = document.getElementById('keuzehulp') as HTMLFormElement | null;
+    const output = document.getElementById('resultaat') as HTMLElement | null;
+
+    if (form && output) {
+      const florists: KeuzehulpFlorist[] = JSON.parse(form.dataset.florists || '[]');
+
+      const toon = (scroll: boolean) => {
+        const data = new FormData(form);
+        const doel = String(data.get('doel'));
+        const voorkeur = String(data.get('voorkeur'));
+
+        // Zelfde functie als de tabel onderaan de pagina gebruikt, zodat het
+        // interactieve antwoord en het statische overzicht niet uiteen lopen.
+        const keuze = kiesBloemist(florists, doel, voorkeur);
+        if (!keuze) return;
+
+        const { winnaar, waarom } = keuze;
+
+        (document.getElementById('result-name') as HTMLElement).textContent = winnaar.name;
+        (document.getElementById('result-score') as HTMLElement).textContent =
+          `${winnaar.total}/100`;
+        (document.getElementById('result-why') as HTMLElement).textContent = waarom;
+        (document.getElementById('result-contact') as HTMLElement).textContent =
+          `${winnaar.street}, Gorinchem · ${winnaar.telephone} · bestellen kan ${winnaar.channels}.`;
+
+        const link = document.getElementById('result-link') as HTMLAnchorElement;
+        link.href = winnaar.url;
+        link.textContent = `Naar ${winnaar.name}`;
+        link.setAttribute('data-umami-event', `Keuzehulp: ${winnaar.name}`);
+
+        (document.getElementById('result-note') as HTMLElement).textContent =
+          `Gids Score ${winnaar.total} van 100. Uw antwoorden bepalen welk onderdeel het zwaarst weegt; de onderliggende cijfers zijn voor iedereen gelijk.`;
+
+        // Dezelfde uitkomst ook in het overzicht aanwijzen.
+        document.querySelectorAll('.matrix td.is-match').forEach((cel) => cel.classList.remove('is-match'));
+        document
+          .querySelector(`.matrix td[data-doel="${doel}"][data-voorkeur="${voorkeur}"]`)
+          ?.classList.add('is-match');
+
+        output.hidden = false;
+        if (scroll) output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      };
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        toon(true);
+      });
+
+      // Staat er al een antwoord, dan loopt dat mee met elke nieuwe keuze.
+      form.addEventListener('change', () => {
+        if (!output.hidden) toon(false);
+      });
+    }
+  </script>
 </BaseLayout>
-
-<script>
-  import { kiesBloemist, type KeuzehulpFlorist } from '../lib/keuzehulp';
-
-  const form = document.getElementById('keuzehulp') as HTMLFormElement | null;
-  const output = document.getElementById('resultaat') as HTMLElement | null;
-
-  if (form && output) {
-    const florists: KeuzehulpFlorist[] = JSON.parse(form.dataset.florists || '[]');
-
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const doel = String(data.get('doel'));
-      const voorkeur = String(data.get('voorkeur'));
-
-      // Zelfde functie als de tabel onderaan de pagina gebruikt, zodat het
-      // interactieve antwoord en het statische overzicht niet uiteen lopen.
-      const keuze = kiesBloemist(florists, doel, voorkeur);
-      if (!keuze) return;
-
-      const { winnaar, waarom } = keuze;
-
-      (document.getElementById('result-name') as HTMLElement).textContent = winnaar.name;
-      (document.getElementById('result-why') as HTMLElement).textContent = waarom;
-      (document.getElementById('result-contact') as HTMLElement).textContent =
-        `${winnaar.street}, Gorinchem · ${winnaar.telephone} · bestellen kan ${winnaar.channels}.`;
-
-      const link = document.getElementById('result-link') as HTMLAnchorElement;
-      link.href = winnaar.url;
-      link.textContent = `Naar ${winnaar.name}`;
-      link.setAttribute('data-umami-event', `Keuzehulp: ${winnaar.name}`);
-
-      (document.getElementById('result-note') as HTMLElement).textContent =
-        `Gids Score ${winnaar.total} van 100. Uw antwoorden bepalen welk onderdeel het zwaarst weegt; de onderliggende cijfers zijn voor iedereen gelijk.`;
-
-      output.hidden = false;
-      output.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-  }
-</script>
-
-<noscript>
-  <div class="container container-narrow noscript-note">
-    <p>
-      Het formulier heeft JavaScript nodig, maar de antwoorden niet: in de tabel
-      <a href="#alle-uitkomsten">Alle uitkomsten in één overzicht</a> hieronder staat elke
-      combinatie al uitgerekend. De onderbouwing per winkel staat in de
-      <a href="/bloemist-gorinchem/">volledige vergelijking</a>.
-    </p>
-  </div>
-</noscript>
 
 <style>
   .page-header {
-    padding: var(--space-3xl) 0;
+    padding: var(--space-3xl) 0 var(--space-xl);
   }
 
   .bg-light {
@@ -237,16 +258,28 @@ const schema = [faqSchema(faqs, pageUrl)];
   }
 
   .lead {
-    font-size: 1.25rem;
+    font-size: 1.1875rem;
     color: var(--color-text-muted);
+    margin-top: var(--space-md);
+  }
+
+  .lead-links {
+    margin-top: var(--space-md);
+    font-size: 0.9375rem;
+  }
+
+  .lead a,
+  .lead-links a {
+    color: var(--color-primary);
+    text-underline-offset: 3px;
   }
 
   .wizard-section {
-    padding: var(--space-2xl) 0 var(--space-3xl);
+    padding: var(--space-lg) 0 var(--space-3xl);
   }
 
   .wizard {
-    background: white;
+    background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     padding: var(--space-2xl);
@@ -256,42 +289,76 @@ const schema = [faqSchema(faqs, pageUrl)];
   .step {
     border: none;
     padding: 0;
-    margin-bottom: var(--space-xl);
+    margin: 0 0 var(--space-xl);
+    min-width: 0;
   }
 
   legend {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
     font-family: var(--font-serif);
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-primary-dark);
     margin-bottom: var(--space-md);
+    padding: 0;
+  }
+
+  .step-nr {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: white;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
   }
 
   .options {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-sm);
   }
 
-  .options label {
+  .option {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
+    min-height: 3.25rem;
     padding: var(--space-sm) var(--space-md);
-    border: 1px solid var(--color-border);
+    border: 1.5px solid var(--color-border);
     border-radius: var(--radius-md);
+    background: var(--color-surface);
     cursor: pointer;
+    line-height: 1.35;
+    transition: border-color var(--transition-fast), background var(--transition-fast);
   }
 
-  .options label:hover {
+  .option input {
+    flex: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: var(--color-primary);
+  }
+
+  .option:hover {
     border-color: var(--color-primary-light);
-    background: var(--color-bg);
   }
 
-  .options input:checked + * ,
-  .options label:has(input:checked) {
+  .option:has(input:checked) {
     border-color: var(--color-primary);
-    background: #f3f7f4;
+    background: #eef4f0;
+    font-weight: 600;
+  }
+
+  .option:has(input:focus-visible) {
+    outline: 3px solid var(--color-primary-light);
+    outline-offset: 2px;
   }
 
   .btn-large {
@@ -302,20 +369,49 @@ const schema = [faqSchema(faqs, pageUrl)];
 
   .result {
     display: block;
-    margin-top: var(--space-2xl);
-    background: white;
+    margin-top: var(--space-xl);
+    background: var(--color-surface);
     border: 2px solid var(--color-primary);
     border-radius: var(--radius-lg);
-    padding: var(--space-2xl);
+    padding: var(--space-xl) var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .result[hidden] {
+    display: none;
   }
 
   .result-eyebrow {
-    font-size: 0.875rem;
+    font-size: 0.8125rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-accent);
     margin-bottom: var(--space-xs);
+  }
+
+  .result-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm) var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  .result-head h2 {
+    margin: 0;
+    font-size: 1.75rem;
+  }
+
+  .score-pill {
+    display: inline-block;
+    padding: 0.125rem 0.625rem;
+    border-radius: var(--radius-full);
+    background: #eef4f0;
+    color: var(--color-primary-dark);
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
   }
 
   .result-why {
@@ -326,12 +422,14 @@ const schema = [faqSchema(faqs, pageUrl)];
   .result-contact {
     color: var(--color-text-muted);
     margin-bottom: var(--space-lg);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-border);
   }
 
   .result-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-md);
+    gap: var(--space-sm) var(--space-md);
     margin-bottom: var(--space-md);
   }
 
@@ -342,28 +440,34 @@ const schema = [faqSchema(faqs, pageUrl)];
   }
 
   .noscript-note {
-    padding-bottom: var(--space-2xl);
+    margin-top: var(--space-lg);
+    padding: var(--space-md) var(--space-lg);
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-bg);
   }
 
   .matrix-section {
-    padding: 0 0 var(--space-3xl);
+    padding: var(--space-3xl) 0;
+    border-top: 1px solid var(--color-border);
   }
 
   .matrix-intro {
     max-width: var(--container-narrow);
     color: var(--color-text-muted);
-    margin-bottom: var(--space-lg);
-  }
-
-  .table-scroll {
-    overflow-x: auto;
+    margin: var(--space-sm) 0 var(--space-xl);
   }
 
   .matrix {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
     font-size: 0.9375rem;
-    min-width: 40rem;
+    box-shadow: var(--shadow-sm);
   }
 
   .matrix caption {
@@ -371,32 +475,164 @@ const schema = [faqSchema(faqs, pageUrl)];
     text-align: left;
     font-size: 0.8125rem;
     color: var(--color-text-muted);
-    padding-top: var(--space-sm);
+    padding-top: var(--space-md);
+  }
+
+  .matrix caption a {
+    color: var(--color-primary);
   }
 
   .matrix th,
   .matrix td {
-    padding: var(--space-sm) var(--space-md);
-    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-md);
     text-align: left;
     vertical-align: top;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .matrix tbody tr:last-child th,
+  .matrix tbody tr:last-child td {
+    border-bottom: none;
   }
 
   .matrix thead th {
+    background: var(--color-primary);
+    color: white;
     font-family: var(--font-sans);
     font-size: 0.8125rem;
-    color: var(--color-text-muted);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .matrix thead th:first-child {
+    width: 9.5rem;
   }
 
   .matrix tbody th {
     font-family: var(--font-sans);
-    white-space: nowrap;
+    font-weight: 700;
+    color: var(--color-primary-dark);
+    background: #f3f6f4;
+  }
+
+  .matrix-name {
+    display: block;
+    font-weight: 600;
+    line-height: 1.3;
   }
 
   .matrix-score {
-    display: block;
-    font-size: 0.8125rem;
-    color: var(--color-text-muted);
+    display: inline-block;
+    margin-top: 0.3rem;
+    padding: 0 0.5rem;
+    border-radius: var(--radius-full);
+    background: #eef4f0;
+    color: var(--color-primary-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
+  }
+
+  .matrix td.is-match {
+    background: var(--color-accent-light);
+    box-shadow: inset 3px 0 0 var(--color-accent);
+  }
+
+  @media (max-width: 720px) {
+    .page-header {
+      padding: var(--space-2xl) 0 var(--space-lg);
+    }
+
+    .wizard {
+      padding: var(--space-lg);
+    }
+
+    .options {
+      grid-template-columns: 1fr;
+    }
+
+    .result {
+      padding: var(--space-lg);
+    }
+
+    .result-actions .btn {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Op een smal scherm wordt elke rij een eigen kaart, zodat er niets
+       horizontaal hoeft te scrollen. */
+    .matrix,
+    .matrix tbody,
+    .matrix tr,
+    .matrix th,
+    .matrix td {
+      display: block;
+    }
+
+    .matrix {
+      background: none;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+      overflow: visible;
+    }
+
+    .matrix caption {
+      display: block;
+      padding: 0 0 var(--space-md);
+    }
+
+    .matrix thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+
+    .matrix tbody tr {
+      margin-bottom: var(--space-md);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .matrix tbody th {
+      background: var(--color-primary);
+      color: white;
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .matrix td {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-sm);
+      padding: var(--space-sm) var(--space-md);
+    }
+
+    .matrix tbody tr td:last-child {
+      border-bottom: none;
+    }
+
+    .matrix td::before {
+      content: attr(data-label);
+      flex: 0 0 6.5rem;
+      line-height: 1.3;
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+
+    .matrix-name {
+      display: inline;
+      flex: 1;
+    }
+
+    .matrix-score {
+      margin: 0;
+      flex: none;
+    }
   }
 </style>
