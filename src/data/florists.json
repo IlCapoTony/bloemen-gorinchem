@@ -32,6 +32,18 @@
       {
         "name": "De Duinroos",
         "reason": "Bloemsierkunst De Duinroos heeft zijn winkel in Beverwijk (Koningstraat 21) en bezorgt landelijk vanuit een webshop met een pagina voor Gorinchem. Geen winkel in Gorinchem."
+      },
+      {
+        "name": "Hofke's Antiek en Bloemen ('t Hofke)",
+        "reason": "Winkel aan de Langendijk 46 die antiek combineert met bloemen en planten. Er is geen eigen website en het Google-profiel staat als winkel, niet als bloemist; welk bloemwerk er gemaakt wordt (boeketten, rouw- of bruidswerk) is online niet na te gaan, dus de zaak valt niet op dezelfde punten te beoordelen."
+      },
+      {
+        "name": "Bloemsierkunst Van Wieringen",
+        "reason": "Staat op Google als bloemist aan de Robberstraat 13, maar zonder eigen website en met één beoordeling van tien jaar oud. Of hier nog een winkel met vrije inloop zit en wat die aanbiedt, kon online niet worden vastgesteld."
+      },
+      {
+        "name": "De Bloem",
+        "reason": "Staat op Google als bloemist aan de Jan Slauerhoffstraat 23, zonder eigen website. Of hier een winkel met vrije inloop zit en wat die aanbiedt, kon online niet worden vastgesteld."
       }
     ]
   },
@@ -102,10 +114,11 @@
       "ordering": {
         "channels": [
           "telefonisch",
-          "in de winkel"
+          "in de winkel",
+          "eigen webshop (alleen afhalen)"
         ],
-        "webshopStatus": "in aanbouw",
-        "note": "De eigen webshop is aangekondigd maar nog niet in gebruik; bestellingen lopen via de telefoon of aan de balie."
+        "webshopStatus": "beperkt",
+        "note": "Bij de controle van 23 september werkte de eigen webshop, met één product: een boeket op maat van € 20 tot € 50, af te halen in de winkel en minimaal twee werkdagen vooraf te bestellen. Betalen met iDEAL of bij het afhalen. Rouw- en bruidswerk en bezorging lopen via de telefoon of de balie."
       },
       "services": {
         "rouwwerk": true,
@@ -113,7 +126,7 @@
         "bezorging": true,
         "afhalen": true,
         "abonnement": false,
-        "zakelijk": false
+        "zakelijk": true
       },
       "scoring": {
         "prijsKwaliteit": {
@@ -127,9 +140,9 @@
           "basis": "Zes dagen per week open, Google-profiel vermeldt winkelbezoek, buiten afhalen en bezorging. Ligging aan de Coupure net buiten het centrum met parkeergelegenheid."
         },
         "directBestellen": {
-          "points": 8,
+          "points": 10,
           "max": 10,
-          "basis": "Rechtstreeks bestellen per telefoon of in de winkel, zonder tussenpartij. Twee punten aftrek omdat de aangekondigde webshop nog niet werkt."
+          "basis": "Rechtstreeks bestellen per telefoon, in de winkel of via de eigen webshop, zonder tussenpartij. Bij de controle van 23 september werkte de webshop: winkelmand en afrekenen met iDEAL of bij het afhalen. Het aanbod online is beperkt tot een boeket op maat om af te halen."
         },
         "actueleInformatie": {
           "points": 10,
@@ -149,14 +162,14 @@
         "versAanbod": {
           "points": 3,
           "max": 6,
-          "basis": "Bloemen komen naar eigen zeggen dagvers van de veiling, maar er is online geen actueel assortiment te zien zolang de webshop niet live is."
+          "basis": "Bloemen komen naar eigen zeggen dagvers van de veiling. Online staat één boeket op maat met een prijsklasse en een indicatieve foto; wat er nu in de winkel ligt, is online niet te zien."
         }
       },
       "highlights": [
         "Verreweg het grootste reviewvolume van Gorinchem: 153 Google-beoordelingen",
         "Prijs-kwaliteit is het sterkste en meest genoemde thema in die reviews",
         "Ruim vijftig jaar ervaring in rouw- en bruidswerk",
-        "Zes dagen per week open; telefonisch bestellen en dezelfde dag afhalen aan de Coupure"
+        "Zes dagen per week open; telefonisch bestellen of online een boeket op maat bestellen en afhalen aan de Coupure"
       ],
       "testimonial": {
         "text": "Erg mooie bloemen en schappelijke prijzen met een vriendelijke sfeer. Ook hebben wij begin dit jaar hier een bloemstuk besteld voor op de kist van mijn liefste mama.",
@@ -165,8 +178,8 @@
         "rating": 5,
         "url": "https://www.google.com/maps/search/?api=1&query=Loeff+Bloemen+Gorinchem"
       },
-      "description": "Loeff Bloemen staat op nummer 1 in onze vergelijking, vooral door het reviewvolume: 153 Google-beoordelingen met een 4,6 gemiddeld — meer dan vier keer zoveel als de nummer 2. Prijs-kwaliteit is daarin het meest genoemde thema. Bestellen gaat telefonisch of in de winkel; de aangekondigde webshop is nog niet in gebruik.",
-      "lastChecked": "2026-08-21",
+      "description": "Loeff Bloemen staat op nummer 1 in onze vergelijking, vooral door het reviewvolume: 153 Google-beoordelingen met een 4,6 gemiddeld — meer dan vier keer zoveel als de nummer 2. Prijs-kwaliteit is daarin het meest genoemde thema. Bestellen gaat telefonisch, in de winkel of via de webshop, die voorlopig alleen een boeket op maat om af te halen verkoopt.",
+      "lastChecked": "2026-09-23",
       "persoonlijkAdvies": {
         "points": 7,
         "basis": "Reviewers noemen dat er goed met ze is meegedacht, met name bij rouwwerk. Er staat ook een enkele review van iemand die niet geholpen werd voor een spontane bos."
@@ -291,12 +304,12 @@
       },
       "highlights": [
         "4,6 gemiddeld over 37 Google-beoordelingen",
-        "Enige bloemist in de gids met een volledig werkende eigen webshop en zakelijk portaal",
+        "Werkende eigen webshop met bezorging en een apart zakelijk portaal",
         "Gecertificeerd via de Barometer Duurzame Bloemist",
         "Zelfde dag bezorgd bij bestellen vóór 14:00 uur"
       ],
       "description": "Annet Flowers zit onze nummer 1 dicht op de hielen en is de sterkste keuze als u online wilt bestellen en betalen: de webshop werkt, de prijzen staan er vooraf bij en er is een apart portaal voor zakelijke klanten. De winkel is gecertificeerd via de Barometer Duurzame Bloemist.",
-      "lastChecked": "2026-08-21",
+      "lastChecked": "2026-09-23",
       "persoonlijkAdvies": {
         "points": 7,
         "basis": "Reviews prijzen vooral de snelle en vriendelijke service; advies bij het samenstellen komt minder expliciet terug."
@@ -325,7 +338,42 @@
       "appleMapsUrl": "https://maps.apple.com/?q=Mooi+Bloemen+en+Planten+Gorinchem",
       "facebookUrl": "https://www.facebook.com/MooiBloemenenPlanten/",
       "instagramUrl": "https://www.instagram.com/mooibloemenenplanten/",
-      "openingHours": [],
+      "openingHours": [
+        {
+          "day": "Maandag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Dinsdag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Woensdag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Donderdag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Vrijdag",
+          "opens": "08:30",
+          "closes": "18:00"
+        },
+        {
+          "day": "Zaterdag",
+          "opens": "08:00",
+          "closes": "17:00"
+        },
+        {
+          "day": "Zondag",
+          "closed": true
+        }
+      ],
       "reviews": {
         "googleScore": 5.0,
         "googleCount": 2
@@ -338,7 +386,7 @@
           "in de winkel"
         ],
         "webshopStatus": "live",
-        "note": "Werkende webshop met boeketten van ongeveer € 28 tot € 44. Eigen bezorging in Gorinchem en Sliedrecht; daarbuiten via het WY-Bloemisten netwerk."
+        "note": "Werkende webshop; de voorkeursboeketten kosten ongeveer € 28 tot € 47. Eigen bezorging in Gorinchem en Sliedrecht; daarbuiten via het WY-Bloemisten netwerk. Zakelijke klanten kunnen een account aanvragen voor een eigen inlog."
       },
       "services": {
         "rouwwerk": true,
@@ -346,13 +394,13 @@
         "bezorging": true,
         "afhalen": true,
         "abonnement": false,
-        "zakelijk": false
+        "zakelijk": true
       },
       "scoring": {
         "prijsKwaliteit": {
           "points": 8,
           "max": 10,
-          "basis": "Boeketprijzen staan vooraf online (circa € 28 tot € 44). Te weinig reviews om de prijs-kwaliteitverhouding door klanten bevestigd te zien."
+          "basis": "Boeketprijzen staan vooraf online (voorkeursboeketten circa € 28 tot € 47). Te weinig reviews om de prijs-kwaliteitverhouding door klanten bevestigd te zien."
         },
         "afhaalgemak": {
           "points": 10,
@@ -365,9 +413,9 @@
           "basis": "Werkende eigen webshop, plus telefonisch en in de winkel. Eigen bezorgdienst in Gorinchem en Sliedrecht."
         },
         "actueleInformatie": {
-          "points": 7,
+          "points": 9,
           "max": 10,
-          "basis": "Openingstijden staan niet volledig op de eigen site en lopen uiteen met wat bedrijvengidsen vermelden. Verouderde vermeldingen onder de oude naam Bonne Fleur circuleren nog online."
+          "basis": "Adres, telefoonnummer en openingstijden staan op de eigen site en komen overeen met het Google-profiel. Eén punt aftrek: het Google-profiel vermeldt postcode 4204 BN, de eigen site en het Kadaster (BAG) 4204 BR."
         },
         "rouwwerk": {
           "points": 7,
@@ -391,7 +439,7 @@
         "Werkende webshop met vooraf zichtbare prijzen"
       ],
       "description": "Mooi Bloemen en Planten is vooral handig als gemak telt: winkelcentrum Piazza, lange openingstijden en een eigen bezorgdienst in Gorinchem en Sliedrecht. Met slechts twee Google-beoordelingen is er nog te weinig publieke feedback om iets zinnigs over de constante kwaliteit te zeggen, en bruidswerk bieden ze niet aan.",
-      "lastChecked": "2026-08-21",
+      "lastChecked": "2026-09-23",
       "persoonlijkAdvies": {
         "points": 5,
         "basis": "Met twee beoordelingen is er te weinig publieke feedback om iets over de advisering te zeggen."

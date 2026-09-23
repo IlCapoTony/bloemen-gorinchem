@@ -8,8 +8,8 @@ import ComparisonTable from '../components/ComparisonTable.astro';
 import { florists, meta, topFlorist, formatDate, formatMonth } from '../lib/florists';
 import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
 
-const pageTitle = 'Bloemist Gorinchem: alle winkels vergeleken';
-const pageDescription = `Alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem naast elkaar: Google-beoordelingen, bestelmogelijkheden, rouw- en bruidswerk en openingstijden. Bijgewerkt ${formatDate(meta.lastReviewUpdate)}.`;
+const pageTitle = 'Bloemisten in Gorinchem vergelijken: ranglijst en scores';
+const pageDescription = `De ${florists.length} vakbloemisten met een eigen winkel in Gorinchem naast elkaar: Google-beoordelingen, bestelmogelijkheden, rouw- en bruidswerk en openingstijden. Bijgewerkt ${formatDate(meta.lastReviewUpdate)}.`;
 
 const pageUrl = 'https://www.bloemen-gorinchem.nl/bloemist-gorinchem/';
 
@@ -29,7 +29,7 @@ const breadcrumbs = [{ name: 'Bloemisten vergelijken', href: '/bloemist-gorinche
 const faqs = [
   {
     question: 'Hoeveel bloemisten zitten er in Gorinchem?',
-    answer: `Gorinchem telt op dit moment ${florists.length} vakbloemisten met een eigen winkel: ${florists.map((f) => f.name).join(', ')}. Daarnaast is er een atelier op afspraak (Carolien Verdonk, voorheen Distel & Mirt) en zijn er landelijke bestelplatforms die zich online op Gorinchem richten zonder hier een winkel te hebben.`,
+    answer: `In deze gids staan ${florists.length} vakbloemisten met een eigen winkel in Gorinchem: ${florists.map((f) => f.name).join(', ')}. Daarnaast is er een atelier op afspraak (Carolien Verdonk, voorheen Distel & Mirt), staan er op Google nog een paar zaken als bloemist vermeld waarvan online niet vast te stellen is wat ze aanbieden, en zijn er landelijke bestelplatforms die zich op Gorinchem richten zonder hier een winkel te hebben. Wie om welke reden niet in de ranglijst staat, staat onderaan deze pagina.`,
   },
   {
     question: 'Waarom staat een bloemist met een 5,0 niet bovenaan?',
@@ -64,7 +64,7 @@ const schema = [
       <div class="container container-narrow">
         <h1>Bloemist Gorinchem: de vergelijking</h1>
         <p class="lead">
-          Alle vakbloemisten met een eigen winkel in Gorinchem naast elkaar, met de cijfers erbij
+          De vakbloemisten met een eigen winkel in Gorinchem naast elkaar, met de cijfers erbij
           waarop we ze rangschikken. Bijgewerkt in {formatMonth(meta.lastReviewUpdate)}.
         </p>
       </div>

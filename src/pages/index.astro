@@ -8,8 +8,8 @@ import { florists, meta, topFlorist, formatDate, formatMonth, formatRating, utm 
 import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
 import { seizoenVoor } from '../data/seizoen';
 
-const pageTitle = 'Bloemist Gorinchem: de 4 winkels vergeleken';
-const pageDescription = `Welke bloemist in Gorinchem kunt u het beste kiezen? Wij vergeleken alle ${florists.length} vakbloemisten met een eigen winkel op reviews, bestelgemak, rouw- en bruidswerk. Bijgewerkt ${formatMonth(meta.lastReviewUpdate)}.`;
+const pageTitle = `Bloemist Gorinchem: de ${florists.length} winkels vergeleken`;
+const pageDescription = `Welke bloemist in Gorinchem kunt u het beste kiezen? Wij vergeleken de ${florists.length} vakbloemisten met een eigen winkel op reviews, bestelgemak, rouw- en bruidswerk. Bijgewerkt ${formatMonth(meta.lastReviewUpdate)}.`;
 
 const runnerUp = florists[1];
 const pageUrl = 'https://www.bloemen-gorinchem.nl/';
@@ -23,7 +23,7 @@ const faqs = [
   {
     question: 'Waar kan ik in Gorinchem online bloemen bestellen en betalen?',
     answer:
-      'Annet Flowers (De Linie 28) en Mooi Bloemen en Planten (Piazza Center 57) hebben allebei een werkende eigen webshop waar u direct kunt afrekenen. Loeff Bloemen en Mimosa Bloemen nemen bestellingen telefonisch of in de winkel op; de webshop van Loeff is aangekondigd maar nog niet in gebruik. Bestellen bij de bloemist zelf betekent dat er geen landelijke tussenpartij een deel van het bedrag inhoudt.',
+      'Annet Flowers (De Linie 28) en Mooi Bloemen en Planten (Piazza Center 57) hebben allebei een volledige eigen webshop waar u direct afrekent en kunt laten bezorgen. Loeff Bloemen (Coupure 2) verkoopt online één boeket op maat, dat u minimaal twee werkdagen vooraf bestelt en in de winkel afhaalt; ander bloemwerk bestelt u daar telefonisch of aan de balie. Mimosa Bloemen neemt bestellingen telefonisch of in de winkel op. Bestellen bij de bloemist zelf betekent dat er geen landelijke tussenpartij een deel van het bedrag inhoudt.',
   },
   {
     question: 'Hoe lang van tevoren moet ik bloemen bestellen in Gorinchem?',
@@ -62,7 +62,8 @@ const schema = [
             met een Gids Score van {topFlorist.score.total} van 100, vooral door het grootste
             reviewvolume van de stad: {topFlorist.reviews.googleCount} Google-beoordelingen met een
             {' '}{formatRating(topFlorist.reviews.googleScore)} gemiddeld. Bestellen
-            gaat er telefonisch of in de winkel. Wilt u online bestellen en direct afrekenen, dan is
+            gaat er telefonisch, in de winkel of online voor een boeket op maat om af te halen. Wilt u
+            online bestellen en laten bezorgen, dan is
             <strong> {runnerUp.name}</strong> ({runnerUp.score.total}/100) de betere keuze.
           </p>
           <p class="answer-meta">
@@ -90,7 +91,7 @@ const schema = [
         <h2>Bloemisten in Gorinchem vergeleken</h2>
         <ComparisonTable
           florists={florists}
-          caption={`Alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem, gerangschikt op Gids Score. Google-cijfers afkomstig van de bedrijfsprofielen op ${formatDate(meta.lastReviewUpdate)}.`}
+          caption={`De ${florists.length} vakbloemisten met een eigen winkel in Gorinchem die aan onze opnamecriteria voldoen, gerangschikt op Gids Score. Google-cijfers afkomstig van de bedrijfsprofielen op ${formatDate(meta.lastReviewUpdate)}.`}
         />
       </div>
     </section>

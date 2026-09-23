@@ -65,7 +65,9 @@ export interface Keuze {
 
 /**
  * Eerst vallen de winkels af die de gevraagde specialisatie niet leveren, en
- * bij "online bestellen" ook de winkels zonder werkende webshop. Wat overblijft
+ * bij "online bestellen" ook de winkels zonder volledige webshop: een webshop
+ * die alleen een afhaalboeket verkoopt (status "beperkt") telt daar niet als
+ * online bestellen, want rouw- of bruidswerk bestelt u er niet. Wat overblijft
  * gaat op het gevraagde onderdeel op volgorde, met de Gids Score als
  * doorslaggever bij gelijke stand.
  */

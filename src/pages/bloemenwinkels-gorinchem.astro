@@ -7,7 +7,7 @@ import { florists, meta, formatDate, formatRating, utm } from '../lib/florists';
 import { floristSchema } from '../lib/schema';
 
 const pageTitle = 'Bloemenwinkels Gorinchem: adressen en openingstijden';
-const pageDescription = `Adressen, telefoonnummers en openingstijden van alle ${florists.length} bloemenwinkels in Gorinchem, van de vesting tot winkelcentrum Piazza. Bijgewerkt ${formatDate(meta.lastReviewUpdate)}.`;
+const pageDescription = `Adressen, telefoonnummers en openingstijden van de ${florists.length} vakbloemisten met een eigen winkel in Gorinchem, van de vesting tot winkelcentrum Piazza. Bijgewerkt ${formatDate(meta.lastReviewUpdate)}.`;
 
 const breadcrumbs = [{ name: 'Bloemenwinkels in Gorinchem', href: '/bloemenwinkels-gorinchem/' }];
 const schema = florists.map((florist, index) => floristSchema(florist, index + 1));

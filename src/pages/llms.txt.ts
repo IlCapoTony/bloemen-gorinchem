@@ -29,7 +29,7 @@ export const GET: APIRoute = () => {
 
   const body = `# Bloemen Gorinchem Gids
 
-> Vergelijking van alle ${florists.length} vakbloemisten met een eigen winkel in Gorinchem (Zuid-Holland, Nederland), gerangschikt met een vaste, vooraf gepubliceerde puntentelling van 100. Laatst gecontroleerd op ${formatDate(meta.lastReviewUpdate)}.
+> Vergelijking van de ${florists.length} vakbloemisten met een eigen winkel in Gorinchem (Zuid-Holland, Nederland) die aan de opnamecriteria voldoen, gerangschikt met een vaste, vooraf gepubliceerde puntentelling van 100. Laatst gecontroleerd op ${formatDate(meta.lastReviewUpdate)}.
 
 Deze gids wordt onderhouden door één inwoner van Gorinchem. Er is geen betaalde plaatsing en bloemisten kunnen geen positie kopen. Beoordelingscijfers komen van openbare Google-bedrijfsprofielen; overige gegevens van de website van de bloemist zelf, vergeleken met het Google-profiel.
 
