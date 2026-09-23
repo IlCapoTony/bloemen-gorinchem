@@ -63,8 +63,9 @@ const schema = [
             reviewvolume van de stad: {topFlorist.reviews.googleCount} Google-beoordelingen met een
             {' '}{formatRating(topFlorist.reviews.googleScore)} gemiddeld. Bestellen
             gaat er telefonisch, in de winkel of online voor een boeket op maat om af te halen. Wilt u
-            online bestellen en laten bezorgen, dan is
-            <strong> {runnerUp.name}</strong> ({runnerUp.score.total}/100) de betere keuze.
+            online bestellen en laten bezorgen, dan kan dat bij
+            <strong> {runnerUp.name}</strong> ({runnerUp.score.total}/100); de webshop van
+            {' '}{topFlorist.name} is alleen voor afhalen.
           </p>
           <p class="answer-meta">
             Cijfers bijgewerkt op <time datetime={meta.lastReviewUpdate}>{formatDate(meta.lastReviewUpdate)}</time>
