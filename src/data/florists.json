@@ -1,6 +1,6 @@
 {
   "meta": {
-    "lastReviewUpdate": "2026-09-23",
+    "lastReviewUpdate": "2026-10-01",
     "reviewSource": "Google Maps bedrijfsprofielen",
     "reviewSourceUrl": "https://www.google.com/maps/search/bloemist+Gorinchem",
     "coverage": "Fysieke vakbloemisten met een eigen winkel binnen de gemeente Gorinchem",
@@ -44,6 +44,14 @@
       {
         "name": "De Bloem",
         "reason": "Staat op Google als bloemist aan de Jan Slauerhoffstraat 23, zonder eigen website. Of hier een winkel met vrije inloop zit en wat die aanbiedt, kon online niet worden vastgesteld."
+      },
+      {
+        "name": "deBloemist.nl",
+        "reason": "Landelijke webshop met een bezorgpagina voor Gorinchem. Bestellingen voor dezelfde dag worden doorgezet naar een aangesloten bloemist in de buurt van het bezorgadres; er is geen eigen winkel in Gorinchem."
+      },
+      {
+        "name": "Flowers.nl",
+        "reason": "Landelijke bestelsite met een pagina 'Bloemist Gorinchem'. Bezorgt via een netwerk van aangesloten bloemisten en heeft geen eigen winkel in Gorinchem."
       }
     ]
   },
@@ -109,7 +117,7 @@
       ],
       "reviews": {
         "googleScore": 4.6,
-        "googleCount": 153
+        "googleCount": 154
       },
       "ordering": {
         "channels": [
@@ -118,7 +126,7 @@
           "eigen webshop (alleen afhalen)"
         ],
         "webshopStatus": "beperkt",
-        "note": "Bij de controle van 23 september werkte de eigen webshop, met één product: een boeket op maat van € 20 tot € 50, af te halen in de winkel en minimaal twee werkdagen vooraf te bestellen. Betalen met iDEAL of bij het afhalen. Rouw- en bruidswerk en bezorging lopen via de telefoon of de balie."
+        "note": "Bij de controle van 1 oktober werkte de eigen webshop, met één product: een boeket op maat van € 20 tot € 50, af te halen in de winkel en minimaal twee werkdagen vooraf te bestellen. Betalen met iDEAL | Wero of bij het afhalen. Rouw- en bruidswerk en bezorging lopen via de telefoon of de balie."
       },
       "services": {
         "rouwwerk": true,
@@ -142,7 +150,7 @@
         "directBestellen": {
           "points": 10,
           "max": 10,
-          "basis": "Rechtstreeks bestellen per telefoon, in de winkel of via de eigen webshop, zonder tussenpartij. Bij de controle van 23 september werkte de webshop: winkelmand en afrekenen met iDEAL of bij het afhalen. Het aanbod online is beperkt tot een boeket op maat om af te halen."
+          "basis": "Rechtstreeks bestellen per telefoon, in de winkel of via de eigen webshop, zonder tussenpartij. Bij de controle van 1 oktober werkte de webshop: winkelmand en afrekenen met iDEAL | Wero of bij het afhalen. Het aanbod online is beperkt tot een boeket op maat om af te halen."
         },
         "actueleInformatie": {
           "points": 10,
@@ -166,7 +174,7 @@
         }
       },
       "highlights": [
-        "Verreweg het grootste reviewvolume van Gorinchem: 153 Google-beoordelingen",
+        "Verreweg het grootste reviewvolume van Gorinchem: 154 Google-beoordelingen",
         "Prijs-kwaliteit is het sterkste en meest genoemde thema in die reviews",
         "Ruim vijftig jaar ervaring in rouw- en bruidswerk",
         "Zes dagen per week open; telefonisch bestellen of online een boeket op maat bestellen en afhalen aan de Coupure"
@@ -178,8 +186,8 @@
         "rating": 5,
         "url": "https://www.google.com/maps/search/?api=1&query=Loeff+Bloemen+Gorinchem"
       },
-      "description": "Loeff Bloemen staat op nummer 1 in onze vergelijking, vooral door het reviewvolume: 153 Google-beoordelingen met een 4,6 gemiddeld — meer dan vier keer zoveel als de nummer 2. Prijs-kwaliteit is daarin het meest genoemde thema. Bestellen gaat telefonisch, in de winkel of via de webshop, die voorlopig alleen een boeket op maat om af te halen verkoopt.",
-      "lastChecked": "2026-09-23",
+      "description": "Loeff Bloemen staat op nummer 1 in onze vergelijking, vooral door het reviewvolume: 154 Google-beoordelingen met een 4,6 gemiddeld, ongeveer vier keer zoveel als de nummer 2. Prijs-kwaliteit is daarin het meest genoemde thema. Bestellen gaat telefonisch, in de winkel of via de webshop, die voorlopig alleen een boeket op maat om af te halen verkoopt.",
+      "lastChecked": "2026-10-01",
       "persoonlijkAdvies": {
         "points": 7,
         "basis": "Reviewers noemen dat er goed met ze is meegedacht, met name bij rouwwerk. Er staat ook een enkele review van iemand die niet geholpen werd voor een spontane bos."
@@ -245,8 +253,8 @@
         }
       ],
       "reviews": {
-        "googleScore": 4.6,
-        "googleCount": 37
+        "googleScore": 4.7,
+        "googleCount": 38
       },
       "ordering": {
         "channels": [
@@ -255,7 +263,7 @@
           "in de winkel"
         ],
         "webshopStatus": "live",
-        "note": "Werkende webshop met boeketten van ongeveer € 21 tot € 54 en een apart portaal voor zakelijke klanten."
+        "note": "Werkende webshop met boeketten vanaf ongeveer € 18 tot € 70 en een apart portaal voor zakelijke klanten."
       },
       "services": {
         "rouwwerk": true,
@@ -269,7 +277,7 @@
         "prijsKwaliteit": {
           "points": 8,
           "max": 10,
-          "basis": "Prijzen staan vooraf online (circa € 21 tot € 54), wat vergelijken makkelijk maakt. Reviews gaan vaker over snelheid en service dan over prijs."
+          "basis": "Prijzen staan vooraf online (boeketten vanaf circa € 18 tot € 70), wat vergelijken makkelijk maakt. Reviews gaan vaker over snelheid en service dan over prijs."
         },
         "afhaalgemak": {
           "points": 9,
@@ -303,13 +311,13 @@
         }
       },
       "highlights": [
-        "4,6 gemiddeld over 37 Google-beoordelingen",
+        "4,7 gemiddeld over 38 Google-beoordelingen",
         "Werkende eigen webshop met bezorging en een apart zakelijk portaal",
         "Gecertificeerd via de Barometer Duurzame Bloemist",
         "Zelfde dag bezorgd bij bestellen vóór 14:00 uur"
       ],
       "description": "Annet Flowers zit onze nummer 1 dicht op de hielen en is de sterkste keuze als u online wilt bestellen en betalen: de webshop werkt, de prijzen staan er vooraf bij en er is een apart portaal voor zakelijke klanten. De winkel is gecertificeerd via de Barometer Duurzame Bloemist.",
-      "lastChecked": "2026-09-23",
+      "lastChecked": "2026-10-01",
       "persoonlijkAdvies": {
         "points": 7,
         "basis": "Reviews prijzen vooral de snelle en vriendelijke service; advies bij het samenstellen komt minder expliciet terug."
@@ -439,7 +447,7 @@
         "Werkende webshop met vooraf zichtbare prijzen"
       ],
       "description": "Mooi Bloemen en Planten is vooral handig als gemak telt: winkelcentrum Piazza, lange openingstijden en een eigen bezorgdienst in Gorinchem en Sliedrecht. Met slechts twee Google-beoordelingen is er nog te weinig publieke feedback om iets zinnigs over de constante kwaliteit te zeggen, en bruidswerk bieden ze niet aan.",
-      "lastChecked": "2026-09-23",
+      "lastChecked": "2026-10-01",
       "persoonlijkAdvies": {
         "points": 5,
         "basis": "Met twee beoordelingen is er te weinig publieke feedback om iets over de advisering te zeggen."
@@ -450,7 +458,6 @@
       "name": "Mimosa Bloemen",
       "slug": "mimosa-bloemen",
       "isRecommended": false,
-      "isNew": true,
       "address": {
         "streetAddress": "Langendijk 6",
         "addressLocality": "Gorinchem",
@@ -565,7 +572,7 @@
         "Bloem- én interieurwinkel: ook glaswerk, aardewerk en woonaccessoires",
         "Zowel bruidswerk als rouwwerk in eigen beheer"
       ],
-      "description": "Mimosa Bloemen is nieuw in deze gids en de meest voor de hand liggende keuze als u in de vesting bent: een eigentijdse bloem- en interieurwinkel aan de Langendijk met persoonlijk advies. Met 13 beoordelingen is de publieke feedback nog beperkt, en de winkel is maandag gesloten.",
+      "description": "Mimosa Bloemen is de meest voor de hand liggende keuze als u in de vesting bent: een eigentijdse bloem- en interieurwinkel aan de Langendijk met persoonlijk advies. Met 13 beoordelingen is de publieke feedback nog beperkt, en de winkel is maandag gesloten.",
       "lastChecked": "2026-08-21",
       "persoonlijkAdvies": {
         "points": 10,

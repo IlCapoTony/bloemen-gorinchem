@@ -15,10 +15,35 @@ const runnerUp = florists[1];
 const pageUrl = 'https://www.bloemen-gorinchem.nl/';
 const seizoen = seizoenVoor(meta.lastReviewUpdate);
 
+// Het antwoord op "wie wordt het best beoordeeld" hangt af van hoe de
+// gemiddelden en aantallen zich tot elkaar verhouden, en die bewegen elke
+// ronde. Daarom wordt de zin uit de cijfers opgebouwd in plaats van vastgelegd.
+const besteWaardering = [...florists].sort((a, b) => b.score.waardering - a.score.waardering)[0];
+const tweedeAantal = Math.max(
+  ...florists.filter((f) => f !== besteWaardering).map((f) => f.reviews.googleCount)
+);
+const verhouding = Math.round(besteWaardering.reviews.googleCount / tweedeAantal);
+const hogerGemiddelde = florists.filter(
+  (florist) => florist.reviews.googleScore > besteWaardering.reviews.googleScore
+);
+const besteBeoordeeld = [
+  `Op het onderdeel publieke waardering van de Gids Score, dat gemiddelde én aantal beoordelingen meeweegt, scoort ${besteWaardering.name} aan de ${besteWaardering.address.streetAddress} het hoogst: ${besteWaardering.score.waardering.toString().replace('.', ',')} van de 40 punten, met een ${formatRating(besteWaardering.reviews.googleScore)} gemiddeld uit ${besteWaardering.reviews.googleCount} Google-beoordelingen${verhouding >= 2 ? `, ongeveer ${verhouding} keer zoveel als welke andere winkel ook` : ''}.`,
+  hogerGemiddelde.length > 0
+    ? `Op het kale gemiddelde ${hogerGemiddelde.length === 1 ? 'scoort' : 'scoren'} ${hogerGemiddelde
+        .map(
+          (florist) =>
+            `${florist.name} (${formatRating(florist.reviews.googleScore)} uit ${florist.reviews.googleCount})`
+        )
+        .join(' en ')} hoger, maar over minder beoordelingen; hoe zwaar dat telt, staat op de methodepagina.`
+    : '',
+]
+  .filter(Boolean)
+  .join(' ');
+
 const faqs = [
   {
     question: 'Welke bloemist in Gorinchem wordt het best beoordeeld?',
-    answer: `${topFlorist.name} aan de ${topFlorist.address.streetAddress} heeft de hoogste publieke waardering van Gorinchem: een ${formatRating(topFlorist.reviews.googleScore)} gemiddeld uit ${topFlorist.reviews.googleCount} Google-beoordelingen, ruim vier keer zoveel beoordelingen als de nummer twee. ${runnerUp.name} komt op hetzelfde gemiddelde uit, maar over ${runnerUp.reviews.googleCount} beoordelingen.`,
+    answer: besteBeoordeeld,
   },
   {
     question: 'Waar kan ik in Gorinchem online bloemen bestellen en betalen?',

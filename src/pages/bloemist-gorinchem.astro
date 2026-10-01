@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import FloristCard from '../components/FloristCard.astro';
 import ComparisonTable from '../components/ComparisonTable.astro';
-import { florists, meta, topFlorist, formatDate, formatMonth } from '../lib/florists';
+import { florists, meta, topFlorist, formatDate, formatMonth, formatRating } from '../lib/florists';
 import { faqSchema, floristSchema, rankingSchema } from '../lib/schema';
 
 const pageTitle = 'Bloemisten in Gorinchem vergelijken: ranglijst en scores';
@@ -24,6 +24,13 @@ const voorsprongTekst =
   voorsprong === 0
     ? 'ze staan op hetzelfde aantal punten'
     : `${inWoorden} ${voorsprong === 1 ? 'punt' : 'punten'} op honderd`;
+// Heeft de nummer 2 een hoger gemiddelde dan de nummer 1, dan zeggen we dat
+// er met zoveel woorden bij: de voorsprong komt dan uit het aantal beoordelingen.
+const tweede = florists[1];
+const gemiddeldeTekst =
+  tweede.reviews.googleScore > topFlorist.reviews.googleScore
+    ? ` Op het gemiddelde zelf staat ${tweede.name} iets hoger (${formatRating(tweede.reviews.googleScore)} tegen ${formatRating(topFlorist.reviews.googleScore)}), maar over ${tweede.reviews.googleCount} beoordelingen.`
+    : '';
 const breadcrumbs = [{ name: 'Bloemisten vergelijken', href: '/bloemist-gorinchem/' }];
 
 const faqs = [
@@ -76,7 +83,7 @@ const schema = [
         <p>
           <strong>{topFlorist.name}</strong> staat bovenaan met {topFlorist.score.total} van 100
           punten, gedragen door {topFlorist.reviews.googleCount} Google-beoordelingen — verreweg het
-          meeste van alle bloemisten in Gorinchem. <strong>{florists[1].name}</strong> volgt met
+          meeste van alle bloemisten in Gorinchem.{gemiddeldeTekst} <strong>{florists[1].name}</strong> volgt met
           {' '}{florists[1].score.total} punten en is de sterkste keuze als u online wilt bestellen
           en afrekenen. Het verschil tussen die twee is klein: {voorsprongTekst}.
         </p>

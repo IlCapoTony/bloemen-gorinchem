@@ -20,7 +20,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <text x="80" y="200" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="bold" fill="#FFFFFF">Bloemen Gorinchem</text>
   <text x="80" y="300" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="bold" fill="#FFFFFF">Gids</text>
   <rect x="80" y="350" width="120" height="6" fill="#C24131"/>
-  <text x="80" y="430" font-family="Helvetica, Arial, sans-serif" font-size="38" fill="#E2E8E4">Alle ${count} bloemisten met een eigen winkel</text>
+  <text x="80" y="430" font-family="Helvetica, Arial, sans-serif" font-size="38" fill="#E2E8E4">${count} vakbloemisten met een eigen winkel</text>
   <text x="80" y="486" font-family="Helvetica, Arial, sans-serif" font-size="38" fill="#E2E8E4">in Gorinchem, naast elkaar gezet</text>
   <text x="80" y="566" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#9DB5A8">Bijgewerkt ${month} &#183; bloemen-gorinchem.nl</text>
 </svg>`;
